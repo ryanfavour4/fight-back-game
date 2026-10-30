@@ -22,7 +22,7 @@ enum NetworkMode { LAN_ENET, ONLINE_ROOM }
 const DEFAULT_PORT: int = 7777
 const MAX_PLAYERS: int = 2
 const CONNECTION_TIMEOUT_SEC: float = 6.0
-const DEFAULT_RELAY_URL: String = "ws://127.0.0.1:10000"
+const DEFAULT_RELAY_URL: String = "wss://fight-back-game.onrender.com"
 
 var current_mode: NetworkMode = NetworkMode.ONLINE_ROOM
 var peer: ENetMultiplayerPeer = null
