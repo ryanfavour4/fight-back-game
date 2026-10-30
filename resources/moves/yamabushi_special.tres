@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="MoveData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/move_data.gd" id="1_move"]
+
+[resource]
+script = ExtResource("1_move")
+move_name = "Earth Quake"
+animation_name = "attack_special"
+startup_frame = 1
+active_frame_start = 2
+active_frame_end = 3
+recovery_frame = 3
+damage = 26.0
+hitstun_frames = 28
+knockback = Vector2(520, -320)
+hitbox_size = Vector2(120, 80)
+hitbox_offset = Vector2(80, -30)
+sfx_name = "special"
+is_projectile = false
+projectile_speed = 550.0

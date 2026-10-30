@@ -1,0 +1,454 @@
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://scripts/game_arena.gd" id="1_arena"]
+[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/1.png" id="2_bg1"]
+[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/2.png" id="3_bg2"]
+[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/3.png" id="4_bg3"]
+[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/4.png" id="5_bg4"]
+[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/5.png" id="6_bg5"]
+[ext_resource type="Texture2D" path="res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/bars/bar_track_256x32.png" id="7_track"]
+[ext_resource type="Texture2D" path="res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/bars/bar_health_pct_50_256x32.png" id="8_damage"]
+[ext_resource type="Texture2D" path="res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/bars/bar_fill_health_256x32.png" id="9_fill"]
+[ext_resource type="Texture2D" path="res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/bars/bar_frame_256x32.png" id="10_frame"]
+[ext_resource type="Texture2D" path="res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/orbs/orb_socket_128.png" id="11_gem_empty"]
+[ext_resource type="Texture2D" path="res://assets/fantasy-character-avatar-face-icons/PNG/Transperent/con20.png" id="12_avatar"]
+[ext_resource type="PackedScene" path="res://scenes/touch_controls.tscn" id="13_touch"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(2400, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(60, 1200)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.06, 0.07, 0.11, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.45, 0.7, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_debug"]
+bg_color = Color(0, 0, 0, 0.75)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="GameArena" type="Node2D"]
+script = ExtResource("1_arena")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Layer1_Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+
+[node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer1_Sky"]
+position = Vector2(960, 100)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_bg1")
+
+[node name="Layer2_Spikes" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.25, 0.25)
+
+[node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer2_Spikes"]
+position = Vector2(960, 300)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_bg2")
+
+[node name="Layer3_Bridge" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer3_Bridge"]
+position = Vector2(960, 380)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_bg3")
+
+[node name="Layer4_Wall" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.75, 0.75)
+
+[node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer4_Wall"]
+position = Vector2(960, 400)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_bg4")
+
+[node name="Layer5_Ground" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(1, 1)
+
+[node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer5_Ground"]
+position = Vector2(960, 410)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_bg5")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="FloorCollision" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(960, 670)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="LeftWall" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(30, 200)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="RightWall" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1890, 200)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 380)
+limit_left = 0
+limit_top = -200
+limit_right = 1920
+limit_bottom = 720
+position_smoothing_enabled = true
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="P1Spawn" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(720, 620)
+
+[node name="P2Spawn" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1200, 620)
+
+[node name="Fighters" type="Node2D" parent="."]
+
+[node name="P1Container" type="Node2D" parent="Fighters"]
+
+[node name="P2Container" type="Node2D" parent="Fighters"]
+
+[node name="Projectiles" type="Node2D" parent="."]
+
+[node name="TouchControls" parent="." instance=ExtResource("13_touch")]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="TopBar" type="HBoxContainer" parent="HUD"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = 20.0
+offset_right = -32.0
+offset_bottom = 90.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="P1HealthContainer" type="HBoxContainer" parent="HUD/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="P1Avatar" type="TextureRect" parent="HUD/TopBar/P1HealthContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("12_avatar")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="HUD/TopBar/P1HealthContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="P1Name" type="Label" parent="HUD/TopBar/P1HealthContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+text = "Player 1"
+
+[node name="BarControl" type="Control" parent="HUD/TopBar/P1HealthContainer/VBox"]
+custom_minimum_size = Vector2(380, 28)
+layout_mode = 2
+
+[node name="P1DamageBar" type="TextureProgressBar" parent="HUD/TopBar/P1HealthContainer/VBox/BarControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("7_track")
+texture_progress = ExtResource("8_damage")
+
+[node name="P1HealthBar" type="TextureProgressBar" parent="HUD/TopBar/P1HealthContainer/VBox/BarControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+nine_patch_stretch = true
+texture_over = ExtResource("10_frame")
+texture_progress = ExtResource("9_fill")
+
+[node name="P1Gems" type="HBoxContainer" parent="HUD/TopBar/P1HealthContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Gem1" type="TextureRect" parent="HUD/TopBar/P1HealthContainer/P1Gems"]
+modulate = Color(0.3, 0.3, 0.4, 0.5)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("11_gem_empty")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Gem2" type="TextureRect" parent="HUD/TopBar/P1HealthContainer/P1Gems"]
+modulate = Color(0.3, 0.3, 0.4, 0.5)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("11_gem_empty")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TimerContainer" type="CenterContainer" parent="HUD/TopBar"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="TimerLabel" type="Label" parent="HUD/TopBar/TimerContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.4, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 46
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="P2HealthContainer" type="HBoxContainer" parent="HUD/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="P2Gems" type="HBoxContainer" parent="HUD/TopBar/P2HealthContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Gem1" type="TextureRect" parent="HUD/TopBar/P2HealthContainer/P2Gems"]
+modulate = Color(0.3, 0.3, 0.4, 0.5)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("11_gem_empty")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Gem2" type="TextureRect" parent="HUD/TopBar/P2HealthContainer/P2Gems"]
+modulate = Color(0.3, 0.3, 0.4, 0.5)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("11_gem_empty")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="HUD/TopBar/P2HealthContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="P2Name" type="Label" parent="HUD/TopBar/P2HealthContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.8, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+text = "Player 2"
+horizontal_alignment = 2
+
+[node name="BarControl" type="Control" parent="HUD/TopBar/P2HealthContainer/VBox"]
+custom_minimum_size = Vector2(380, 28)
+layout_mode = 2
+
+[node name="P2DamageBar" type="TextureProgressBar" parent="HUD/TopBar/P2HealthContainer/VBox/BarControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+fill_mode = 1
+nine_patch_stretch = true
+texture_under = ExtResource("7_track")
+texture_progress = ExtResource("8_damage")
+
+[node name="P2HealthBar" type="TextureProgressBar" parent="HUD/TopBar/P2HealthContainer/VBox/BarControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+fill_mode = 1
+nine_patch_stretch = true
+texture_over = ExtResource("10_frame")
+texture_progress = ExtResource("9_fill")
+
+[node name="P2Avatar" type="TextureRect" parent="HUD/TopBar/P2HealthContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("12_avatar")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BannerContainer" type="CenterContainer" parent="HUD"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BannerLabel" type="Label" parent="HUD/BannerContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "ROUND 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResultsPanel" type="PanelContainer" parent="HUD"]
+visible = false
+custom_minimum_size = Vector2(500, 320)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -160.0
+offset_right = 250.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/ResultsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/ResultsPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="ResultsTitle" type="Label" parent="HUD/ResultsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_font_sizes/font_size = 36
+text = "YOU WIN!"
+horizontal_alignment = 1
+
+[node name="RematchStatus" type="Label" parent="HUD/ResultsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+text = "Waiting for both fighters to request rematch..."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/ResultsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="RematchButton" type="Button" parent="HUD/ResultsPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(180, 48)
+layout_mode = 2
+text = "REMATCH"
+
+[node name="LeaveButton" type="Button" parent="HUD/ResultsPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(180, 48)
+layout_mode = 2
+text = "BACK TO LOBBY"
+
+[node name="LeaveMenu" type="PanelContainer" parent="HUD"]
+visible = false
+custom_minimum_size = Vector2(360, 220)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -110.0
+offset_right = 180.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/LeaveMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/LeaveMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="Label" parent="HUD/LeaveMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 20
+text = "MATCH MENU"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="HUD/LeaveMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "RESUME FIGHT"
+
+[node name="ConfirmLeaveButton" type="Button" parent="HUD/LeaveMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "LEAVE MATCH"
+
+[node name="DebugOverlay" type="PanelContainer" parent="HUD"]
+offset_left = 16.0
+offset_top = 100.0
+offset_right = 260.0
+offset_bottom = 220.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_debug")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/DebugOverlay"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="DebugText" type="Label" parent="HUD/DebugOverlay/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 14
+text = "FPS: 60
+Peer ID: 1
+Authority: Host
+Ping: 0 ms
+Tick: 0"

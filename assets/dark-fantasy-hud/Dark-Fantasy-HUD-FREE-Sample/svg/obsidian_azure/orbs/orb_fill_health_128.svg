@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+<defs><linearGradient id="orb-fill-health-128-lq" gradientUnits="userSpaceOnUse" x1="0" y1="16" x2="0" y2="112"><stop offset="0" stop-color="#FF7478"/><stop offset="0.5" stop-color="#B01E2C"/><stop offset="1" stop-color="#4E0810"/></linearGradient><clipPath id="orb-fill-health-128-cp"><rect x="0" y="16" width="128" height="112"/></clipPath></defs>
+<g clip-path="url(#orb-fill-health-128-cp)">
+<circle cx="64" cy="64" r="48" fill="url(#orb-fill-health-128-lq)"/>
+<circle cx="46" cy="98" r="3" fill="#FFFFFF" fill-opacity="0.18"/><circle cx="78" cy="90" r="2" fill="#FFFFFF" fill-opacity="0.18"/><circle cx="70" cy="104" r="4" fill="#FFFFFF" fill-opacity="0.12"/>
+</g>
+</svg>

@@ -1,0 +1,44 @@
+{
+  "_readme": "Margins in pixels at 1x for the sample files. Same data as the full pack.",
+  "elements": {
+    "bar_256x32": {
+      "size": [
+        256,
+        32
+      ],
+      "margins": {
+        "left": 24,
+        "top": 16,
+        "right": 24,
+        "bottom": 16
+      },
+      "category": "bars",
+      "files": [
+        "bar_frame_256x32",
+        "bar_track_256x32"
+      ],
+      "note": "3-slice horizontal. The pointed end caps are 24 px; top and bottom are half the height only so Godot accepts the margins. Fill files are drawn for 256 px; for other widths use TextureProgressBar nine-patch stretch with the same margins."
+    },
+    "menu_button_wide": {
+      "size": [
+        256,
+        48
+      ],
+      "margins": {
+        "left": 24,
+        "top": 24,
+        "right": 24,
+        "bottom": 24
+      },
+      "category": "menu",
+      "files": [
+        "menu_button_wide_normal",
+        "menu_button_wide_hover",
+        "menu_button_wide_pressed",
+        "menu_button_wide_disabled",
+        "menu_button_wide_focused"
+      ],
+      "note": "3-slice horizontal (pointed ends are 24 px). Top and bottom are half the height only so Godot accepts the margins. The two gems are in the end caps."
+    }
+  }
+}

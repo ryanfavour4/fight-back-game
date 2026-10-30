@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/character_data.gd" id="1_char"]
+[ext_resource type="Resource" path="res://resources/moves/kitsune_light.tres" id="2_ml"]
+[ext_resource type="Resource" path="res://resources/moves/kitsune_heavy.tres" id="3_mh"]
+[ext_resource type="Resource" path="res://resources/moves/kitsune_special.tres" id="4_ms"]
+
+[resource]
+script = ExtResource("1_char")
+character_id = "kitsune"
+display_name = "Kitsune"
+avatar_path = "res://assets/fantasy-character-avatar-face-icons/PNG/Transperent/con8.png"
+max_health = 90.0
+walk_speed = 250.0
+jump_velocity = -630.0
+damage_multiplier = 1.1
+idle_sheet_path = "res://assets/characters/PNG/Kitsune/Idle.png"
+idle_frames = 8
+walk_sheet_path = "res://assets/characters/PNG/Kitsune/Walk.png"
+walk_frames = 8
+jump_sheet_path = "res://assets/characters/PNG/Kitsune/Jump.png"
+jump_frames = 10
+attack_light_sheet_path = "res://assets/characters/PNG/Kitsune/Attack_1.png"
+attack_light_frames = 10
+attack_heavy_sheet_path = "res://assets/characters/PNG/Kitsune/Attack_2.png"
+attack_heavy_frames = 10
+attack_special_sheet_path = "res://assets/characters/PNG/Kitsune/Attack_3.png"
+attack_special_frames = 7
+hurt_sheet_path = "res://assets/characters/PNG/Kitsune/Hurt.png"
+hurt_frames = 2
+dead_sheet_path = "res://assets/characters/PNG/Kitsune/Dead.png"
+dead_frames = 10
+light_move = ExtResource("2_ml")
+heavy_move = ExtResource("3_mh")
+special_move = ExtResource("4_ms")

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+<defs><radialGradient id="orb-glass-128-gl" gradientUnits="userSpaceOnUse" cx="64" cy="58" r="50"><stop offset="0.6" stop-color="#0C0A0A" stop-opacity="0"/><stop offset="1" stop-color="#0C0A0A" stop-opacity="0.6"/></radialGradient></defs>
+<circle cx="64" cy="64" r="48" fill="url(#orb-glass-128-gl)"/>
+<path d="M26 52 C26 36 40 24 58 22 C46 28 38 38 36 56 C32 56 28 55 26 52 Z" fill="#FFFFFF" fill-opacity="0.28"/>
+<path d="M84 28 C92 30 98 36 100 44 C94 38 88 34 82 32 Z" fill="#FFFFFF" fill-opacity="0.2"/>
+<circle cx="40" cy="84" r="3" fill="#FFFFFF" fill-opacity="0.12"/>
+</svg>

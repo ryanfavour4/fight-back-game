@@ -1,0 +1,335 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/lobby.gd" id="1_lobby"]
+[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/castle.png" id="2_bg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.07, 0.08, 0.12, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.35, 0.55, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+bg_color = Color(0.12, 0.14, 0.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.45, 0.65, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_code"]
+bg_color = Color(0.1, 0.15, 0.25, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.85, 0.2, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.05, 0.06, 0.1, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.6, 0.9, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lobby")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="DarkOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.05, 0.08, 0.75)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(620, 560)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="HeaderLabel" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 28
+text = "MULTIPLAYER LOBBY"
+horizontal_alignment = 1
+
+[node name="ModeSelector" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="OnlineTabBtn" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/ModeSelector"]
+custom_minimum_size = Vector2(240, 38)
+layout_mode = 2
+text = "ONLINE (ROOM CODE)"
+
+[node name="LanTabBtn" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/ModeSelector"]
+custom_minimum_size = Vector2(240, 38)
+layout_mode = 2
+text = "LOCAL LAN (DIRECT IP)"
+
+[node name="UsernameContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="UsernameLabel" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/UsernameContainer"]
+layout_mode = 2
+text = "Fighter Name (max 16 chars):"
+
+[node name="UsernameInput" type="LineEdit" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/UsernameContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+placeholder_text = "Enter your username..."
+max_length = 16
+
+[node name="OnlineSection" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HostSection" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/OnlineSection"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CreateRoomButton" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/OnlineSection/HostSection"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CREATE ROOM (HOST)"
+
+[node name="RoomCodeDisplay" type="PanelContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/OnlineSection"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_code")
+
+[node name="HBox" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/OnlineSection/RoomCodeDisplay"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="CodeLabel" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/OnlineSection/RoomCodeDisplay/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
+theme_override_font_sizes/font_size = 22
+text = "ROOM CODE: K7QM"
+
+[node name="CopyCodeButton" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/OnlineSection/RoomCodeDisplay/HBox"]
+custom_minimum_size = Vector2(80, 32)
+layout_mode = 2
+text = "COPY"
+
+[node name="JoinSection" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/OnlineSection"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="RoomCodeInput" type="LineEdit" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/OnlineSection/JoinSection"]
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+placeholder_text = "CODE (e.g. K7QM)"
+alignment = 1
+max_length = 6
+
+[node name="JoinRoomButton" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/OnlineSection/JoinSection"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "JOIN ROOM"
+
+[node name="ServerPingLabel" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/OnlineSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "Relay Server: Checking status..."
+horizontal_alignment = 1
+
+[node name="LanSection" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="IPLabel" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/LanSection"]
+layout_mode = 2
+text = "Host LAN IP Address:"
+
+[node name="IPInput" type="LineEdit" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/LanSection"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+text = "127.0.0.1"
+placeholder_text = "127.0.0.1"
+
+[node name="LanButtons" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/LanSection"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="LanHostButton" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/LanSection/LanButtons"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "HOST LAN MATCH"
+
+[node name="LanJoinButton" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/LanSection/LanButtons"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "JOIN LAN MATCH"
+
+[node name="LanInfoLabel" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/LanSection"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
+text = "Host LAN IP: 127.0.0.1 : 7777"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+text = "Create a room or enter a friend's room code to battle."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="PlayersPanel" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/PlayersPanel"]
+layout_mode = 2
+
+[node name="Player1Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/PlayersPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+text = "P1 (Host): Waiting..."
+
+[node name="Player2Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/PlayersPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.8, 1, 1)
+text = "P2: Waiting..."
+
+[node name="StartMatchButton" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/PlayersPanel"]
+visible = false
+custom_minimum_size = Vector2(320, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "PROCEED TO CHARACTER SELECT"
+
+[node name="BackButton" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "MAIN MENU"
+
+[node name="WakeupModal" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -110.0
+offset_right = 260.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="Margin" type="MarginContainer" parent="WakeupModal"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="WakeupModal/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="Label" parent="WakeupModal/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 18
+text = "CONNECTING TO RELAY SERVER..."
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="WakeupModal/Margin/VBox"]
+layout_mode = 2
+text = "Waking up the server...
+This can take up to a minute on the free tier."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="CancelWakeupBtn" type="Button" parent="WakeupModal/Margin/VBox"]
+custom_minimum_size = Vector2(140, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "CANCEL"

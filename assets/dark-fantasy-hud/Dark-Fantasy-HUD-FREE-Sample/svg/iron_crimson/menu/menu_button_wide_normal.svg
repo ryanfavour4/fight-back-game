@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="48" viewBox="0 0 256 48">
+<path d="M0 24 L24 0 L232 0 L256 24 L232 48 L24 48 Z" fill-rule="evenodd" fill="#252020"/>
+<path d="M8 24 L26 6 L230 6 L248 24 L230 42 L26 42 Z" fill="#383130"/>
+<path d="M8 24 L248 24 L230 42 L26 42 Z" fill="#252020"/>
+<path d="M1 24 L24 1 L232 1 L255 24 L232 47 L24 47 Z" fill="none" stroke="#0C0A0A" stroke-width="2" stroke-linejoin="miter"/>
+<path d="M4 24 L25 3 L231 3 L252 24 L231 45 L25 45 Z" fill="none" stroke="#A06E2E" stroke-width="2" stroke-linejoin="miter"/>
+<path d="M4 24 L25 3 L231 3" fill="none" stroke="#D6A24C" stroke-width="2" stroke-linejoin="miter"/>
+<path d="M252 24 L231 45 L25 45" fill="none" stroke="#6E4720" stroke-width="2" stroke-linejoin="miter"/>
+<path d="M7 24 L26 5 L230 5 L249 24 L230 43 L26 43 Z" fill="none" stroke="#0E0C0D" stroke-width="2" stroke-linejoin="miter"/>
+<path d="M20 20 L24 24 L20 28 L16 24 Z" fill="#7E1522" stroke="#0C0A0A" stroke-width="2" stroke-linejoin="miter"/>
+<path d="M236 20 L240 24 L236 28 L232 24 Z" fill="#7E1522" stroke="#0C0A0A" stroke-width="2" stroke-linejoin="miter"/>
+</svg>

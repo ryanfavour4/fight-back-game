@@ -1,0 +1,29 @@
+# Godot generated files
+.godot/
+
+# Android generated files
+/android/
+
+# Node dependencies
+/relay-server/node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+__MACOSX/
+
+# Design source files
+assets/**/*.psd
+assets/**/*.PSD
+assets/**/*.ai
+assets/**/*.AI
+assets/**/__MACOSX/

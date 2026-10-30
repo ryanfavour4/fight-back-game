@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="32" viewBox="0 0 256 32">
+<rect x="24" y="8" width="208" height="16" fill="#06080D"/>
+<rect x="24" y="8" width="208" height="2" fill="#05070B" fill-opacity="0.7"/>
+<rect x="24" y="22" width="208" height="2" fill="#FFFFFF" fill-opacity="0.06"/>
+<rect x="24" y="8" width="104" height="16" fill="#B01E2C"/>
+<rect x="24" y="8" width="104" height="2" fill="#FF7478"/>
+<rect x="24" y="20" width="104" height="4" fill="#4E0810"/>
+<rect x="126" y="8" width="2" height="16" fill="#FF7478"/>
+<path d="M0 16 L16 0 L240 0 L256 16 L240 32 L16 32 Z M24 8 H232 V24 H24 Z" fill-rule="evenodd" fill="#19202B"/>
+<path d="M1 16 L16 1 L240 1 L255 16 L240 31 L16 31 Z" fill="none" stroke="#05070B" stroke-width="2" stroke-linejoin="miter"/>
+<path d="M4 16 L17 3 L239 3 L252 16 L239 29 L17 29 Z" fill="none" stroke="#9A6C2B" stroke-width="2" stroke-linejoin="miter"/>
+<path d="M4 16 L17 3 L239 3" fill="none" stroke="#CFA14B" stroke-width="2" stroke-linejoin="miter"/>
+<path d="M252 16 L239 29 L17 29" fill="none" stroke="#68491F" stroke-width="2" stroke-linejoin="miter"/>
+<rect x="23" y="7" width="210" height="18" fill="none" stroke="#05070B" stroke-width="2" stroke-linejoin="miter"/>
+</svg>

@@ -1,0 +1,295 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/character_select.gd" id="1_cs"]
+[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/castle.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/fantasy-character-avatar-face-icons/PNG/Transperent/con20.png" id="3_con20"]
+[ext_resource type="Texture2D" path="res://assets/fantasy-character-avatar-face-icons/PNG/Transperent/con8.png" id="4_con8"]
+[ext_resource type="Texture2D" path="res://assets/fantasy-character-avatar-face-icons/PNG/Transperent/con26.png" id="5_con26"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slot"]
+bg_color = Color(0.08, 0.1, 0.16, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.45, 0.7, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stats"]
+bg_color = Color(0.06, 0.08, 0.12, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.35, 0.5, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[node name="CharacterSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cs")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="DarkOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.05, 0.08, 0.8)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 20.0
+offset_right = -40.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="TopBar" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="P1Slot" type="PanelContainer" parent="VBoxContainer/TopBar"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_slot")
+
+[node name="HBox" type="HBoxContainer" parent="VBoxContainer/TopBar/P1Slot"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="P1Avatar" type="TextureRect" parent="VBoxContainer/TopBar/P1Slot/HBox"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("3_con20")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Info" type="VBoxContainer" parent="VBoxContainer/TopBar/P1Slot/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="P1NameLabel" type="Label" parent="VBoxContainer/TopBar/P1Slot/HBox/Info"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_font_sizes/font_size = 16
+text = "Player 1"
+
+[node name="P1CharLabel" type="Label" parent="VBoxContainer/TopBar/P1Slot/HBox/Info"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Karasu Tengu"
+
+[node name="P1LockBadge" type="Label" parent="VBoxContainer/TopBar/P1Slot"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "SELECTING..."
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 28
+text = "CHOOSE YOUR FIGHTER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="P2Slot" type="PanelContainer" parent="VBoxContainer/TopBar"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_slot")
+
+[node name="HBox" type="HBoxContainer" parent="VBoxContainer/TopBar/P2Slot"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Info" type="VBoxContainer" parent="VBoxContainer/TopBar/P2Slot/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="P2NameLabel" type="Label" parent="VBoxContainer/TopBar/P2Slot/HBox/Info"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Player 2"
+horizontal_alignment = 2
+
+[node name="P2CharLabel" type="Label" parent="VBoxContainer/TopBar/P2Slot/HBox/Info"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Karasu Tengu"
+horizontal_alignment = 2
+
+[node name="P2Avatar" type="TextureRect" parent="VBoxContainer/TopBar/P2Slot/HBox"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("3_con20")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="P2LockBadge" type="Label" parent="VBoxContainer/TopBar/P2Slot"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "SELECTING..."
+
+[node name="MainSection" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="PreviewArea" type="Control" parent="VBoxContainer/MainSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PreviewSprite" type="AnimatedSprite2D" parent="VBoxContainer/MainSection/PreviewArea"]
+position = Vector2(280, 260)
+scale = Vector2(2.5, 2.5)
+offset = Vector2(0, -64)
+
+[node name="StatsPanel" type="PanelContainer" parent="VBoxContainer/MainSection"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_stats")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MainSection/StatsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CharName" type="Label" parent="VBoxContainer/MainSection/StatsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 24
+text = "KARASU TENGU"
+
+[node name="HPLabel" type="Label" parent="VBoxContainer/MainSection/StatsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Vitality / Health:"
+
+[node name="StatHP" type="ProgressBar" parent="VBoxContainer/MainSection/StatsPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+value = 75.0
+show_percentage = false
+
+[node name="SpeedLabel" type="Label" parent="VBoxContainer/MainSection/StatsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Agility / Speed:"
+
+[node name="StatSpeed" type="ProgressBar" parent="VBoxContainer/MainSection/StatsPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+value = 90.0
+show_percentage = false
+
+[node name="PowerLabel" type="Label" parent="VBoxContainer/MainSection/StatsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Power / Knockback:"
+
+[node name="StatPower" type="ProgressBar" parent="VBoxContainer/MainSection/StatsPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+value = 70.0
+show_percentage = false
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/MainSection/StatsPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpecialDesc" type="Label" parent="VBoxContainer/MainSection/StatsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.9, 1, 1)
+text = "Special: Wing Tempest - Rapid sonic slash."
+autowrap_mode = 2
+
+[node name="RosterSection" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+alignment = 1
+
+[node name="GridContainer" type="HBoxContainer" parent="VBoxContainer/RosterSection"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="BtnKarasu" type="Button" parent="VBoxContainer/RosterSection/GridContainer"]
+custom_minimum_size = Vector2(240, 72)
+layout_mode = 2
+text = "  KARASU TENGU"
+icon = ExtResource("3_con20")
+expand_icon = true
+
+[node name="BtnKitsune" type="Button" parent="VBoxContainer/RosterSection/GridContainer"]
+custom_minimum_size = Vector2(240, 72)
+layout_mode = 2
+text = "  KITSUNE"
+icon = ExtResource("4_con8")
+expand_icon = true
+
+[node name="BtnYamabushi" type="Button" parent="VBoxContainer/RosterSection/GridContainer"]
+custom_minimum_size = Vector2(240, 72)
+layout_mode = 2
+text = "  YAMABUSHI"
+icon = ExtResource("5_con26")
+expand_icon = true
+
+[node name="BottomBar" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="LockInButton" type="Button" parent="VBoxContainer/BottomBar"]
+custom_minimum_size = Vector2(280, 52)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "LOCK IN FIGHTER"
+
+[node name="StatusBanner" type="Label" parent="VBoxContainer/BottomBar"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_font_sizes/font_size = 20
+text = "PREPARING FOR BATTLE..."

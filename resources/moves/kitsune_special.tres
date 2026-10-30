@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="MoveData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/move_data.gd" id="1_move"]
+
+[resource]
+script = ExtResource("1_move")
+move_name = "Fox Fire Blast"
+animation_name = "attack_special"
+startup_frame = 1
+active_frame_start = 2
+active_frame_end = 3
+recovery_frame = 6
+damage = 18.0
+hitstun_frames = 22
+knockback = Vector2(280, -180)
+hitbox_size = Vector2(50, 40)
+hitbox_offset = Vector2(60, -20)
+sfx_name = "special"
+is_projectile = true
+projectile_speed = 550.0

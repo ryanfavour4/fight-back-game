@@ -1,0 +1,142 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rep"]
+properties/0/path = NodePath(".:sync_position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:sync_velocity")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:sync_state")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:sync_facing")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:sync_health")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath(".:sync_anim")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath(".:sync_frame")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath(".:sync_hitbox_active")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_body"]
+radius = 24.0
+height = 96.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hurt"]
+radius = 26.0
+height = 100.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hit"]
+size = Vector2(70, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_init"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_player")
+
+[node name="Shadow" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 0.4)
+polygon = PackedVector2Array(-32, 0, -22, -6, 0, -8, 22, -6, 32, 0, 22, 6, 0, 8, -22, 6)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+offset = Vector2(0, -64)
+sprite_frames = SubResource("SpriteFrames_init")
+animation = &"idle"
+
+[node name="BodyCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -48)
+shape = SubResource("CapsuleShape2D_body")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -48)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CapsuleShape2D_hurt")
+debug_color = Color(0, 0.6, 0.7, 0.4)
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(50, -48)
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_hit")
+disabled = true
+debug_color = Color(0.9, 0.1, 0.1, 0.4)
+
+[node name="Synchronizer" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath("..")
+replication_config = SubResource("SceneReplicationConfig_rep")
+
+[node name="LandingDust" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 10
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.9
+direction = Vector2(0, -1)
+spread = 60.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 50.0
+initial_velocity_max = 120.0
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+color = Color(0.85, 0.85, 0.85, 0.65)
+
+[node name="HitSpark" type="CPUParticles2D" parent="."]
+position = Vector2(0, -48)
+emitting = false
+amount = 14
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 120.0
+initial_velocity_max = 240.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+color = Color(1, 0.9, 0.2, 1)
+
+[node name="PillMarker" type="Node2D" parent="."]
+position = Vector2(0, -118)
+
+[node name="Label" type="Label" parent="PillMarker"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -14.0
+offset_right = 30.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+text = "P1"
+horizontal_alignment = 1
+vertical_alignment = 1

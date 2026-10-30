@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/character_data.gd" id="1_char"]
+[ext_resource type="Resource" path="res://resources/moves/yamabushi_light.tres" id="2_ml"]
+[ext_resource type="Resource" path="res://resources/moves/yamabushi_heavy.tres" id="3_mh"]
+[ext_resource type="Resource" path="res://resources/moves/yamabushi_special.tres" id="4_ms"]
+
+[resource]
+script = ExtResource("1_char")
+character_id = "yamabushi"
+display_name = "Yamabushi Tengu"
+avatar_path = "res://assets/fantasy-character-avatar-face-icons/PNG/Transperent/con26.png"
+max_health = 120.0
+walk_speed = 210.0
+jump_velocity = -680.0
+damage_multiplier = 1.25
+idle_sheet_path = "res://assets/characters/PNG/Yamabushi_tengu/Idle.png"
+idle_frames = 6
+walk_sheet_path = "res://assets/characters/PNG/Yamabushi_tengu/Walk.png"
+walk_frames = 8
+jump_sheet_path = "res://assets/characters/PNG/Yamabushi_tengu/Jump.png"
+jump_frames = 15
+attack_light_sheet_path = "res://assets/characters/PNG/Yamabushi_tengu/Attack_1.png"
+attack_light_frames = 3
+attack_heavy_sheet_path = "res://assets/characters/PNG/Yamabushi_tengu/Attack_2.png"
+attack_heavy_frames = 6
+attack_special_sheet_path = "res://assets/characters/PNG/Yamabushi_tengu/Attack_3.png"
+attack_special_frames = 4
+hurt_sheet_path = "res://assets/characters/PNG/Yamabushi_tengu/Hurt.png"
+hurt_frames = 3
+dead_sheet_path = "res://assets/characters/PNG/Yamabushi_tengu/Dead.png"
+dead_frames = 6
+light_move = ExtResource("2_ml")
+heavy_move = ExtResource("3_mh")
+special_move = ExtResource("4_ms")

@@ -1,0 +1,16 @@
+{
+  "name": "fight-back-relay",
+  "version": "1.0.0",
+  "description": "Lightweight WebSocket relay server for Fight Back online multiplayer",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test_relay.js"
+  },
+  "keywords": ["websocket", "relay", "multiplayer", "fight-back"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

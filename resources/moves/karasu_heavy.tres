@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="MoveData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/move_data.gd" id="1_move"]
+
+[resource]
+script = ExtResource("1_move")
+move_name = "Heavy Cleave"
+animation_name = "attack_heavy"
+startup_frame = 1
+active_frame_start = 1
+active_frame_end = 2
+recovery_frame = 3
+damage = 16.0
+hitstun_frames = 20
+knockback = Vector2(360, -220)
+hitbox_size = Vector2(85, 55)
+hitbox_offset = Vector2(60, -20)
+sfx_name = "swing"
+is_projectile = false
+projectile_speed = 550.0

@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/touch_controls.gd" id="1_touch"]
+[ext_resource type="Texture2D" path="res://assets/paladin-icon-pack/PNG/1.png" id="2_special"]
+[ext_resource type="Texture2D" path="res://assets/paladin-icon-pack/PNG/2.png" id="3_light"]
+[ext_resource type="Texture2D" path="res://assets/paladin-icon-pack/PNG/3.png" id="4_heavy"]
+[ext_resource type="Texture2D" path="res://assets/paladin-icon-pack/PNG/4.png" id="5_jump"]
+
+[node name="TouchControls" type="CanvasLayer"]
+layer = 50
+script = ExtResource("1_touch")
+
+[node name="ToggleTouchBtn" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -42.0
+offset_right = 60.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 14
+text = "Touch Controls"
+
+[node name="ControlsRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DPadLeft" type="TouchScreenButton" parent="ControlsRoot"]
+modulate = Color(1, 1, 1, 0.6)
+position = Vector2(40, 520)
+scale = Vector2(0.35, 0.35)
+texture_normal = ExtResource("5_jump")
+action = "p_left"
+
+[node name="DPadRight" type="TouchScreenButton" parent="ControlsRoot"]
+modulate = Color(1, 1, 1, 0.6)
+position = Vector2(160, 520)
+scale = Vector2(0.35, 0.35)
+texture_normal = ExtResource("5_jump")
+action = "p_right"
+
+[node name="DPadUp" type="TouchScreenButton" parent="ControlsRoot"]
+modulate = Color(1, 1, 1, 0.6)
+position = Vector2(100, 420)
+scale = Vector2(0.35, 0.35)
+texture_normal = ExtResource("5_jump")
+action = "p_jump"
+
+[node name="BtnLight" type="TouchScreenButton" parent="ControlsRoot"]
+modulate = Color(1, 1, 1, 0.7)
+position = Vector2(1000, 520)
+scale = Vector2(0.38, 0.38)
+texture_normal = ExtResource("3_light")
+action = "p_light"
+
+[node name="BtnHeavy" type="TouchScreenButton" parent="ControlsRoot"]
+modulate = Color(1, 1, 1, 0.7)
+position = Vector2(1120, 520)
+scale = Vector2(0.38, 0.38)
+texture_normal = ExtResource("4_heavy")
+action = "p_heavy"
+
+[node name="BtnSpecial" type="TouchScreenButton" parent="ControlsRoot"]
+modulate = Color(1, 1, 1, 0.7)
+position = Vector2(1060, 400)
+scale = Vector2(0.38, 0.38)
+texture_normal = ExtResource("2_special")
+action = "p_special"
+
+[node name="BtnJump" type="TouchScreenButton" parent="ControlsRoot"]
+modulate = Color(1, 1, 1, 0.7)
+position = Vector2(1180, 400)
+scale = Vector2(0.38, 0.38)
+texture_normal = ExtResource("5_jump")
+action = "p_jump"

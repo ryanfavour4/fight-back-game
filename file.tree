@@ -1,0 +1,2177 @@
+
+
+**Generated:** 10/30/2026, 6:33:30 AM
+**Root Path:** `c:\Users\ryanf\Downloads\game\fight-back`
+
+```
+├── 📁 assets
+│   ├── 📁 battle-background
+│   │   ├── 📁 PNG
+│   │   │   ├── 📁 1
+│   │   │   │   ├── 🖼️ 1.png
+│   │   │   │   ├── 📄 1.png.import
+│   │   │   │   ├── 🖼️ 2.png
+│   │   │   │   ├── 📄 2.png.import
+│   │   │   │   ├── 🖼️ 3.png
+│   │   │   │   ├── 📄 3.png.import
+│   │   │   │   ├── 🖼️ 4.png
+│   │   │   │   ├── 📄 4.png.import
+│   │   │   │   ├── 🖼️ 5.png
+│   │   │   │   ├── 📄 5.png.import
+│   │   │   │   ├── 🖼️ terrace.png
+│   │   │   │   └── 📄 terrace.png.import
+│   │   │   ├── 📁 2
+│   │   │   │   ├── 🖼️ 1.png
+│   │   │   │   ├── 📄 1.png.import
+│   │   │   │   ├── 🖼️ 2.png
+│   │   │   │   ├── 📄 2.png.import
+│   │   │   │   ├── 🖼️ 3.png
+│   │   │   │   ├── 📄 3.png.import
+│   │   │   │   ├── 🖼️ 4.png
+│   │   │   │   ├── 📄 4.png.import
+│   │   │   │   ├── 🖼️ 5.png
+│   │   │   │   ├── 📄 5.png.import
+│   │   │   │   ├── 🖼️ throne room.png
+│   │   │   │   └── 📄 throne room.png.import
+│   │   │   ├── 📁 3
+│   │   │   │   ├── 🖼️ 1.png
+│   │   │   │   ├── 📄 1.png.import
+│   │   │   │   ├── 🖼️ 2.png
+│   │   │   │   ├── 📄 2.png.import
+│   │   │   │   ├── 🖼️ 3.png
+│   │   │   │   ├── 📄 3.png.import
+│   │   │   │   ├── 🖼️ 4.png
+│   │   │   │   ├── 📄 4.png.import
+│   │   │   │   ├── 🖼️ 5.png
+│   │   │   │   ├── 📄 5.png.import
+│   │   │   │   ├── 🖼️ castle.png
+│   │   │   │   └── 📄 castle.png.import
+│   │   │   └── 📁 4
+│   │   │       ├── 🖼️ 1.png
+│   │   │       ├── 📄 1.png.import
+│   │   │       ├── 🖼️ 2.png
+│   │   │       ├── 📄 2.png.import
+│   │   │       ├── 🖼️ 3.png
+│   │   │       ├── 📄 3.png.import
+│   │   │       ├── 🖼️ 4.png
+│   │   │       ├── 📄 4.png.import
+│   │   │       ├── 🖼️ 5.png
+│   │   │       ├── 📄 5.png.import
+│   │   │       ├── 🖼️ 6.png
+│   │   │       ├── 📄 6.png.import
+│   │   │       ├── 🖼️ dead forest.png
+│   │   │       └── 📄 dead forest.png.import
+│   │   ├── 📁 PSD
+│   │   │   └── 📄 Horizontal Battle Backgrounds (vampires).psd
+│   │   └── 📁 __MACOSX
+│   │       ├── 📁 PNG
+│   │       │   ├── ⚙️ ._.DS_Store
+│   │       │   └── ⚙️ ._Free Assets Craftpix!.url
+│   │       ├── ⚙️ ._Free Assets Craftpix!.url
+│   │       └── ⚙️ .gdignore
+│   ├── 📁 characters
+│   │   ├── 📁 PNG
+│   │   │   ├── 📁 Karasu_tengu
+│   │   │   │   ├── 🖼️ Attack_1.png
+│   │   │   │   ├── 📄 Attack_1.png.import
+│   │   │   │   ├── 🖼️ Attack_2.png
+│   │   │   │   ├── 📄 Attack_2.png.import
+│   │   │   │   ├── 🖼️ Attack_3.png
+│   │   │   │   ├── 📄 Attack_3.png.import
+│   │   │   │   ├── 🖼️ Dead.png
+│   │   │   │   ├── 📄 Dead.png.import
+│   │   │   │   ├── 🖼️ Hurt.png
+│   │   │   │   ├── 📄 Hurt.png.import
+│   │   │   │   ├── 🖼️ Idle.png
+│   │   │   │   ├── 📄 Idle.png.import
+│   │   │   │   ├── 🖼️ Idle_2.png
+│   │   │   │   ├── 📄 Idle_2.png.import
+│   │   │   │   ├── 🖼️ Jump.png
+│   │   │   │   ├── 📄 Jump.png.import
+│   │   │   │   ├── 🖼️ Run.png
+│   │   │   │   ├── 📄 Run.png.import
+│   │   │   │   ├── 🖼️ Walk.png
+│   │   │   │   └── 📄 Walk.png.import
+│   │   │   ├── 📁 Kitsune
+│   │   │   │   ├── 🖼️ Attack_1.png
+│   │   │   │   ├── 📄 Attack_1.png.import
+│   │   │   │   ├── 🖼️ Attack_2.png
+│   │   │   │   ├── 📄 Attack_2.png.import
+│   │   │   │   ├── 🖼️ Attack_3.png
+│   │   │   │   ├── 📄 Attack_3.png.import
+│   │   │   │   ├── 🖼️ Dead.png
+│   │   │   │   ├── 📄 Dead.png.import
+│   │   │   │   ├── 🖼️ Fire_1.png
+│   │   │   │   ├── 📄 Fire_1.png.import
+│   │   │   │   ├── 🖼️ Fire_2.png
+│   │   │   │   ├── 📄 Fire_2.png.import
+│   │   │   │   ├── 🖼️ Hurt.png
+│   │   │   │   ├── 📄 Hurt.png.import
+│   │   │   │   ├── 🖼️ Idle.png
+│   │   │   │   ├── 📄 Idle.png.import
+│   │   │   │   ├── 🖼️ Idle_2.png
+│   │   │   │   ├── 📄 Idle_2.png.import
+│   │   │   │   ├── 🖼️ Jump.png
+│   │   │   │   ├── 📄 Jump.png.import
+│   │   │   │   ├── 🖼️ Run.png
+│   │   │   │   ├── 📄 Run.png.import
+│   │   │   │   ├── 🖼️ Walk.png
+│   │   │   │   └── 📄 Walk.png.import
+│   │   │   └── 📁 Yamabushi_tengu
+│   │   │       ├── 🖼️ Attack_1.png
+│   │   │       ├── 📄 Attack_1.png.import
+│   │   │       ├── 🖼️ Attack_2.png
+│   │   │       ├── 📄 Attack_2.png.import
+│   │   │       ├── 🖼️ Attack_3.png
+│   │   │       ├── 📄 Attack_3.png.import
+│   │   │       ├── 🖼️ Dead.png
+│   │   │       ├── 📄 Dead.png.import
+│   │   │       ├── 🖼️ Hurt.png
+│   │   │       ├── 📄 Hurt.png.import
+│   │   │       ├── 🖼️ Idle.png
+│   │   │       ├── 📄 Idle.png.import
+│   │   │       ├── 🖼️ Idle_2.png
+│   │   │       ├── 📄 Idle_2.png.import
+│   │   │       ├── 🖼️ Jump.png
+│   │   │       ├── 📄 Jump.png.import
+│   │   │       ├── 🖼️ Run.png
+│   │   │       ├── 📄 Run.png.import
+│   │   │       ├── 🖼️ Walk.png
+│   │   │       └── 📄 Walk.png.import
+│   │   └── 📁 PSD
+│   │       ├── 📄 Karasu_tengu_Spritelist.psd
+│   │       ├── 📄 Kitcune_Spritelist.psd
+│   │       └── 📄 Yamabushi_tengu_Spritelist.psd
+│   ├── 📁 dark-fantasy-hud
+│   │   └── 📁 Dark-Fantasy-HUD-FREE-Sample
+│   │       ├── 📁 png
+│   │       │   ├── 📁 1x
+│   │       │   │   ├── 📁 iron_crimson
+│   │       │   │   │   ├── 📁 bars
+│   │       │   │   │   │   ├── 🖼️ bar_fill_health_256x32.png
+│   │       │   │   │   │   ├── 📄 bar_fill_health_256x32.png.import
+│   │       │   │   │   │   ├── 🖼️ bar_frame_256x32.png
+│   │       │   │   │   │   ├── 📄 bar_frame_256x32.png.import
+│   │       │   │   │   │   ├── 🖼️ bar_health_pct_50_256x32.png
+│   │       │   │   │   │   ├── 📄 bar_health_pct_50_256x32.png.import
+│   │       │   │   │   │   ├── 🖼️ bar_track_256x32.png
+│   │       │   │   │   │   └── 📄 bar_track_256x32.png.import
+│   │       │   │   │   ├── 📁 menu
+│   │       │   │   │   │   ├── 🖼️ menu_button_wide_disabled.png
+│   │       │   │   │   │   ├── 📄 menu_button_wide_disabled.png.import
+│   │       │   │   │   │   ├── 🖼️ menu_button_wide_focused.png
+│   │       │   │   │   │   ├── 📄 menu_button_wide_focused.png.import
+│   │       │   │   │   │   ├── 🖼️ menu_button_wide_hover.png
+│   │       │   │   │   │   ├── 📄 menu_button_wide_hover.png.import
+│   │       │   │   │   │   ├── 🖼️ menu_button_wide_normal.png
+│   │       │   │   │   │   ├── 📄 menu_button_wide_normal.png.import
+│   │       │   │   │   │   ├── 🖼️ menu_button_wide_pressed.png
+│   │       │   │   │   │   └── 📄 menu_button_wide_pressed.png.import
+│   │       │   │   │   └── 📁 orbs
+│   │       │   │   │       ├── 🖼️ orb_back_128.png
+│   │       │   │   │       ├── 📄 orb_back_128.png.import
+│   │       │   │   │       ├── 🖼️ orb_empty_128.png
+│   │       │   │   │       ├── 📄 orb_empty_128.png.import
+│   │       │   │   │       ├── 🖼️ orb_fill_health_128.png
+│   │       │   │   │       ├── 📄 orb_fill_health_128.png.import
+│   │       │   │   │       ├── 🖼️ orb_glass_128.png
+│   │       │   │   │       ├── 📄 orb_glass_128.png.import
+│   │       │   │   │       ├── 🖼️ orb_health_pct_50_128.png
+│   │       │   │   │       ├── 📄 orb_health_pct_50_128.png.import
+│   │       │   │   │       ├── 🖼️ orb_over_128.png
+│   │       │   │   │       ├── 📄 orb_over_128.png.import
+│   │       │   │   │       ├── 🖼️ orb_socket_128.png
+│   │       │   │   │       └── 📄 orb_socket_128.png.import
+│   │       │   │   └── 📁 obsidian_azure
+│   │       │   │       ├── 📁 bars
+│   │       │   │       │   ├── 🖼️ bar_fill_health_256x32.png
+│   │       │   │       │   ├── 📄 bar_fill_health_256x32.png.import
+│   │       │   │       │   ├── 🖼️ bar_frame_256x32.png
+│   │       │   │       │   ├── 📄 bar_frame_256x32.png.import
+│   │       │   │       │   ├── 🖼️ bar_health_pct_50_256x32.png
+│   │       │   │       │   ├── 📄 bar_health_pct_50_256x32.png.import
+│   │       │   │       │   ├── 🖼️ bar_track_256x32.png
+│   │       │   │       │   └── 📄 bar_track_256x32.png.import
+│   │       │   │       ├── 📁 menu
+│   │       │   │       │   ├── 🖼️ menu_button_wide_disabled.png
+│   │       │   │       │   ├── 📄 menu_button_wide_disabled.png.import
+│   │       │   │       │   ├── 🖼️ menu_button_wide_focused.png
+│   │       │   │       │   ├── 📄 menu_button_wide_focused.png.import
+│   │       │   │       │   ├── 🖼️ menu_button_wide_hover.png
+│   │       │   │       │   ├── 📄 menu_button_wide_hover.png.import
+│   │       │   │       │   ├── 🖼️ menu_button_wide_normal.png
+│   │       │   │       │   ├── 📄 menu_button_wide_normal.png.import
+│   │       │   │       │   ├── 🖼️ menu_button_wide_pressed.png
+│   │       │   │       │   └── 📄 menu_button_wide_pressed.png.import
+│   │       │   │       └── 📁 orbs
+│   │       │   │           ├── 🖼️ orb_back_128.png
+│   │       │   │           ├── 📄 orb_back_128.png.import
+│   │       │   │           ├── 🖼️ orb_empty_128.png
+│   │       │   │           ├── 📄 orb_empty_128.png.import
+│   │       │   │           ├── 🖼️ orb_fill_health_128.png
+│   │       │   │           ├── 📄 orb_fill_health_128.png.import
+│   │       │   │           ├── 🖼️ orb_glass_128.png
+│   │       │   │           ├── 📄 orb_glass_128.png.import
+│   │       │   │           ├── 🖼️ orb_health_pct_50_128.png
+│   │       │   │           ├── 📄 orb_health_pct_50_128.png.import
+│   │       │   │           ├── 🖼️ orb_over_128.png
+│   │       │   │           ├── 📄 orb_over_128.png.import
+│   │       │   │           ├── 🖼️ orb_socket_128.png
+│   │       │   │           └── 📄 orb_socket_128.png.import
+│   │       │   ├── 📁 2x
+│   │       │   │   ├── 📁 iron_crimson
+│   │       │   │   │   ├── 📁 bars
+│   │       │   │   │   │   ├── 🖼️ bar_fill_health_256x32.png
+│   │       │   │   │   │   ├── 📄 bar_fill_health_256x32.png.import
+│   │       │   │   │   │   ├── 🖼️ bar_frame_256x32.png
+│   │       │   │   │   │   ├── 📄 bar_frame_256x32.png.import
+│   │       │   │   │   │   ├── 🖼️ bar_health_pct_50_256x32.png
+│   │       │   │   │   │   ├── 📄 bar_health_pct_50_256x32.png.import
+│   │       │   │   │   │   ├── 🖼️ bar_track_256x32.png
+│   │       │   │   │   │   └── 📄 bar_track_256x32.png.import
+│   │       │   │   │   ├── 📁 menu
+│   │       │   │   │   │   ├── 🖼️ menu_button_wide_disabled.png
+│   │       │   │   │   │   ├── 📄 menu_button_wide_disabled.png.import
+│   │       │   │   │   │   ├── 🖼️ menu_button_wide_focused.png
+│   │       │   │   │   │   ├── 📄 menu_button_wide_focused.png.import
+│   │       │   │   │   │   ├── 🖼️ menu_button_wide_hover.png
+│   │       │   │   │   │   ├── 📄 menu_button_wide_hover.png.import
+│   │       │   │   │   │   ├── 🖼️ menu_button_wide_normal.png
+│   │       │   │   │   │   ├── 📄 menu_button_wide_normal.png.import
+│   │       │   │   │   │   ├── 🖼️ menu_button_wide_pressed.png
+│   │       │   │   │   │   └── 📄 menu_button_wide_pressed.png.import
+│   │       │   │   │   └── 📁 orbs
+│   │       │   │   │       ├── 🖼️ orb_back_128.png
+│   │       │   │   │       ├── 📄 orb_back_128.png.import
+│   │       │   │   │       ├── 🖼️ orb_empty_128.png
+│   │       │   │   │       ├── 📄 orb_empty_128.png.import
+│   │       │   │   │       ├── 🖼️ orb_fill_health_128.png
+│   │       │   │   │       ├── 📄 orb_fill_health_128.png.import
+│   │       │   │   │       ├── 🖼️ orb_glass_128.png
+│   │       │   │   │       ├── 📄 orb_glass_128.png.import
+│   │       │   │   │       ├── 🖼️ orb_health_pct_50_128.png
+│   │       │   │   │       ├── 📄 orb_health_pct_50_128.png.import
+│   │       │   │   │       ├── 🖼️ orb_over_128.png
+│   │       │   │   │       ├── 📄 orb_over_128.png.import
+│   │       │   │   │       ├── 🖼️ orb_socket_128.png
+│   │       │   │   │       └── 📄 orb_socket_128.png.import
+│   │       │   │   └── 📁 obsidian_azure
+│   │       │   │       ├── 📁 bars
+│   │       │   │       │   ├── 🖼️ bar_fill_health_256x32.png
+│   │       │   │       │   ├── 📄 bar_fill_health_256x32.png.import
+│   │       │   │       │   ├── 🖼️ bar_frame_256x32.png
+│   │       │   │       │   ├── 📄 bar_frame_256x32.png.import
+│   │       │   │       │   ├── 🖼️ bar_health_pct_50_256x32.png
+│   │       │   │       │   ├── 📄 bar_health_pct_50_256x32.png.import
+│   │       │   │       │   ├── 🖼️ bar_track_256x32.png
+│   │       │   │       │   └── 📄 bar_track_256x32.png.import
+│   │       │   │       ├── 📁 menu
+│   │       │   │       │   ├── 🖼️ menu_button_wide_disabled.png
+│   │       │   │       │   ├── 📄 menu_button_wide_disabled.png.import
+│   │       │   │       │   ├── 🖼️ menu_button_wide_focused.png
+│   │       │   │       │   ├── 📄 menu_button_wide_focused.png.import
+│   │       │   │       │   ├── 🖼️ menu_button_wide_hover.png
+│   │       │   │       │   ├── 📄 menu_button_wide_hover.png.import
+│   │       │   │       │   ├── 🖼️ menu_button_wide_normal.png
+│   │       │   │       │   ├── 📄 menu_button_wide_normal.png.import
+│   │       │   │       │   ├── 🖼️ menu_button_wide_pressed.png
+│   │       │   │       │   └── 📄 menu_button_wide_pressed.png.import
+│   │       │   │       └── 📁 orbs
+│   │       │   │           ├── 🖼️ orb_back_128.png
+│   │       │   │           ├── 📄 orb_back_128.png.import
+│   │       │   │           ├── 🖼️ orb_empty_128.png
+│   │       │   │           ├── 📄 orb_empty_128.png.import
+│   │       │   │           ├── 🖼️ orb_fill_health_128.png
+│   │       │   │           ├── 📄 orb_fill_health_128.png.import
+│   │       │   │           ├── 🖼️ orb_glass_128.png
+│   │       │   │           ├── 📄 orb_glass_128.png.import
+│   │       │   │           ├── 🖼️ orb_health_pct_50_128.png
+│   │       │   │           ├── 📄 orb_health_pct_50_128.png.import
+│   │       │   │           ├── 🖼️ orb_over_128.png
+│   │       │   │           ├── 📄 orb_over_128.png.import
+│   │       │   │           ├── 🖼️ orb_socket_128.png
+│   │       │   │           └── 📄 orb_socket_128.png.import
+│   │       │   └── 📁 3x
+│   │       │       ├── 📁 iron_crimson
+│   │       │       │   ├── 📁 bars
+│   │       │       │   │   ├── 🖼️ bar_fill_health_256x32.png
+│   │       │       │   │   ├── 📄 bar_fill_health_256x32.png.import
+│   │       │       │   │   ├── 🖼️ bar_frame_256x32.png
+│   │       │       │   │   ├── 📄 bar_frame_256x32.png.import
+│   │       │       │   │   ├── 🖼️ bar_health_pct_50_256x32.png
+│   │       │       │   │   ├── 📄 bar_health_pct_50_256x32.png.import
+│   │       │       │   │   ├── 🖼️ bar_track_256x32.png
+│   │       │       │   │   └── 📄 bar_track_256x32.png.import
+│   │       │       │   ├── 📁 menu
+│   │       │       │   │   ├── 🖼️ menu_button_wide_disabled.png
+│   │       │       │   │   ├── 📄 menu_button_wide_disabled.png.import
+│   │       │       │   │   ├── 🖼️ menu_button_wide_focused.png
+│   │       │       │   │   ├── 📄 menu_button_wide_focused.png.import
+│   │       │       │   │   ├── 🖼️ menu_button_wide_hover.png
+│   │       │       │   │   ├── 📄 menu_button_wide_hover.png.import
+│   │       │       │   │   ├── 🖼️ menu_button_wide_normal.png
+│   │       │       │   │   ├── 📄 menu_button_wide_normal.png.import
+│   │       │       │   │   ├── 🖼️ menu_button_wide_pressed.png
+│   │       │       │   │   └── 📄 menu_button_wide_pressed.png.import
+│   │       │       │   └── 📁 orbs
+│   │       │       │       ├── 🖼️ orb_back_128.png
+│   │       │       │       ├── 📄 orb_back_128.png.import
+│   │       │       │       ├── 🖼️ orb_empty_128.png
+│   │       │       │       ├── 📄 orb_empty_128.png.import
+│   │       │       │       ├── 🖼️ orb_fill_health_128.png
+│   │       │       │       ├── 📄 orb_fill_health_128.png.import
+│   │       │       │       ├── 🖼️ orb_glass_128.png
+│   │       │       │       ├── 📄 orb_glass_128.png.import
+│   │       │       │       ├── 🖼️ orb_health_pct_50_128.png
+│   │       │       │       ├── 📄 orb_health_pct_50_128.png.import
+│   │       │       │       ├── 🖼️ orb_over_128.png
+│   │       │       │       ├── 📄 orb_over_128.png.import
+│   │       │       │       ├── 🖼️ orb_socket_128.png
+│   │       │       │       └── 📄 orb_socket_128.png.import
+│   │       │       └── 📁 obsidian_azure
+│   │       │           ├── 📁 bars
+│   │       │           │   ├── 🖼️ bar_fill_health_256x32.png
+│   │       │           │   ├── 📄 bar_fill_health_256x32.png.import
+│   │       │           │   ├── 🖼️ bar_frame_256x32.png
+│   │       │           │   ├── 📄 bar_frame_256x32.png.import
+│   │       │           │   ├── 🖼️ bar_health_pct_50_256x32.png
+│   │       │           │   ├── 📄 bar_health_pct_50_256x32.png.import
+│   │       │           │   ├── 🖼️ bar_track_256x32.png
+│   │       │           │   └── 📄 bar_track_256x32.png.import
+│   │       │           ├── 📁 menu
+│   │       │           │   ├── 🖼️ menu_button_wide_disabled.png
+│   │       │           │   ├── 📄 menu_button_wide_disabled.png.import
+│   │       │           │   ├── 🖼️ menu_button_wide_focused.png
+│   │       │           │   ├── 📄 menu_button_wide_focused.png.import
+│   │       │           │   ├── 🖼️ menu_button_wide_hover.png
+│   │       │           │   ├── 📄 menu_button_wide_hover.png.import
+│   │       │           │   ├── 🖼️ menu_button_wide_normal.png
+│   │       │           │   ├── 📄 menu_button_wide_normal.png.import
+│   │       │           │   ├── 🖼️ menu_button_wide_pressed.png
+│   │       │           │   └── 📄 menu_button_wide_pressed.png.import
+│   │       │           └── 📁 orbs
+│   │       │               ├── 🖼️ orb_back_128.png
+│   │       │               ├── 📄 orb_back_128.png.import
+│   │       │               ├── 🖼️ orb_empty_128.png
+│   │       │               ├── 📄 orb_empty_128.png.import
+│   │       │               ├── 🖼️ orb_fill_health_128.png
+│   │       │               ├── 📄 orb_fill_health_128.png.import
+│   │       │               ├── 🖼️ orb_glass_128.png
+│   │       │               ├── 📄 orb_glass_128.png.import
+│   │       │               ├── 🖼️ orb_health_pct_50_128.png
+│   │       │               ├── 📄 orb_health_pct_50_128.png.import
+│   │       │               ├── 🖼️ orb_over_128.png
+│   │       │               ├── 📄 orb_over_128.png.import
+│   │       │               ├── 🖼️ orb_socket_128.png
+│   │       │               └── 📄 orb_socket_128.png.import
+│   │       ├── 📁 preview
+│   │       │   ├── 🖼️ cover.png
+│   │       │   └── 📄 cover.png.import
+│   │       ├── 📁 svg
+│   │       │   ├── 📁 iron_crimson
+│   │       │   │   ├── 📁 bars
+│   │       │   │   │   ├── 🖼️ bar_fill_health_256x32.svg
+│   │       │   │   │   ├── 📄 bar_fill_health_256x32.svg.import
+│   │       │   │   │   ├── 🖼️ bar_frame_256x32.svg
+│   │       │   │   │   ├── 📄 bar_frame_256x32.svg.import
+│   │       │   │   │   ├── 🖼️ bar_health_pct_50_256x32.svg
+│   │       │   │   │   ├── 📄 bar_health_pct_50_256x32.svg.import
+│   │       │   │   │   ├── 🖼️ bar_track_256x32.svg
+│   │       │   │   │   └── 📄 bar_track_256x32.svg.import
+│   │       │   │   ├── 📁 menu
+│   │       │   │   │   ├── 🖼️ menu_button_wide_disabled.svg
+│   │       │   │   │   ├── 📄 menu_button_wide_disabled.svg.import
+│   │       │   │   │   ├── 🖼️ menu_button_wide_focused.svg
+│   │       │   │   │   ├── 📄 menu_button_wide_focused.svg.import
+│   │       │   │   │   ├── 🖼️ menu_button_wide_hover.svg
+│   │       │   │   │   ├── 📄 menu_button_wide_hover.svg.import
+│   │       │   │   │   ├── 🖼️ menu_button_wide_normal.svg
+│   │       │   │   │   ├── 📄 menu_button_wide_normal.svg.import
+│   │       │   │   │   ├── 🖼️ menu_button_wide_pressed.svg
+│   │       │   │   │   └── 📄 menu_button_wide_pressed.svg.import
+│   │       │   │   └── 📁 orbs
+│   │       │   │       ├── 🖼️ orb_back_128.svg
+│   │       │   │       ├── 📄 orb_back_128.svg.import
+│   │       │   │       ├── 🖼️ orb_empty_128.svg
+│   │       │   │       ├── 📄 orb_empty_128.svg.import
+│   │       │   │       ├── 🖼️ orb_fill_health_128.svg
+│   │       │   │       ├── 📄 orb_fill_health_128.svg.import
+│   │       │   │       ├── 🖼️ orb_glass_128.svg
+│   │       │   │       ├── 📄 orb_glass_128.svg.import
+│   │       │   │       ├── 🖼️ orb_health_pct_50_128.svg
+│   │       │   │       ├── 📄 orb_health_pct_50_128.svg.import
+│   │       │   │       ├── 🖼️ orb_over_128.svg
+│   │       │   │       ├── 📄 orb_over_128.svg.import
+│   │       │   │       ├── 🖼️ orb_socket_128.svg
+│   │       │   │       └── 📄 orb_socket_128.svg.import
+│   │       │   └── 📁 obsidian_azure
+│   │       │       ├── 📁 bars
+│   │       │       │   ├── 🖼️ bar_fill_health_256x32.svg
+│   │       │       │   ├── 📄 bar_fill_health_256x32.svg.import
+│   │       │       │   ├── 🖼️ bar_frame_256x32.svg
+│   │       │       │   ├── 📄 bar_frame_256x32.svg.import
+│   │       │       │   ├── 🖼️ bar_health_pct_50_256x32.svg
+│   │       │       │   ├── 📄 bar_health_pct_50_256x32.svg.import
+│   │       │       │   ├── 🖼️ bar_track_256x32.svg
+│   │       │       │   └── 📄 bar_track_256x32.svg.import
+│   │       │       ├── 📁 menu
+│   │       │       │   ├── 🖼️ menu_button_wide_disabled.svg
+│   │       │       │   ├── 📄 menu_button_wide_disabled.svg.import
+│   │       │       │   ├── 🖼️ menu_button_wide_focused.svg
+│   │       │       │   ├── 📄 menu_button_wide_focused.svg.import
+│   │       │       │   ├── 🖼️ menu_button_wide_hover.svg
+│   │       │       │   ├── 📄 menu_button_wide_hover.svg.import
+│   │       │       │   ├── 🖼️ menu_button_wide_normal.svg
+│   │       │       │   ├── 📄 menu_button_wide_normal.svg.import
+│   │       │       │   ├── 🖼️ menu_button_wide_pressed.svg
+│   │       │       │   └── 📄 menu_button_wide_pressed.svg.import
+│   │       │       └── 📁 orbs
+│   │       │           ├── 🖼️ orb_back_128.svg
+│   │       │           ├── 📄 orb_back_128.svg.import
+│   │       │           ├── 🖼️ orb_empty_128.svg
+│   │       │           ├── 📄 orb_empty_128.svg.import
+│   │       │           ├── 🖼️ orb_fill_health_128.svg
+│   │       │           ├── 📄 orb_fill_health_128.svg.import
+│   │       │           ├── 🖼️ orb_glass_128.svg
+│   │       │           ├── 📄 orb_glass_128.svg.import
+│   │       │           ├── 🖼️ orb_health_pct_50_128.svg
+│   │       │           ├── 📄 orb_health_pct_50_128.svg.import
+│   │       │           ├── 🖼️ orb_over_128.svg
+│   │       │           ├── 📄 orb_over_128.svg.import
+│   │       │           ├── 🖼️ orb_socket_128.svg
+│   │       │           └── 📄 orb_socket_128.svg.import
+│   │       ├── 📄 LICENSE
+│   │       ├── 📝 README.md
+│   │       └── ⚙️ nine_slice.json
+│   ├── 📁 fantasy-character-avatar-face-icons
+│   │   ├── 📁 PNG
+│   │   │   ├── 📁 Background
+│   │   │   │   ├── 🖼️ con1.png
+│   │   │   │   ├── 📄 con1.png.import
+│   │   │   │   ├── 🖼️ con10.png
+│   │   │   │   ├── 📄 con10.png.import
+│   │   │   │   ├── 🖼️ con11.png
+│   │   │   │   ├── 📄 con11.png.import
+│   │   │   │   ├── 🖼️ con12.png
+│   │   │   │   ├── 📄 con12.png.import
+│   │   │   │   ├── 🖼️ con13.png
+│   │   │   │   ├── 📄 con13.png.import
+│   │   │   │   ├── 🖼️ con14.png
+│   │   │   │   ├── 📄 con14.png.import
+│   │   │   │   ├── 🖼️ con15.png
+│   │   │   │   ├── 📄 con15.png.import
+│   │   │   │   ├── 🖼️ con16.png
+│   │   │   │   ├── 📄 con16.png.import
+│   │   │   │   ├── 🖼️ con17.png
+│   │   │   │   ├── 📄 con17.png.import
+│   │   │   │   ├── 🖼️ con18.png
+│   │   │   │   ├── 📄 con18.png.import
+│   │   │   │   ├── 🖼️ con19.png
+│   │   │   │   ├── 📄 con19.png.import
+│   │   │   │   ├── 🖼️ con2.png
+│   │   │   │   ├── 📄 con2.png.import
+│   │   │   │   ├── 🖼️ con20.png
+│   │   │   │   ├── 📄 con20.png.import
+│   │   │   │   ├── 🖼️ con21.png
+│   │   │   │   ├── 📄 con21.png.import
+│   │   │   │   ├── 🖼️ con22.png
+│   │   │   │   ├── 📄 con22.png.import
+│   │   │   │   ├── 🖼️ con23.png
+│   │   │   │   ├── 📄 con23.png.import
+│   │   │   │   ├── 🖼️ con24.png
+│   │   │   │   ├── 📄 con24.png.import
+│   │   │   │   ├── 🖼️ con25.png
+│   │   │   │   ├── 📄 con25.png.import
+│   │   │   │   ├── 🖼️ con26.png
+│   │   │   │   ├── 📄 con26.png.import
+│   │   │   │   ├── 🖼️ con27.png
+│   │   │   │   ├── 📄 con27.png.import
+│   │   │   │   ├── 🖼️ con28.png
+│   │   │   │   ├── 📄 con28.png.import
+│   │   │   │   ├── 🖼️ con29.png
+│   │   │   │   ├── 📄 con29.png.import
+│   │   │   │   ├── 🖼️ con3.png
+│   │   │   │   ├── 📄 con3.png.import
+│   │   │   │   ├── 🖼️ con30.png
+│   │   │   │   ├── 📄 con30.png.import
+│   │   │   │   ├── 🖼️ con31.png
+│   │   │   │   ├── 📄 con31.png.import
+│   │   │   │   ├── 🖼️ con32.png
+│   │   │   │   ├── 📄 con32.png.import
+│   │   │   │   ├── 🖼️ con33.png
+│   │   │   │   ├── 📄 con33.png.import
+│   │   │   │   ├── 🖼️ con34.png
+│   │   │   │   ├── 📄 con34.png.import
+│   │   │   │   ├── 🖼️ con35.png
+│   │   │   │   ├── 📄 con35.png.import
+│   │   │   │   ├── 🖼️ con36.png
+│   │   │   │   ├── 📄 con36.png.import
+│   │   │   │   ├── 🖼️ con37.png
+│   │   │   │   ├── 📄 con37.png.import
+│   │   │   │   ├── 🖼️ con38.png
+│   │   │   │   ├── 📄 con38.png.import
+│   │   │   │   ├── 🖼️ con39.png
+│   │   │   │   ├── 📄 con39.png.import
+│   │   │   │   ├── 🖼️ con4.png
+│   │   │   │   ├── 📄 con4.png.import
+│   │   │   │   ├── 🖼️ con40.png
+│   │   │   │   ├── 📄 con40.png.import
+│   │   │   │   ├── 🖼️ con41.png
+│   │   │   │   ├── 📄 con41.png.import
+│   │   │   │   ├── 🖼️ con42.png
+│   │   │   │   ├── 📄 con42.png.import
+│   │   │   │   ├── 🖼️ con5.png
+│   │   │   │   ├── 📄 con5.png.import
+│   │   │   │   ├── 🖼️ con6.png
+│   │   │   │   ├── 📄 con6.png.import
+│   │   │   │   ├── 🖼️ con7.png
+│   │   │   │   ├── 📄 con7.png.import
+│   │   │   │   ├── 🖼️ con8.png
+│   │   │   │   ├── 📄 con8.png.import
+│   │   │   │   ├── 🖼️ con9.png
+│   │   │   │   └── 📄 con9.png.import
+│   │   │   └── 📁 Transperent
+│   │   │       ├── 🖼️ con1.png
+│   │   │       ├── 📄 con1.png.import
+│   │   │       ├── 🖼️ con10.png
+│   │   │       ├── 📄 con10.png.import
+│   │   │       ├── 🖼️ con11.png
+│   │   │       ├── 📄 con11.png.import
+│   │   │       ├── 🖼️ con12.png
+│   │   │       ├── 📄 con12.png.import
+│   │   │       ├── 🖼️ con13.png
+│   │   │       ├── 📄 con13.png.import
+│   │   │       ├── 🖼️ con14.png
+│   │   │       ├── 📄 con14.png.import
+│   │   │       ├── 🖼️ con15.png
+│   │   │       ├── 📄 con15.png.import
+│   │   │       ├── 🖼️ con16.png
+│   │   │       ├── 📄 con16.png.import
+│   │   │       ├── 🖼️ con17.png
+│   │   │       ├── 📄 con17.png.import
+│   │   │       ├── 🖼️ con18.png
+│   │   │       ├── 📄 con18.png.import
+│   │   │       ├── 🖼️ con19.png
+│   │   │       ├── 📄 con19.png.import
+│   │   │       ├── 🖼️ con2.png
+│   │   │       ├── 📄 con2.png.import
+│   │   │       ├── 🖼️ con20.png
+│   │   │       ├── 📄 con20.png.import
+│   │   │       ├── 🖼️ con21.png
+│   │   │       ├── 📄 con21.png.import
+│   │   │       ├── 🖼️ con22.png
+│   │   │       ├── 📄 con22.png.import
+│   │   │       ├── 🖼️ con23.png
+│   │   │       ├── 📄 con23.png.import
+│   │   │       ├── 🖼️ con24.png
+│   │   │       ├── 📄 con24.png.import
+│   │   │       ├── 🖼️ con25.png
+│   │   │       ├── 📄 con25.png.import
+│   │   │       ├── 🖼️ con26.png
+│   │   │       ├── 📄 con26.png.import
+│   │   │       ├── 🖼️ con27.png
+│   │   │       ├── 📄 con27.png.import
+│   │   │       ├── 🖼️ con28.png
+│   │   │       ├── 📄 con28.png.import
+│   │   │       ├── 🖼️ con29.png
+│   │   │       ├── 📄 con29.png.import
+│   │   │       ├── 🖼️ con3.png
+│   │   │       ├── 📄 con3.png.import
+│   │   │       ├── 🖼️ con30.png
+│   │   │       ├── 📄 con30.png.import
+│   │   │       ├── 🖼️ con31.png
+│   │   │       ├── 📄 con31.png.import
+│   │   │       ├── 🖼️ con32.png
+│   │   │       ├── 📄 con32.png.import
+│   │   │       ├── 🖼️ con33.png
+│   │   │       ├── 📄 con33.png.import
+│   │   │       ├── 🖼️ con34.png
+│   │   │       ├── 📄 con34.png.import
+│   │   │       ├── 🖼️ con35.png
+│   │   │       ├── 📄 con35.png.import
+│   │   │       ├── 🖼️ con36.png
+│   │   │       ├── 📄 con36.png.import
+│   │   │       ├── 🖼️ con37.png
+│   │   │       ├── 📄 con37.png.import
+│   │   │       ├── 🖼️ con38.png
+│   │   │       ├── 📄 con38.png.import
+│   │   │       ├── 🖼️ con39.png
+│   │   │       ├── 📄 con39.png.import
+│   │   │       ├── 🖼️ con4.png
+│   │   │       ├── 📄 con4.png.import
+│   │   │       ├── 🖼️ con40.png
+│   │   │       ├── 📄 con40.png.import
+│   │   │       ├── 🖼️ con41.png
+│   │   │       ├── 📄 con41.png.import
+│   │   │       ├── 🖼️ con42.png
+│   │   │       ├── 📄 con42.png.import
+│   │   │       ├── 🖼️ con5.png
+│   │   │       ├── 📄 con5.png.import
+│   │   │       ├── 🖼️ con6.png
+│   │   │       ├── 📄 con6.png.import
+│   │   │       ├── 🖼️ con7.png
+│   │   │       ├── 📄 con7.png.import
+│   │   │       ├── 🖼️ con8.png
+│   │   │       ├── 📄 con8.png.import
+│   │   │       ├── 🖼️ con9.png
+│   │   │       └── 📄 con9.png.import
+│   │   ├── 📄 License.txt
+│   │   ├── 📄 icons.psd
+│   │   └── 📄 readme.txt
+│   ├── 📁 futuristic-sounds-and-music-pack
+│   │   ├── 📁 Music
+│   │   │   ├── 📁 MP3
+│   │   │   │   ├── 🎵 Battle_theme_loopable.mp3
+│   │   │   │   ├── 📄 Battle_theme_loopable.mp3.import
+│   │   │   │   ├── 🎵 Game_menu_theme_loopable.mp3
+│   │   │   │   ├── 📄 Game_menu_theme_loopable.mp3.import
+│   │   │   │   ├── 🎵 Main_theme_loopable.mp3
+│   │   │   │   ├── 📄 Main_theme_loopable.mp3.import
+│   │   │   │   ├── 🎵 Main_theme_night_city_loopable.mp3
+│   │   │   │   ├── 📄 Main_theme_night_city_loopable.mp3.import
+│   │   │   │   ├── 🎵 police_theme_loopable.mp3
+│   │   │   │   └── 📄 police_theme_loopable.mp3.import
+│   │   │   └── 📁 WAV
+│   │   │       ├── 🎵 Battle_theme_loopable.wav
+│   │   │       ├── 📄 Battle_theme_loopable.wav.import
+│   │   │       ├── 🎵 Game_menu_theme_loopable.wav
+│   │   │       ├── 📄 Game_menu_theme_loopable.wav.import
+│   │   │       ├── 🎵 Main_theme_loopable.wav
+│   │   │       ├── 📄 Main_theme_loopable.wav.import
+│   │   │       ├── 🎵 Main_theme_night_city_loopable.wav
+│   │   │       ├── 📄 Main_theme_night_city_loopable.wav.import
+│   │   │       ├── 🎵 police_theme_loopable.wav
+│   │   │       └── 📄 police_theme_loopable.wav.import
+│   │   ├── 📁 Sounds
+│   │   │   ├── 🎵 Airobike_idle.wav
+│   │   │   ├── 📄 Airobike_idle.wav.import
+│   │   │   ├── 🎵 Airobike_walk.wav
+│   │   │   ├── 📄 Airobike_walk.wav.import
+│   │   │   ├── 🎵 Can_drop.wav
+│   │   │   ├── 📄 Can_drop.wav.import
+│   │   │   ├── 🎵 Cashmachine.wav
+│   │   │   ├── 📄 Cashmachine.wav.import
+│   │   │   ├── 🎵 Coin_drop.wav
+│   │   │   ├── 📄 Coin_drop.wav.import
+│   │   │   ├── 🎵 Collect_cash_1.wav
+│   │   │   ├── 📄 Collect_cash_1.wav.import
+│   │   │   ├── 🎵 Collect_cash_2.wav
+│   │   │   ├── 📄 Collect_cash_2.wav.import
+│   │   │   ├── 🎵 Collect_sound.wav
+│   │   │   ├── 📄 Collect_sound.wav.import
+│   │   │   ├── 🎵 Crate_open_1.wav
+│   │   │   ├── 📄 Crate_open_1.wav.import
+│   │   │   ├── 🎵 Crate_open_2_steam.wav
+│   │   │   ├── 📄 Crate_open_2_steam.wav.import
+│   │   │   ├── 🎵 Drink_machine.wav
+│   │   │   ├── 📄 Drink_machine.wav.import
+│   │   │   ├── 🎵 Helicopter_engine_start.wav
+│   │   │   ├── 📄 Helicopter_engine_start.wav.import
+│   │   │   ├── 🎵 Helicopter_engine_stop.wav
+│   │   │   ├── 📄 Helicopter_engine_stop.wav.import
+│   │   │   ├── 🎵 Helicopter_walk.wav
+│   │   │   ├── 📄 Helicopter_walk.wav.import
+│   │   │   ├── 🎵 Insert_coin.wav
+│   │   │   ├── 📄 Insert_coin.wav.import
+│   │   │   ├── 🎵 Laser_shot.wav
+│   │   │   ├── 📄 Laser_shot.wav.import
+│   │   │   ├── 🎵 Neon_1.wav
+│   │   │   ├── 📄 Neon_1.wav.import
+│   │   │   ├── 🎵 Neon_2.wav
+│   │   │   ├── 📄 Neon_2.wav.import
+│   │   │   ├── 🎵 Police_signal.wav
+│   │   │   ├── 📄 Police_signal.wav.import
+│   │   │   ├── 🎵 Print_ticket.wav
+│   │   │   ├── 📄 Print_ticket.wav.import
+│   │   │   ├── 🎵 Tank_shot.wav
+│   │   │   ├── 📄 Tank_shot.wav.import
+│   │   │   ├── 🎵 Tank_walk.wav
+│   │   │   ├── 📄 Tank_walk.wav.import
+│   │   │   ├── 🎵 Tech_death_1.wav
+│   │   │   ├── 📄 Tech_death_1.wav.import
+│   │   │   ├── 🎵 Tech_death_2.wav
+│   │   │   ├── 📄 Tech_death_2.wav.import
+│   │   │   ├── 🎵 Truck_gun_shot.wav
+│   │   │   ├── 📄 Truck_gun_shot.wav.import
+│   │   │   ├── 🎵 Truck_walk.wav
+│   │   │   ├── 📄 Truck_walk.wav.import
+│   │   │   ├── 🎵 Walkie_talkie.wav
+│   │   │   ├── 📄 Walkie_talkie.wav.import
+│   │   │   ├── 🎵 cars_door_closing.wav
+│   │   │   ├── 📄 cars_door_closing.wav.import
+│   │   │   ├── 🎵 cars_door_opening.wav
+│   │   │   ├── 📄 cars_door_opening.wav.import
+│   │   │   ├── 🎵 outdoor_cooler.wav
+│   │   │   └── 📄 outdoor_cooler.wav.import
+│   │   ├── 📁 __MACOSX
+│   │   │   ├── 📁 Music
+│   │   │   │   ├── 📁 MP3
+│   │   │   │   │   ├── ⚙️ ._Battle_theme_loopable.mp3
+│   │   │   │   │   ├── ⚙️ ._Game_menu_theme_loopable.mp3
+│   │   │   │   │   ├── ⚙️ ._Main_theme_loopable.mp3
+│   │   │   │   │   ├── ⚙️ ._Main_theme_night_city_loopable.mp3
+│   │   │   │   │   └── ⚙️ ._police_theme_loopable.mp3
+│   │   │   │   ├── 📁 WAV
+│   │   │   │   │   ├── ⚙️ ._Battle_theme_loopable.wav
+│   │   │   │   │   ├── ⚙️ ._Game_menu_theme_loopable.wav
+│   │   │   │   │   ├── ⚙️ ._Main_theme_loopable.wav
+│   │   │   │   │   ├── ⚙️ ._Main_theme_night_city_loopable.wav
+│   │   │   │   │   └── ⚙️ ._police_theme_loopable.wav
+│   │   │   │   ├── ⚙️ ._.DS_Store
+│   │   │   │   ├── ⚙️ ._MP3
+│   │   │   │   └── ⚙️ ._WAV
+│   │   │   ├── 📁 Sounds
+│   │   │   │   ├── ⚙️ ._Airobike_idle.wav
+│   │   │   │   ├── ⚙️ ._Airobike_walk.wav
+│   │   │   │   ├── ⚙️ ._Can_drop.wav
+│   │   │   │   ├── ⚙️ ._Cashmachine.wav
+│   │   │   │   ├── ⚙️ ._Coin_drop.wav
+│   │   │   │   ├── ⚙️ ._Collect_cash_1.wav
+│   │   │   │   ├── ⚙️ ._Collect_cash_2.wav
+│   │   │   │   ├── ⚙️ ._Collect_sound.wav
+│   │   │   │   ├── ⚙️ ._Crate_open_1.wav
+│   │   │   │   ├── ⚙️ ._Crate_open_2_steam.wav
+│   │   │   │   ├── ⚙️ ._Drink_machine.wav
+│   │   │   │   ├── ⚙️ ._Helicopter_engine_start.wav
+│   │   │   │   ├── ⚙️ ._Helicopter_engine_stop.wav
+│   │   │   │   ├── ⚙️ ._Helicopter_walk.wav
+│   │   │   │   ├── ⚙️ ._Insert_coin.wav
+│   │   │   │   ├── ⚙️ ._Laser_shot.wav
+│   │   │   │   ├── ⚙️ ._Neon_1.wav
+│   │   │   │   ├── ⚙️ ._Neon_2.wav
+│   │   │   │   ├── ⚙️ ._Police_signal.wav
+│   │   │   │   ├── ⚙️ ._Print_ticket.wav
+│   │   │   │   ├── ⚙️ ._Tank_shot.wav
+│   │   │   │   ├── ⚙️ ._Tank_walk.wav
+│   │   │   │   ├── ⚙️ ._Tech_death_1.wav
+│   │   │   │   ├── ⚙️ ._Tech_death_2.wav
+│   │   │   │   ├── ⚙️ ._Truck_gun_shot.wav
+│   │   │   │   ├── ⚙️ ._Truck_walk.wav
+│   │   │   │   ├── ⚙️ ._Walkie_talkie.wav
+│   │   │   │   ├── ⚙️ ._cars_door_closing.wav
+│   │   │   │   ├── ⚙️ ._cars_door_opening.wav
+│   │   │   │   └── ⚙️ ._outdoor_cooler.wav
+│   │   │   ├── ⚙️ ._COUPON.pdf
+│   │   │   ├── ⚙️ ._COUPON.png
+│   │   │   ├── ⚙️ ._Description.txt
+│   │   │   ├── ⚙️ ._Free Assets Craftpix!.url
+│   │   │   ├── ⚙️ ._Music
+│   │   │   ├── ⚙️ ._Sounds
+│   │   │   └── ⚙️ .gdignore
+│   │   ├── 📕 COUPON.pdf
+│   │   ├── 🖼️ COUPON.png
+│   │   ├── 📄 COUPON.png.import
+│   │   ├── 📄 Description.txt
+│   │   ├── 📄 Free Assets Craftpix!.url
+│   │   └── 📄 license.txt
+│   ├── 📁 graffiti-constructor-pixel-art
+│   │   ├── 📁 1 Font
+│   │   │   ├── 🖼️ 0.png
+│   │   │   ├── 📄 0.png.import
+│   │   │   ├── 🖼️ 1.png
+│   │   │   ├── 📄 1.png.import
+│   │   │   ├── 🖼️ 2.png
+│   │   │   ├── 📄 2.png.import
+│   │   │   ├── 🖼️ 3.png
+│   │   │   ├── 📄 3.png.import
+│   │   │   ├── 🖼️ 4.png
+│   │   │   ├── 📄 4.png.import
+│   │   │   ├── 🖼️ 5.png
+│   │   │   ├── 📄 5.png.import
+│   │   │   ├── 🖼️ 6.png
+│   │   │   ├── 📄 6.png.import
+│   │   │   ├── 🖼️ 7.png
+│   │   │   ├── 📄 7.png.import
+│   │   │   ├── 🖼️ 8.png
+│   │   │   ├── 📄 8.png.import
+│   │   │   ├── 🖼️ 9.png
+│   │   │   ├── 📄 9.png.import
+│   │   │   ├── 🖼️ A1.png
+│   │   │   ├── 📄 A1.png.import
+│   │   │   ├── 🖼️ A2.png
+│   │   │   ├── 📄 A2.png.import
+│   │   │   ├── 🖼️ B1.png
+│   │   │   ├── 📄 B1.png.import
+│   │   │   ├── 🖼️ B2.png
+│   │   │   ├── 📄 B2.png.import
+│   │   │   ├── 🖼️ C1.png
+│   │   │   ├── 📄 C1.png.import
+│   │   │   ├── 🖼️ C2.png
+│   │   │   ├── 📄 C2.png.import
+│   │   │   ├── 🖼️ D1.png
+│   │   │   ├── 📄 D1.png.import
+│   │   │   ├── 🖼️ D2.png
+│   │   │   ├── 📄 D2.png.import
+│   │   │   ├── 🖼️ E1.png
+│   │   │   ├── 📄 E1.png.import
+│   │   │   ├── 🖼️ E2.png
+│   │   │   ├── 📄 E2.png.import
+│   │   │   ├── 🖼️ F1.png
+│   │   │   ├── 📄 F1.png.import
+│   │   │   ├── 🖼️ F2.png
+│   │   │   ├── 📄 F2.png.import
+│   │   │   ├── 🖼️ G1.png
+│   │   │   ├── 📄 G1.png.import
+│   │   │   ├── 🖼️ G2.png
+│   │   │   ├── 📄 G2.png.import
+│   │   │   ├── 🖼️ H1.png
+│   │   │   ├── 📄 H1.png.import
+│   │   │   ├── 🖼️ H2.png
+│   │   │   ├── 📄 H2.png.import
+│   │   │   ├── 🖼️ I1.png
+│   │   │   ├── 📄 I1.png.import
+│   │   │   ├── 🖼️ I2.png
+│   │   │   ├── 📄 I2.png.import
+│   │   │   ├── 🖼️ J1.png
+│   │   │   ├── 📄 J1.png.import
+│   │   │   ├── 🖼️ J2.png
+│   │   │   ├── 📄 J2.png.import
+│   │   │   ├── 🖼️ K1.png
+│   │   │   ├── 📄 K1.png.import
+│   │   │   ├── 🖼️ K2.png
+│   │   │   ├── 📄 K2.png.import
+│   │   │   ├── 🖼️ L1.png
+│   │   │   ├── 📄 L1.png.import
+│   │   │   ├── 🖼️ L2.png
+│   │   │   ├── 📄 L2.png.import
+│   │   │   ├── 🖼️ M1.png
+│   │   │   ├── 📄 M1.png.import
+│   │   │   ├── 🖼️ M2.png
+│   │   │   ├── 📄 M2.png.import
+│   │   │   ├── 🖼️ N1.png
+│   │   │   ├── 📄 N1.png.import
+│   │   │   ├── 🖼️ N2.png
+│   │   │   ├── 📄 N2.png.import
+│   │   │   ├── 🖼️ O1.png
+│   │   │   ├── 📄 O1.png.import
+│   │   │   ├── 🖼️ O2.png
+│   │   │   ├── 📄 O2.png.import
+│   │   │   ├── 🖼️ P1.png
+│   │   │   ├── 📄 P1.png.import
+│   │   │   ├── 🖼️ P2.png
+│   │   │   ├── 📄 P2.png.import
+│   │   │   ├── 🖼️ Q1.png
+│   │   │   ├── 📄 Q1.png.import
+│   │   │   ├── 🖼️ Q2.png
+│   │   │   ├── 📄 Q2.png.import
+│   │   │   ├── 🖼️ R1.png
+│   │   │   ├── 📄 R1.png.import
+│   │   │   ├── 🖼️ R2.png
+│   │   │   ├── 📄 R2.png.import
+│   │   │   ├── 🖼️ S1.png
+│   │   │   ├── 📄 S1.png.import
+│   │   │   ├── 🖼️ S2.png
+│   │   │   ├── 📄 S2.png.import
+│   │   │   ├── 🖼️ T1.png
+│   │   │   ├── 📄 T1.png.import
+│   │   │   ├── 🖼️ T2.png
+│   │   │   ├── 📄 T2.png.import
+│   │   │   ├── 🖼️ U1.png
+│   │   │   ├── 📄 U1.png.import
+│   │   │   ├── 🖼️ U2.png
+│   │   │   ├── 📄 U2.png.import
+│   │   │   ├── 🖼️ V1.png
+│   │   │   ├── 📄 V1.png.import
+│   │   │   ├── 🖼️ V2.png
+│   │   │   ├── 📄 V2.png.import
+│   │   │   ├── 🖼️ W1.png
+│   │   │   ├── 📄 W1.png.import
+│   │   │   ├── 🖼️ W2.png
+│   │   │   ├── 📄 W2.png.import
+│   │   │   ├── 🖼️ X1.png
+│   │   │   ├── 📄 X1.png.import
+│   │   │   ├── 🖼️ X2.png
+│   │   │   ├── 📄 X2.png.import
+│   │   │   ├── 🖼️ Y1.png
+│   │   │   ├── 📄 Y1.png.import
+│   │   │   ├── 🖼️ Y2.png
+│   │   │   ├── 📄 Y2.png.import
+│   │   │   ├── 🖼️ Z1.png
+│   │   │   ├── 📄 Z1.png.import
+│   │   │   ├── 🖼️ Z2.png
+│   │   │   └── 📄 Z2.png.import
+│   │   ├── 📁 2 Decoratoins
+│   │   │   ├── 📁 0 All
+│   │   │   │   ├── 🖼️ 1.png
+│   │   │   │   ├── 📄 1.png.import
+│   │   │   │   ├── 🖼️ 10.png
+│   │   │   │   ├── 📄 10.png.import
+│   │   │   │   ├── 🖼️ 100.png
+│   │   │   │   ├── 📄 100.png.import
+│   │   │   │   ├── 🖼️ 101.png
+│   │   │   │   ├── 📄 101.png.import
+│   │   │   │   ├── 🖼️ 102.png
+│   │   │   │   ├── 📄 102.png.import
+│   │   │   │   ├── 🖼️ 103.png
+│   │   │   │   ├── 📄 103.png.import
+│   │   │   │   ├── 🖼️ 104.png
+│   │   │   │   ├── 📄 104.png.import
+│   │   │   │   ├── 🖼️ 105.png
+│   │   │   │   ├── 📄 105.png.import
+│   │   │   │   ├── 🖼️ 106.png
+│   │   │   │   ├── 📄 106.png.import
+│   │   │   │   ├── 🖼️ 107.png
+│   │   │   │   ├── 📄 107.png.import
+│   │   │   │   ├── 🖼️ 108.png
+│   │   │   │   ├── 📄 108.png.import
+│   │   │   │   ├── 🖼️ 109.png
+│   │   │   │   ├── 📄 109.png.import
+│   │   │   │   ├── 🖼️ 11.png
+│   │   │   │   ├── 📄 11.png.import
+│   │   │   │   ├── 🖼️ 110.png
+│   │   │   │   ├── 📄 110.png.import
+│   │   │   │   ├── 🖼️ 111.png
+│   │   │   │   ├── 📄 111.png.import
+│   │   │   │   ├── 🖼️ 112.png
+│   │   │   │   ├── 📄 112.png.import
+│   │   │   │   ├── 🖼️ 113.png
+│   │   │   │   ├── 📄 113.png.import
+│   │   │   │   ├── 🖼️ 12.png
+│   │   │   │   ├── 📄 12.png.import
+│   │   │   │   ├── 🖼️ 13.png
+│   │   │   │   ├── 📄 13.png.import
+│   │   │   │   ├── 🖼️ 14.png
+│   │   │   │   ├── 📄 14.png.import
+│   │   │   │   ├── 🖼️ 15.png
+│   │   │   │   ├── 📄 15.png.import
+│   │   │   │   ├── 🖼️ 16.png
+│   │   │   │   ├── 📄 16.png.import
+│   │   │   │   ├── 🖼️ 17.png
+│   │   │   │   ├── 📄 17.png.import
+│   │   │   │   ├── 🖼️ 18.png
+│   │   │   │   ├── 📄 18.png.import
+│   │   │   │   ├── 🖼️ 19.png
+│   │   │   │   ├── 📄 19.png.import
+│   │   │   │   ├── 🖼️ 2.png
+│   │   │   │   ├── 📄 2.png.import
+│   │   │   │   ├── 🖼️ 20.png
+│   │   │   │   ├── 📄 20.png.import
+│   │   │   │   ├── 🖼️ 21.png
+│   │   │   │   ├── 📄 21.png.import
+│   │   │   │   ├── 🖼️ 22.png
+│   │   │   │   ├── 📄 22.png.import
+│   │   │   │   ├── 🖼️ 23.png
+│   │   │   │   ├── 📄 23.png.import
+│   │   │   │   ├── 🖼️ 24.png
+│   │   │   │   ├── 📄 24.png.import
+│   │   │   │   ├── 🖼️ 25.png
+│   │   │   │   ├── 📄 25.png.import
+│   │   │   │   ├── 🖼️ 26.png
+│   │   │   │   ├── 📄 26.png.import
+│   │   │   │   ├── 🖼️ 27.png
+│   │   │   │   ├── 📄 27.png.import
+│   │   │   │   ├── 🖼️ 28.png
+│   │   │   │   ├── 📄 28.png.import
+│   │   │   │   ├── 🖼️ 29.png
+│   │   │   │   ├── 📄 29.png.import
+│   │   │   │   ├── 🖼️ 3.png
+│   │   │   │   ├── 📄 3.png.import
+│   │   │   │   ├── 🖼️ 30.png
+│   │   │   │   ├── 📄 30.png.import
+│   │   │   │   ├── 🖼️ 31.png
+│   │   │   │   ├── 📄 31.png.import
+│   │   │   │   ├── 🖼️ 32.png
+│   │   │   │   ├── 📄 32.png.import
+│   │   │   │   ├── 🖼️ 33.png
+│   │   │   │   ├── 📄 33.png.import
+│   │   │   │   ├── 🖼️ 34.png
+│   │   │   │   ├── 📄 34.png.import
+│   │   │   │   ├── 🖼️ 35.png
+│   │   │   │   ├── 📄 35.png.import
+│   │   │   │   ├── 🖼️ 36.png
+│   │   │   │   ├── 📄 36.png.import
+│   │   │   │   ├── 🖼️ 37.png
+│   │   │   │   ├── 📄 37.png.import
+│   │   │   │   ├── 🖼️ 38.png
+│   │   │   │   ├── 📄 38.png.import
+│   │   │   │   ├── 🖼️ 39.png
+│   │   │   │   ├── 📄 39.png.import
+│   │   │   │   ├── 🖼️ 4.png
+│   │   │   │   ├── 📄 4.png.import
+│   │   │   │   ├── 🖼️ 40.png
+│   │   │   │   ├── 📄 40.png.import
+│   │   │   │   ├── 🖼️ 41.png
+│   │   │   │   ├── 📄 41.png.import
+│   │   │   │   ├── 🖼️ 42.png
+│   │   │   │   ├── 📄 42.png.import
+│   │   │   │   ├── 🖼️ 43.png
+│   │   │   │   ├── 📄 43.png.import
+│   │   │   │   ├── 🖼️ 44.png
+│   │   │   │   ├── 📄 44.png.import
+│   │   │   │   ├── 🖼️ 45.png
+│   │   │   │   ├── 📄 45.png.import
+│   │   │   │   ├── 🖼️ 46.png
+│   │   │   │   ├── 📄 46.png.import
+│   │   │   │   ├── 🖼️ 47.png
+│   │   │   │   ├── 📄 47.png.import
+│   │   │   │   ├── 🖼️ 48.png
+│   │   │   │   ├── 📄 48.png.import
+│   │   │   │   ├── 🖼️ 49.png
+│   │   │   │   ├── 📄 49.png.import
+│   │   │   │   ├── 🖼️ 5.png
+│   │   │   │   ├── 📄 5.png.import
+│   │   │   │   ├── 🖼️ 50.png
+│   │   │   │   ├── 📄 50.png.import
+│   │   │   │   ├── 🖼️ 51.png
+│   │   │   │   ├── 📄 51.png.import
+│   │   │   │   ├── 🖼️ 52.png
+│   │   │   │   ├── 📄 52.png.import
+│   │   │   │   ├── 🖼️ 53.png
+│   │   │   │   ├── 📄 53.png.import
+│   │   │   │   ├── 🖼️ 54.png
+│   │   │   │   ├── 📄 54.png.import
+│   │   │   │   ├── 🖼️ 55.png
+│   │   │   │   ├── 📄 55.png.import
+│   │   │   │   ├── 🖼️ 56.png
+│   │   │   │   ├── 📄 56.png.import
+│   │   │   │   ├── 🖼️ 57.png
+│   │   │   │   ├── 📄 57.png.import
+│   │   │   │   ├── 🖼️ 58.png
+│   │   │   │   ├── 📄 58.png.import
+│   │   │   │   ├── 🖼️ 59.png
+│   │   │   │   ├── 📄 59.png.import
+│   │   │   │   ├── 🖼️ 6.png
+│   │   │   │   ├── 📄 6.png.import
+│   │   │   │   ├── 🖼️ 60.png
+│   │   │   │   ├── 📄 60.png.import
+│   │   │   │   ├── 🖼️ 61.png
+│   │   │   │   ├── 📄 61.png.import
+│   │   │   │   ├── 🖼️ 62.png
+│   │   │   │   ├── 📄 62.png.import
+│   │   │   │   ├── 🖼️ 63.png
+│   │   │   │   ├── 📄 63.png.import
+│   │   │   │   ├── 🖼️ 64.png
+│   │   │   │   ├── 📄 64.png.import
+│   │   │   │   ├── 🖼️ 65.png
+│   │   │   │   ├── 📄 65.png.import
+│   │   │   │   ├── 🖼️ 66.png
+│   │   │   │   ├── 📄 66.png.import
+│   │   │   │   ├── 🖼️ 67.png
+│   │   │   │   ├── 📄 67.png.import
+│   │   │   │   ├── 🖼️ 68.png
+│   │   │   │   ├── 📄 68.png.import
+│   │   │   │   ├── 🖼️ 69.png
+│   │   │   │   ├── 📄 69.png.import
+│   │   │   │   ├── 🖼️ 7.png
+│   │   │   │   ├── 📄 7.png.import
+│   │   │   │   ├── 🖼️ 70.png
+│   │   │   │   ├── 📄 70.png.import
+│   │   │   │   ├── 🖼️ 71.png
+│   │   │   │   ├── 📄 71.png.import
+│   │   │   │   ├── 🖼️ 72.png
+│   │   │   │   ├── 📄 72.png.import
+│   │   │   │   ├── 🖼️ 73.png
+│   │   │   │   ├── 📄 73.png.import
+│   │   │   │   ├── 🖼️ 74.png
+│   │   │   │   ├── 📄 74.png.import
+│   │   │   │   ├── 🖼️ 75.png
+│   │   │   │   ├── 📄 75.png.import
+│   │   │   │   ├── 🖼️ 76.png
+│   │   │   │   ├── 📄 76.png.import
+│   │   │   │   ├── 🖼️ 77.png
+│   │   │   │   ├── 📄 77.png.import
+│   │   │   │   ├── 🖼️ 78.png
+│   │   │   │   ├── 📄 78.png.import
+│   │   │   │   ├── 🖼️ 79.png
+│   │   │   │   ├── 📄 79.png.import
+│   │   │   │   ├── 🖼️ 8.png
+│   │   │   │   ├── 📄 8.png.import
+│   │   │   │   ├── 🖼️ 80.png
+│   │   │   │   ├── 📄 80.png.import
+│   │   │   │   ├── 🖼️ 81.png
+│   │   │   │   ├── 📄 81.png.import
+│   │   │   │   ├── 🖼️ 82.png
+│   │   │   │   ├── 📄 82.png.import
+│   │   │   │   ├── 🖼️ 83.png
+│   │   │   │   ├── 📄 83.png.import
+│   │   │   │   ├── 🖼️ 84.png
+│   │   │   │   ├── 📄 84.png.import
+│   │   │   │   ├── 🖼️ 85.png
+│   │   │   │   ├── 📄 85.png.import
+│   │   │   │   ├── 🖼️ 86.png
+│   │   │   │   ├── 📄 86.png.import
+│   │   │   │   ├── 🖼️ 87.png
+│   │   │   │   ├── 📄 87.png.import
+│   │   │   │   ├── 🖼️ 88.png
+│   │   │   │   ├── 📄 88.png.import
+│   │   │   │   ├── 🖼️ 89.png
+│   │   │   │   ├── 📄 89.png.import
+│   │   │   │   ├── 🖼️ 9.png
+│   │   │   │   ├── 📄 9.png.import
+│   │   │   │   ├── 🖼️ 90.png
+│   │   │   │   ├── 📄 90.png.import
+│   │   │   │   ├── 🖼️ 91.png
+│   │   │   │   ├── 📄 91.png.import
+│   │   │   │   ├── 🖼️ 92.png
+│   │   │   │   ├── 📄 92.png.import
+│   │   │   │   ├── 🖼️ 93.png
+│   │   │   │   ├── 📄 93.png.import
+│   │   │   │   ├── 🖼️ 94.png
+│   │   │   │   ├── 📄 94.png.import
+│   │   │   │   ├── 🖼️ 95.png
+│   │   │   │   ├── 📄 95.png.import
+│   │   │   │   ├── 🖼️ 96.png
+│   │   │   │   ├── 📄 96.png.import
+│   │   │   │   ├── 🖼️ 97.png
+│   │   │   │   ├── 📄 97.png.import
+│   │   │   │   ├── 🖼️ 98.png
+│   │   │   │   ├── 📄 98.png.import
+│   │   │   │   ├── 🖼️ 99.png
+│   │   │   │   └── 📄 99.png.import
+│   │   │   ├── 📁 1 Spray
+│   │   │   │   ├── 🖼️ 1.png
+│   │   │   │   ├── 📄 1.png.import
+│   │   │   │   ├── 🖼️ 2.png
+│   │   │   │   ├── 📄 2.png.import
+│   │   │   │   ├── 🖼️ 3.png
+│   │   │   │   ├── 📄 3.png.import
+│   │   │   │   ├── 🖼️ 4.png
+│   │   │   │   ├── 📄 4.png.import
+│   │   │   │   ├── 🖼️ 5.png
+│   │   │   │   ├── 📄 5.png.import
+│   │   │   │   ├── 🖼️ 6.png
+│   │   │   │   ├── 📄 6.png.import
+│   │   │   │   ├── 🖼️ 7.png
+│   │   │   │   ├── 📄 7.png.import
+│   │   │   │   ├── 🖼️ 8.png
+│   │   │   │   ├── 📄 8.png.import
+│   │   │   │   ├── 🖼️ 9.png
+│   │   │   │   └── 📄 9.png.import
+│   │   │   ├── 📁 10 Bubbles
+│   │   │   │   ├── 🖼️ 64.png
+│   │   │   │   ├── 📄 64.png.import
+│   │   │   │   ├── 🖼️ 65.png
+│   │   │   │   ├── 📄 65.png.import
+│   │   │   │   ├── 🖼️ 66.png
+│   │   │   │   ├── 📄 66.png.import
+│   │   │   │   ├── 🖼️ 67.png
+│   │   │   │   ├── 📄 67.png.import
+│   │   │   │   ├── 🖼️ 68.png
+│   │   │   │   └── 📄 68.png.import
+│   │   │   ├── 📁 11 Bones
+│   │   │   │   ├── 🖼️ 69.png
+│   │   │   │   ├── 📄 69.png.import
+│   │   │   │   ├── 🖼️ 70.png
+│   │   │   │   ├── 📄 70.png.import
+│   │   │   │   ├── 🖼️ 71.png
+│   │   │   │   ├── 📄 71.png.import
+│   │   │   │   ├── 🖼️ 72.png
+│   │   │   │   ├── 📄 72.png.import
+│   │   │   │   ├── 🖼️ 73.png
+│   │   │   │   ├── 📄 73.png.import
+│   │   │   │   ├── 🖼️ 74.png
+│   │   │   │   ├── 📄 74.png.import
+│   │   │   │   ├── 🖼️ 75.png
+│   │   │   │   └── 📄 75.png.import
+│   │   │   ├── 📁 12 Crowns
+│   │   │   │   ├── 🖼️ 76.png
+│   │   │   │   ├── 📄 76.png.import
+│   │   │   │   ├── 🖼️ 77.png
+│   │   │   │   ├── 📄 77.png.import
+│   │   │   │   ├── 🖼️ 78.png
+│   │   │   │   ├── 📄 78.png.import
+│   │   │   │   ├── 🖼️ 79.png
+│   │   │   │   ├── 📄 79.png.import
+│   │   │   │   ├── 🖼️ 80.png
+│   │   │   │   ├── 📄 80.png.import
+│   │   │   │   ├── 🖼️ 81.png
+│   │   │   │   └── 📄 81.png.import
+│   │   │   ├── 📁 13 Wings
+│   │   │   │   ├── 🖼️ 82.png
+│   │   │   │   ├── 📄 82.png.import
+│   │   │   │   ├── 🖼️ 83.png
+│   │   │   │   ├── 📄 83.png.import
+│   │   │   │   ├── 🖼️ 84.png
+│   │   │   │   ├── 📄 84.png.import
+│   │   │   │   ├── 🖼️ 85.png
+│   │   │   │   └── 📄 85.png.import
+│   │   │   ├── 📁 14 Nimbus
+│   │   │   │   ├── 🖼️ 86.png
+│   │   │   │   ├── 📄 86.png.import
+│   │   │   │   ├── 🖼️ 87.png
+│   │   │   │   ├── 📄 87.png.import
+│   │   │   │   ├── 🖼️ 88.png
+│   │   │   │   ├── 📄 88.png.import
+│   │   │   │   ├── 🖼️ 89.png
+│   │   │   │   ├── 📄 89.png.import
+│   │   │   │   ├── 🖼️ 90.png
+│   │   │   │   └── 📄 90.png.import
+│   │   │   ├── 📁 15 Shine
+│   │   │   │   ├── 🖼️ 100.png
+│   │   │   │   ├── 📄 100.png.import
+│   │   │   │   ├── 🖼️ 91.png
+│   │   │   │   ├── 📄 91.png.import
+│   │   │   │   ├── 🖼️ 92.png
+│   │   │   │   ├── 📄 92.png.import
+│   │   │   │   ├── 🖼️ 93.png
+│   │   │   │   ├── 📄 93.png.import
+│   │   │   │   ├── 🖼️ 94.png
+│   │   │   │   ├── 📄 94.png.import
+│   │   │   │   ├── 🖼️ 95.png
+│   │   │   │   ├── 📄 95.png.import
+│   │   │   │   ├── 🖼️ 96.png
+│   │   │   │   ├── 📄 96.png.import
+│   │   │   │   ├── 🖼️ 97.png
+│   │   │   │   ├── 📄 97.png.import
+│   │   │   │   ├── 🖼️ 98.png
+│   │   │   │   ├── 📄 98.png.import
+│   │   │   │   ├── 🖼️ 99.png
+│   │   │   │   └── 📄 99.png.import
+│   │   │   ├── 📁 16 Stars
+│   │   │   │   ├── 🖼️ 101.png
+│   │   │   │   ├── 📄 101.png.import
+│   │   │   │   ├── 🖼️ 102.png
+│   │   │   │   ├── 📄 102.png.import
+│   │   │   │   ├── 🖼️ 103.png
+│   │   │   │   ├── 📄 103.png.import
+│   │   │   │   ├── 🖼️ 104.png
+│   │   │   │   ├── 📄 104.png.import
+│   │   │   │   ├── 🖼️ 105.png
+│   │   │   │   ├── 📄 105.png.import
+│   │   │   │   ├── 🖼️ 106.png
+│   │   │   │   └── 📄 106.png.import
+│   │   │   ├── 📁 17 Bricks
+│   │   │   │   ├── 🖼️ 107.png
+│   │   │   │   ├── 📄 107.png.import
+│   │   │   │   ├── 🖼️ 108.png
+│   │   │   │   ├── 📄 108.png.import
+│   │   │   │   ├── 🖼️ 109.png
+│   │   │   │   ├── 📄 109.png.import
+│   │   │   │   ├── 🖼️ 110.png
+│   │   │   │   └── 📄 110.png.import
+│   │   │   ├── 📁 18 Puddles
+│   │   │   │   ├── 🖼️ 111.png
+│   │   │   │   ├── 📄 111.png.import
+│   │   │   │   ├── 🖼️ 112.png
+│   │   │   │   ├── 📄 112.png.import
+│   │   │   │   ├── 🖼️ 113.png
+│   │   │   │   └── 📄 113.png.import
+│   │   │   ├── 📁 19 Backtiles
+│   │   │   │   ├── 🖼️ Back_01.png
+│   │   │   │   ├── 📄 Back_01.png.import
+│   │   │   │   ├── 🖼️ Back_02.png
+│   │   │   │   ├── 📄 Back_02.png.import
+│   │   │   │   ├── 🖼️ Back_03.png
+│   │   │   │   ├── 📄 Back_03.png.import
+│   │   │   │   ├── 🖼️ Back_04.png
+│   │   │   │   ├── 📄 Back_04.png.import
+│   │   │   │   ├── 🖼️ Back_05.png
+│   │   │   │   ├── 📄 Back_05.png.import
+│   │   │   │   ├── 🖼️ Back_06.png
+│   │   │   │   ├── 📄 Back_06.png.import
+│   │   │   │   ├── 🖼️ Back_07.png
+│   │   │   │   ├── 📄 Back_07.png.import
+│   │   │   │   ├── 🖼️ Back_08.png
+│   │   │   │   ├── 📄 Back_08.png.import
+│   │   │   │   ├── 🖼️ Back_09.png
+│   │   │   │   ├── 📄 Back_09.png.import
+│   │   │   │   ├── 🖼️ Back_10.png
+│   │   │   │   ├── 📄 Back_10.png.import
+│   │   │   │   ├── 🖼️ Back_11.png
+│   │   │   │   ├── 📄 Back_11.png.import
+│   │   │   │   ├── 🖼️ Back_12.png
+│   │   │   │   ├── 📄 Back_12.png.import
+│   │   │   │   ├── 🖼️ Back_13.png
+│   │   │   │   ├── 📄 Back_13.png.import
+│   │   │   │   ├── 🖼️ Back_14.png
+│   │   │   │   ├── 📄 Back_14.png.import
+│   │   │   │   ├── 🖼️ Back_15.png
+│   │   │   │   ├── 📄 Back_15.png.import
+│   │   │   │   ├── 🖼️ Back_16.png
+│   │   │   │   ├── 📄 Back_16.png.import
+│   │   │   │   ├── 🖼️ Back_17.png
+│   │   │   │   ├── 📄 Back_17.png.import
+│   │   │   │   ├── 🖼️ Back_18.png
+│   │   │   │   ├── 📄 Back_18.png.import
+│   │   │   │   ├── 🖼️ Back_19.png
+│   │   │   │   ├── 📄 Back_19.png.import
+│   │   │   │   ├── 🖼️ Back_20.png
+│   │   │   │   ├── 📄 Back_20.png.import
+│   │   │   │   ├── 🖼️ Back_21.png
+│   │   │   │   ├── 📄 Back_21.png.import
+│   │   │   │   ├── 🖼️ Back_22.png
+│   │   │   │   ├── 📄 Back_22.png.import
+│   │   │   │   ├── 🖼️ Back_23.png
+│   │   │   │   ├── 📄 Back_23.png.import
+│   │   │   │   ├── 🖼️ Back_24.png
+│   │   │   │   ├── 📄 Back_24.png.import
+│   │   │   │   ├── 🖼️ Backtileset.png
+│   │   │   │   └── 📄 Backtileset.png.import
+│   │   │   ├── 📁 2 Pointers
+│   │   │   │   ├── 🖼️ 10.png
+│   │   │   │   ├── 📄 10.png.import
+│   │   │   │   ├── 🖼️ 11.png
+│   │   │   │   ├── 📄 11.png.import
+│   │   │   │   ├── 🖼️ 12.png
+│   │   │   │   ├── 📄 12.png.import
+│   │   │   │   ├── 🖼️ 13.png
+│   │   │   │   ├── 📄 13.png.import
+│   │   │   │   ├── 🖼️ 14.png
+│   │   │   │   └── 📄 14.png.import
+│   │   │   ├── 📁 3 Rays
+│   │   │   │   ├── 🖼️ 15.png
+│   │   │   │   ├── 📄 15.png.import
+│   │   │   │   ├── 🖼️ 16.png
+│   │   │   │   ├── 📄 16.png.import
+│   │   │   │   ├── 🖼️ 17.png
+│   │   │   │   ├── 📄 17.png.import
+│   │   │   │   ├── 🖼️ 18.png
+│   │   │   │   └── 📄 18.png.import
+│   │   │   ├── 📁 4 Smudges
+│   │   │   │   ├── 🖼️ 19.png
+│   │   │   │   ├── 📄 19.png.import
+│   │   │   │   ├── 🖼️ 20.png
+│   │   │   │   ├── 📄 20.png.import
+│   │   │   │   ├── 🖼️ 21.png
+│   │   │   │   ├── 📄 21.png.import
+│   │   │   │   ├── 🖼️ 22.png
+│   │   │   │   ├── 📄 22.png.import
+│   │   │   │   ├── 🖼️ 23.png
+│   │   │   │   ├── 📄 23.png.import
+│   │   │   │   ├── 🖼️ 24.png
+│   │   │   │   ├── 📄 24.png.import
+│   │   │   │   ├── 🖼️ 25.png
+│   │   │   │   ├── 📄 25.png.import
+│   │   │   │   ├── 🖼️ 26.png
+│   │   │   │   ├── 📄 26.png.import
+│   │   │   │   ├── 🖼️ 27.png
+│   │   │   │   └── 📄 27.png.import
+│   │   │   ├── 📁 5 ExtraRays
+│   │   │   │   ├── 🖼️ 28.png
+│   │   │   │   ├── 📄 28.png.import
+│   │   │   │   ├── 🖼️ 29.png
+│   │   │   │   ├── 📄 29.png.import
+│   │   │   │   ├── 🖼️ 30.png
+│   │   │   │   ├── 📄 30.png.import
+│   │   │   │   ├── 🖼️ 31.png
+│   │   │   │   ├── 📄 31.png.import
+│   │   │   │   ├── 🖼️ 32.png
+│   │   │   │   ├── 📄 32.png.import
+│   │   │   │   ├── 🖼️ 33.png
+│   │   │   │   ├── 📄 33.png.import
+│   │   │   │   ├── 🖼️ 34.png
+│   │   │   │   └── 📄 34.png.import
+│   │   │   ├── 📁 6 Circles
+│   │   │   │   ├── 🖼️ 35.png
+│   │   │   │   ├── 📄 35.png.import
+│   │   │   │   ├── 🖼️ 36.png
+│   │   │   │   ├── 📄 36.png.import
+│   │   │   │   ├── 🖼️ 37.png
+│   │   │   │   ├── 📄 37.png.import
+│   │   │   │   ├── 🖼️ 38.png
+│   │   │   │   ├── 📄 38.png.import
+│   │   │   │   ├── 🖼️ 39.png
+│   │   │   │   ├── 📄 39.png.import
+│   │   │   │   ├── 🖼️ 40.png
+│   │   │   │   ├── 📄 40.png.import
+│   │   │   │   ├── 🖼️ 41.png
+│   │   │   │   └── 📄 41.png.import
+│   │   │   ├── 📁 7 Waves
+│   │   │   │   ├── 🖼️ 42.png
+│   │   │   │   ├── 📄 42.png.import
+│   │   │   │   ├── 🖼️ 43.png
+│   │   │   │   ├── 📄 43.png.import
+│   │   │   │   ├── 🖼️ 44.png
+│   │   │   │   ├── 📄 44.png.import
+│   │   │   │   ├── 🖼️ 45.png
+│   │   │   │   ├── 📄 45.png.import
+│   │   │   │   ├── 🖼️ 46.png
+│   │   │   │   ├── 📄 46.png.import
+│   │   │   │   ├── 🖼️ 47.png
+│   │   │   │   └── 📄 47.png.import
+│   │   │   ├── 📁 8 Skulls
+│   │   │   │   ├── 🖼️ 48.png
+│   │   │   │   ├── 📄 48.png.import
+│   │   │   │   ├── 🖼️ 49.png
+│   │   │   │   ├── 📄 49.png.import
+│   │   │   │   ├── 🖼️ 50.png
+│   │   │   │   ├── 📄 50.png.import
+│   │   │   │   ├── 🖼️ 51.png
+│   │   │   │   ├── 📄 51.png.import
+│   │   │   │   ├── 🖼️ 52.png
+│   │   │   │   ├── 📄 52.png.import
+│   │   │   │   ├── 🖼️ 53.png
+│   │   │   │   ├── 📄 53.png.import
+│   │   │   │   ├── 🖼️ 54.png
+│   │   │   │   └── 📄 54.png.import
+│   │   │   └── 📁 9 Hearts
+│   │   │       ├── 🖼️ 55.png
+│   │   │       ├── 📄 55.png.import
+│   │   │       ├── 🖼️ 56.png
+│   │   │       ├── 📄 56.png.import
+│   │   │       ├── 🖼️ 57.png
+│   │   │       ├── 📄 57.png.import
+│   │   │       ├── 🖼️ 58.png
+│   │   │       ├── 📄 58.png.import
+│   │   │       ├── 🖼️ 59.png
+│   │   │       ├── 📄 59.png.import
+│   │   │       ├── 🖼️ 60.png
+│   │   │       ├── 📄 60.png.import
+│   │   │       ├── 🖼️ 61.png
+│   │   │       ├── 📄 61.png.import
+│   │   │       ├── 🖼️ 62.png
+│   │   │       ├── 📄 62.png.import
+│   │   │       ├── 🖼️ 63.png
+│   │   │       └── 📄 63.png.import
+│   │   ├── 📁 3 Transitions
+│   │   │   ├── 🖼️ 1.png
+│   │   │   ├── 📄 1.png.import
+│   │   │   ├── 🖼️ 10.png
+│   │   │   ├── 📄 10.png.import
+│   │   │   ├── 🖼️ 11.png
+│   │   │   ├── 📄 11.png.import
+│   │   │   ├── 🖼️ 12.png
+│   │   │   ├── 📄 12.png.import
+│   │   │   ├── 🖼️ 13.png
+│   │   │   ├── 📄 13.png.import
+│   │   │   ├── 🖼️ 14.png
+│   │   │   ├── 📄 14.png.import
+│   │   │   ├── 🖼️ 15.png
+│   │   │   ├── 📄 15.png.import
+│   │   │   ├── 🖼️ 16.png
+│   │   │   ├── 📄 16.png.import
+│   │   │   ├── 🖼️ 17.png
+│   │   │   ├── 📄 17.png.import
+│   │   │   ├── 🖼️ 18.png
+│   │   │   ├── 📄 18.png.import
+│   │   │   ├── 🖼️ 19.png
+│   │   │   ├── 📄 19.png.import
+│   │   │   ├── 🖼️ 2.png
+│   │   │   ├── 📄 2.png.import
+│   │   │   ├── 🖼️ 20.png
+│   │   │   ├── 📄 20.png.import
+│   │   │   ├── 🖼️ 3.png
+│   │   │   ├── 📄 3.png.import
+│   │   │   ├── 🖼️ 4.png
+│   │   │   ├── 📄 4.png.import
+│   │   │   ├── 🖼️ 5.png
+│   │   │   ├── 📄 5.png.import
+│   │   │   ├── 🖼️ 6.png
+│   │   │   ├── 📄 6.png.import
+│   │   │   ├── 🖼️ 7.png
+│   │   │   ├── 📄 7.png.import
+│   │   │   ├── 🖼️ 8.png
+│   │   │   ├── 📄 8.png.import
+│   │   │   ├── 🖼️ 9.png
+│   │   │   └── 📄 9.png.import
+│   │   ├── 📁 4 Examples
+│   │   │   ├── 🖼️ 1Band.png
+│   │   │   ├── 📄 1Band.png.import
+│   │   │   ├── 🖼️ 2Squad13.png
+│   │   │   ├── 📄 2Squad13.png.import
+│   │   │   ├── 🖼️ 3Sport.png
+│   │   │   ├── 📄 3Sport.png.import
+│   │   │   ├── 🖼️ 4Shortway.png
+│   │   │   ├── 📄 4Shortway.png.import
+│   │   │   ├── 🖼️ 5Greenteam.png
+│   │   │   ├── 📄 5Greenteam.png.import
+│   │   │   ├── 🖼️ 6Benice.png
+│   │   │   ├── 📄 6Benice.png.import
+│   │   │   ├── 🖼️ 7Dangerarea.png
+│   │   │   ├── 📄 7Dangerarea.png.import
+│   │   │   ├── 🖼️ 8Loot.png
+│   │   │   ├── 📄 8Loot.png.import
+│   │   │   ├── 🖼️ 9Craftpix.png
+│   │   │   └── 📄 9Craftpix.png.import
+│   │   ├── 📁 PSD
+│   │   │   ├── 📄 Backtileset.psd
+│   │   │   ├── 📄 Font_decorations.psd
+│   │   │   └── 📄 Transparent.psd
+│   │   ├── 📄 Font.txt
+│   │   ├── 📄 License.txt
+│   │   ├── 🖼️ Palette.png
+│   │   └── 📄 Palette.png.import
+│   ├── 📁 health-bar
+│   │   ├── 📁 bar
+│   │   │   ├── 🖼️ empty health bar.png
+│   │   │   ├── 📄 empty health bar.png.import
+│   │   │   ├── 🖼️ health bar.png
+│   │   │   ├── 📄 health bar.png.import
+│   │   │   ├── 🖼️ no health bar.png
+│   │   │   └── 📄 no health bar.png.import
+│   │   └── 📁 health
+│   │       ├── 🖼️ health.png
+│   │       ├── 📄 health.png.import
+│   │       ├── 🖼️ no health.png
+│   │       └── 📄 no health.png.import
+│   ├── 📁 logo
+│   │   ├── 🖼️ logo.png
+│   │   └── 📄 logo.png.import
+│   ├── 📁 medieval-fantasy-ui_pack
+│   │   ├── 📁 UI Icons
+│   │   │   ├── 🖼️ icon1.png
+│   │   │   ├── 📄 icon1.png.import
+│   │   │   ├── 🖼️ icon10.png
+│   │   │   ├── 📄 icon10.png.import
+│   │   │   ├── 🖼️ icon11.png
+│   │   │   ├── 📄 icon11.png.import
+│   │   │   ├── 🖼️ icon12.png
+│   │   │   ├── 📄 icon12.png.import
+│   │   │   ├── 🖼️ icon13.png
+│   │   │   ├── 📄 icon13.png.import
+│   │   │   ├── 🖼️ icon14.png
+│   │   │   ├── 📄 icon14.png.import
+│   │   │   ├── 🖼️ icon15.png
+│   │   │   ├── 📄 icon15.png.import
+│   │   │   ├── 🖼️ icon16.png
+│   │   │   ├── 📄 icon16.png.import
+│   │   │   ├── 🖼️ icon17.png
+│   │   │   ├── 📄 icon17.png.import
+│   │   │   ├── 🖼️ icon18.png
+│   │   │   ├── 📄 icon18.png.import
+│   │   │   ├── 🖼️ icon19.png
+│   │   │   ├── 📄 icon19.png.import
+│   │   │   ├── 🖼️ icon2.png
+│   │   │   ├── 📄 icon2.png.import
+│   │   │   ├── 🖼️ icon20.png
+│   │   │   ├── 📄 icon20.png.import
+│   │   │   ├── 🖼️ icon21.png
+│   │   │   ├── 📄 icon21.png.import
+│   │   │   ├── 🖼️ icon22.png
+│   │   │   ├── 📄 icon22.png.import
+│   │   │   ├── 🖼️ icon23.png
+│   │   │   ├── 📄 icon23.png.import
+│   │   │   ├── 🖼️ icon24.png
+│   │   │   ├── 📄 icon24.png.import
+│   │   │   ├── 🖼️ icon25.png
+│   │   │   ├── 📄 icon25.png.import
+│   │   │   ├── 🖼️ icon26.png
+│   │   │   ├── 📄 icon26.png.import
+│   │   │   ├── 🖼️ icon27.png
+│   │   │   ├── 📄 icon27.png.import
+│   │   │   ├── 🖼️ icon28.png
+│   │   │   ├── 📄 icon28.png.import
+│   │   │   ├── 🖼️ icon29.png
+│   │   │   ├── 📄 icon29.png.import
+│   │   │   ├── 🖼️ icon3.png
+│   │   │   ├── 📄 icon3.png.import
+│   │   │   ├── 🖼️ icon30.png
+│   │   │   ├── 📄 icon30.png.import
+│   │   │   ├── 🖼️ icon31.png
+│   │   │   ├── 📄 icon31.png.import
+│   │   │   ├── 🖼️ icon32.png
+│   │   │   ├── 📄 icon32.png.import
+│   │   │   ├── 🖼️ icon33.png
+│   │   │   ├── 📄 icon33.png.import
+│   │   │   ├── 🖼️ icon34.png
+│   │   │   ├── 📄 icon34.png.import
+│   │   │   ├── 🖼️ icon35.png
+│   │   │   ├── 📄 icon35.png.import
+│   │   │   ├── 🖼️ icon36.png
+│   │   │   ├── 📄 icon36.png.import
+│   │   │   ├── 🖼️ icon37.png
+│   │   │   ├── 📄 icon37.png.import
+│   │   │   ├── 🖼️ icon38.png
+│   │   │   ├── 📄 icon38.png.import
+│   │   │   ├── 🖼️ icon39.png
+│   │   │   ├── 📄 icon39.png.import
+│   │   │   ├── 🖼️ icon4.png
+│   │   │   ├── 📄 icon4.png.import
+│   │   │   ├── 🖼️ icon40.png
+│   │   │   ├── 📄 icon40.png.import
+│   │   │   ├── 🖼️ icon41.png
+│   │   │   ├── 📄 icon41.png.import
+│   │   │   ├── 🖼️ icon42.png
+│   │   │   ├── 📄 icon42.png.import
+│   │   │   ├── 🖼️ icon43.png
+│   │   │   ├── 📄 icon43.png.import
+│   │   │   ├── 🖼️ icon44.png
+│   │   │   ├── 📄 icon44.png.import
+│   │   │   ├── 🖼️ icon45.png
+│   │   │   ├── 📄 icon45.png.import
+│   │   │   ├── 🖼️ icon46.png
+│   │   │   ├── 📄 icon46.png.import
+│   │   │   ├── 🖼️ icon47.png
+│   │   │   ├── 📄 icon47.png.import
+│   │   │   ├── 🖼️ icon48.png
+│   │   │   ├── 📄 icon48.png.import
+│   │   │   ├── 🖼️ icon49.png
+│   │   │   ├── 📄 icon49.png.import
+│   │   │   ├── 🖼️ icon5.png
+│   │   │   ├── 📄 icon5.png.import
+│   │   │   ├── 🖼️ icon50.png
+│   │   │   ├── 📄 icon50.png.import
+│   │   │   ├── 🖼️ icon51.png
+│   │   │   ├── 📄 icon51.png.import
+│   │   │   ├── 🖼️ icon52.png
+│   │   │   ├── 📄 icon52.png.import
+│   │   │   ├── 🖼️ icon53.png
+│   │   │   ├── 📄 icon53.png.import
+│   │   │   ├── 🖼️ icon54.png
+│   │   │   ├── 📄 icon54.png.import
+│   │   │   ├── 🖼️ icon55.png
+│   │   │   ├── 📄 icon55.png.import
+│   │   │   ├── 🖼️ icon56.png
+│   │   │   ├── 📄 icon56.png.import
+│   │   │   ├── 🖼️ icon57.png
+│   │   │   ├── 📄 icon57.png.import
+│   │   │   ├── 🖼️ icon58.png
+│   │   │   ├── 📄 icon58.png.import
+│   │   │   ├── 🖼️ icon59.png
+│   │   │   ├── 📄 icon59.png.import
+│   │   │   ├── 🖼️ icon6.png
+│   │   │   ├── 📄 icon6.png.import
+│   │   │   ├── 🖼️ icon60.png
+│   │   │   ├── 📄 icon60.png.import
+│   │   │   ├── 🖼️ icon61.png
+│   │   │   ├── 📄 icon61.png.import
+│   │   │   ├── 🖼️ icon62.png
+│   │   │   ├── 📄 icon62.png.import
+│   │   │   ├── 🖼️ icon63.png
+│   │   │   ├── 📄 icon63.png.import
+│   │   │   ├── 🖼️ icon64.png
+│   │   │   ├── 📄 icon64.png.import
+│   │   │   ├── 🖼️ icon7.png
+│   │   │   ├── 📄 icon7.png.import
+│   │   │   ├── 🖼️ icon8.png
+│   │   │   ├── 📄 icon8.png.import
+│   │   │   ├── 🖼️ icon9.png
+│   │   │   └── 📄 icon9.png.import
+│   │   ├── 📁 UI Icons 2
+│   │   │   ├── 🖼️ icon1.png
+│   │   │   ├── 📄 icon1.png.import
+│   │   │   ├── 🖼️ icon10.png
+│   │   │   ├── 📄 icon10.png.import
+│   │   │   ├── 🖼️ icon11.png
+│   │   │   ├── 📄 icon11.png.import
+│   │   │   ├── 🖼️ icon12.png
+│   │   │   ├── 📄 icon12.png.import
+│   │   │   ├── 🖼️ icon13.png
+│   │   │   ├── 📄 icon13.png.import
+│   │   │   ├── 🖼️ icon14.png
+│   │   │   ├── 📄 icon14.png.import
+│   │   │   ├── 🖼️ icon15.png
+│   │   │   ├── 📄 icon15.png.import
+│   │   │   ├── 🖼️ icon16.png
+│   │   │   ├── 📄 icon16.png.import
+│   │   │   ├── 🖼️ icon17.png
+│   │   │   ├── 📄 icon17.png.import
+│   │   │   ├── 🖼️ icon18.png
+│   │   │   ├── 📄 icon18.png.import
+│   │   │   ├── 🖼️ icon19.png
+│   │   │   ├── 📄 icon19.png.import
+│   │   │   ├── 🖼️ icon2.png
+│   │   │   ├── 📄 icon2.png.import
+│   │   │   ├── 🖼️ icon20.png
+│   │   │   ├── 📄 icon20.png.import
+│   │   │   ├── 🖼️ icon21.png
+│   │   │   ├── 📄 icon21.png.import
+│   │   │   ├── 🖼️ icon22.png
+│   │   │   ├── 📄 icon22.png.import
+│   │   │   ├── 🖼️ icon23.png
+│   │   │   ├── 📄 icon23.png.import
+│   │   │   ├── 🖼️ icon24.png
+│   │   │   ├── 📄 icon24.png.import
+│   │   │   ├── 🖼️ icon25.png
+│   │   │   ├── 📄 icon25.png.import
+│   │   │   ├── 🖼️ icon26.png
+│   │   │   ├── 📄 icon26.png.import
+│   │   │   ├── 🖼️ icon27.png
+│   │   │   ├── 📄 icon27.png.import
+│   │   │   ├── 🖼️ icon28.png
+│   │   │   ├── 📄 icon28.png.import
+│   │   │   ├── 🖼️ icon29.png
+│   │   │   ├── 📄 icon29.png.import
+│   │   │   ├── 🖼️ icon3.png
+│   │   │   ├── 📄 icon3.png.import
+│   │   │   ├── 🖼️ icon30.png
+│   │   │   ├── 📄 icon30.png.import
+│   │   │   ├── 🖼️ icon31.png
+│   │   │   ├── 📄 icon31.png.import
+│   │   │   ├── 🖼️ icon32.png
+│   │   │   ├── 📄 icon32.png.import
+│   │   │   ├── 🖼️ icon33.png
+│   │   │   ├── 📄 icon33.png.import
+│   │   │   ├── 🖼️ icon34.png
+│   │   │   ├── 📄 icon34.png.import
+│   │   │   ├── 🖼️ icon35.png
+│   │   │   ├── 📄 icon35.png.import
+│   │   │   ├── 🖼️ icon36.png
+│   │   │   ├── 📄 icon36.png.import
+│   │   │   ├── 🖼️ icon37.png
+│   │   │   ├── 📄 icon37.png.import
+│   │   │   ├── 🖼️ icon38.png
+│   │   │   ├── 📄 icon38.png.import
+│   │   │   ├── 🖼️ icon39.png
+│   │   │   ├── 📄 icon39.png.import
+│   │   │   ├── 🖼️ icon4.png
+│   │   │   ├── 📄 icon4.png.import
+│   │   │   ├── 🖼️ icon40.png
+│   │   │   ├── 📄 icon40.png.import
+│   │   │   ├── 🖼️ icon41.png
+│   │   │   ├── 📄 icon41.png.import
+│   │   │   ├── 🖼️ icon42.png
+│   │   │   ├── 📄 icon42.png.import
+│   │   │   ├── 🖼️ icon43.png
+│   │   │   ├── 📄 icon43.png.import
+│   │   │   ├── 🖼️ icon44.png
+│   │   │   ├── 📄 icon44.png.import
+│   │   │   ├── 🖼️ icon45.png
+│   │   │   ├── 📄 icon45.png.import
+│   │   │   ├── 🖼️ icon46.png
+│   │   │   ├── 📄 icon46.png.import
+│   │   │   ├── 🖼️ icon47.png
+│   │   │   ├── 📄 icon47.png.import
+│   │   │   ├── 🖼️ icon48.png
+│   │   │   ├── 📄 icon48.png.import
+│   │   │   ├── 🖼️ icon49.png
+│   │   │   ├── 📄 icon49.png.import
+│   │   │   ├── 🖼️ icon5.png
+│   │   │   ├── 📄 icon5.png.import
+│   │   │   ├── 🖼️ icon50.png
+│   │   │   ├── 📄 icon50.png.import
+│   │   │   ├── 🖼️ icon51.png
+│   │   │   ├── 📄 icon51.png.import
+│   │   │   ├── 🖼️ icon52.png
+│   │   │   ├── 📄 icon52.png.import
+│   │   │   ├── 🖼️ icon53.png
+│   │   │   ├── 📄 icon53.png.import
+│   │   │   ├── 🖼️ icon54.png
+│   │   │   ├── 📄 icon54.png.import
+│   │   │   ├── 🖼️ icon55.png
+│   │   │   ├── 📄 icon55.png.import
+│   │   │   ├── 🖼️ icon56.png
+│   │   │   ├── 📄 icon56.png.import
+│   │   │   ├── 🖼️ icon57.png
+│   │   │   ├── 📄 icon57.png.import
+│   │   │   ├── 🖼️ icon58.png
+│   │   │   ├── 📄 icon58.png.import
+│   │   │   ├── 🖼️ icon59.png
+│   │   │   ├── 📄 icon59.png.import
+│   │   │   ├── 🖼️ icon6.png
+│   │   │   ├── 📄 icon6.png.import
+│   │   │   ├── 🖼️ icon60.png
+│   │   │   ├── 📄 icon60.png.import
+│   │   │   ├── 🖼️ icon61.png
+│   │   │   ├── 📄 icon61.png.import
+│   │   │   ├── 🖼️ icon62.png
+│   │   │   ├── 📄 icon62.png.import
+│   │   │   ├── 🖼️ icon63.png
+│   │   │   ├── 📄 icon63.png.import
+│   │   │   ├── 🖼️ icon64.png
+│   │   │   ├── 📄 icon64.png.import
+│   │   │   ├── 🖼️ icon7.png
+│   │   │   ├── 📄 icon7.png.import
+│   │   │   ├── 🖼️ icon8.png
+│   │   │   ├── 📄 icon8.png.import
+│   │   │   ├── 🖼️ icon9.png
+│   │   │   └── 📄 icon9.png.import
+│   │   ├── 📁 UI Icons 3
+│   │   │   ├── 🖼️ icon1.png
+│   │   │   ├── 📄 icon1.png.import
+│   │   │   ├── 🖼️ icon10.png
+│   │   │   ├── 📄 icon10.png.import
+│   │   │   ├── 🖼️ icon11.png
+│   │   │   ├── 📄 icon11.png.import
+│   │   │   ├── 🖼️ icon12.png
+│   │   │   ├── 📄 icon12.png.import
+│   │   │   ├── 🖼️ icon13.png
+│   │   │   ├── 📄 icon13.png.import
+│   │   │   ├── 🖼️ icon14.png
+│   │   │   ├── 📄 icon14.png.import
+│   │   │   ├── 🖼️ icon15.png
+│   │   │   ├── 📄 icon15.png.import
+│   │   │   ├── 🖼️ icon16.png
+│   │   │   ├── 📄 icon16.png.import
+│   │   │   ├── 🖼️ icon17.png
+│   │   │   ├── 📄 icon17.png.import
+│   │   │   ├── 🖼️ icon18.png
+│   │   │   ├── 📄 icon18.png.import
+│   │   │   ├── 🖼️ icon19.png
+│   │   │   ├── 📄 icon19.png.import
+│   │   │   ├── 🖼️ icon2.png
+│   │   │   ├── 📄 icon2.png.import
+│   │   │   ├── 🖼️ icon20.png
+│   │   │   ├── 📄 icon20.png.import
+│   │   │   ├── 🖼️ icon21.png
+│   │   │   ├── 📄 icon21.png.import
+│   │   │   ├── 🖼️ icon22.png
+│   │   │   ├── 📄 icon22.png.import
+│   │   │   ├── 🖼️ icon23.png
+│   │   │   ├── 📄 icon23.png.import
+│   │   │   ├── 🖼️ icon24.png
+│   │   │   ├── 📄 icon24.png.import
+│   │   │   ├── 🖼️ icon25.png
+│   │   │   ├── 📄 icon25.png.import
+│   │   │   ├── 🖼️ icon26.png
+│   │   │   ├── 📄 icon26.png.import
+│   │   │   ├── 🖼️ icon27.png
+│   │   │   ├── 📄 icon27.png.import
+│   │   │   ├── 🖼️ icon28.png
+│   │   │   ├── 📄 icon28.png.import
+│   │   │   ├── 🖼️ icon29.png
+│   │   │   ├── 📄 icon29.png.import
+│   │   │   ├── 🖼️ icon3.png
+│   │   │   ├── 📄 icon3.png.import
+│   │   │   ├── 🖼️ icon30.png
+│   │   │   ├── 📄 icon30.png.import
+│   │   │   ├── 🖼️ icon31.png
+│   │   │   ├── 📄 icon31.png.import
+│   │   │   ├── 🖼️ icon32.png
+│   │   │   ├── 📄 icon32.png.import
+│   │   │   ├── 🖼️ icon33.png
+│   │   │   ├── 📄 icon33.png.import
+│   │   │   ├── 🖼️ icon34.png
+│   │   │   ├── 📄 icon34.png.import
+│   │   │   ├── 🖼️ icon35.png
+│   │   │   ├── 📄 icon35.png.import
+│   │   │   ├── 🖼️ icon36.png
+│   │   │   ├── 📄 icon36.png.import
+│   │   │   ├── 🖼️ icon37.png
+│   │   │   ├── 📄 icon37.png.import
+│   │   │   ├── 🖼️ icon38.png
+│   │   │   ├── 📄 icon38.png.import
+│   │   │   ├── 🖼️ icon39.png
+│   │   │   ├── 📄 icon39.png.import
+│   │   │   ├── 🖼️ icon4.png
+│   │   │   ├── 📄 icon4.png.import
+│   │   │   ├── 🖼️ icon40.png
+│   │   │   ├── 📄 icon40.png.import
+│   │   │   ├── 🖼️ icon41.png
+│   │   │   ├── 📄 icon41.png.import
+│   │   │   ├── 🖼️ icon42.png
+│   │   │   ├── 📄 icon42.png.import
+│   │   │   ├── 🖼️ icon43.png
+│   │   │   ├── 📄 icon43.png.import
+│   │   │   ├── 🖼️ icon44.png
+│   │   │   ├── 📄 icon44.png.import
+│   │   │   ├── 🖼️ icon45.png
+│   │   │   ├── 📄 icon45.png.import
+│   │   │   ├── 🖼️ icon46.png
+│   │   │   ├── 📄 icon46.png.import
+│   │   │   ├── 🖼️ icon47.png
+│   │   │   ├── 📄 icon47.png.import
+│   │   │   ├── 🖼️ icon48.png
+│   │   │   ├── 📄 icon48.png.import
+│   │   │   ├── 🖼️ icon49.png
+│   │   │   ├── 📄 icon49.png.import
+│   │   │   ├── 🖼️ icon5.png
+│   │   │   ├── 📄 icon5.png.import
+│   │   │   ├── 🖼️ icon50.png
+│   │   │   ├── 📄 icon50.png.import
+│   │   │   ├── 🖼️ icon51.png
+│   │   │   ├── 📄 icon51.png.import
+│   │   │   ├── 🖼️ icon52.png
+│   │   │   ├── 📄 icon52.png.import
+│   │   │   ├── 🖼️ icon53.png
+│   │   │   ├── 📄 icon53.png.import
+│   │   │   ├── 🖼️ icon54.png
+│   │   │   ├── 📄 icon54.png.import
+│   │   │   ├── 🖼️ icon55.png
+│   │   │   ├── 📄 icon55.png.import
+│   │   │   ├── 🖼️ icon56.png
+│   │   │   ├── 📄 icon56.png.import
+│   │   │   ├── 🖼️ icon57.png
+│   │   │   ├── 📄 icon57.png.import
+│   │   │   ├── 🖼️ icon58.png
+│   │   │   ├── 📄 icon58.png.import
+│   │   │   ├── 🖼️ icon59.png
+│   │   │   ├── 📄 icon59.png.import
+│   │   │   ├── 🖼️ icon6.png
+│   │   │   ├── 📄 icon6.png.import
+│   │   │   ├── 🖼️ icon60.png
+│   │   │   ├── 📄 icon60.png.import
+│   │   │   ├── 🖼️ icon61.png
+│   │   │   ├── 📄 icon61.png.import
+│   │   │   ├── 🖼️ icon62.png
+│   │   │   ├── 📄 icon62.png.import
+│   │   │   ├── 🖼️ icon63.png
+│   │   │   ├── 📄 icon63.png.import
+│   │   │   ├── 🖼️ icon64.png
+│   │   │   ├── 📄 icon64.png.import
+│   │   │   ├── 🖼️ icon7.png
+│   │   │   ├── 📄 icon7.png.import
+│   │   │   ├── 🖼️ icon8.png
+│   │   │   ├── 📄 icon8.png.import
+│   │   │   ├── 🖼️ icon9.png
+│   │   │   └── 📄 icon9.png.import
+│   │   ├── 📁 UI Main Menü Icons
+│   │   │   ├── 🖼️ mainmenuicon1.png
+│   │   │   ├── 📄 mainmenuicon1.png.import
+│   │   │   ├── 🖼️ mainmenuicon10.png
+│   │   │   ├── 📄 mainmenuicon10.png.import
+│   │   │   ├── 🖼️ mainmenuicon11.png
+│   │   │   ├── 📄 mainmenuicon11.png.import
+│   │   │   ├── 🖼️ mainmenuicon12.png
+│   │   │   ├── 📄 mainmenuicon12.png.import
+│   │   │   ├── 🖼️ mainmenuicon13.png
+│   │   │   ├── 📄 mainmenuicon13.png.import
+│   │   │   ├── 🖼️ mainmenuicon14.png
+│   │   │   ├── 📄 mainmenuicon14.png.import
+│   │   │   ├── 🖼️ mainmenuicon15.png
+│   │   │   ├── 📄 mainmenuicon15.png.import
+│   │   │   ├── 🖼️ mainmenuicon16.png
+│   │   │   ├── 📄 mainmenuicon16.png.import
+│   │   │   ├── 🖼️ mainmenuicon2.png
+│   │   │   ├── 📄 mainmenuicon2.png.import
+│   │   │   ├── 🖼️ mainmenuicon3.png
+│   │   │   ├── 📄 mainmenuicon3.png.import
+│   │   │   ├── 🖼️ mainmenuicon4.png
+│   │   │   ├── 📄 mainmenuicon4.png.import
+│   │   │   ├── 🖼️ mainmenuicon5.png
+│   │   │   ├── 📄 mainmenuicon5.png.import
+│   │   │   ├── 🖼️ mainmenuicon6.png
+│   │   │   ├── 📄 mainmenuicon6.png.import
+│   │   │   ├── 🖼️ mainmenuicon7.png
+│   │   │   ├── 📄 mainmenuicon7.png.import
+│   │   │   ├── 🖼️ mainmenuicon8.png
+│   │   │   ├── 📄 mainmenuicon8.png.import
+│   │   │   ├── 🖼️ mainmenuicon9.png
+│   │   │   └── 📄 mainmenuicon9.png.import
+│   │   ├── 🖼️ DoNotForget.png
+│   │   ├── 📄 DoNotForget.png.import
+│   │   ├── 📄 Readme.txt
+│   │   ├── 🖼️ icons1.png
+│   │   ├── 📄 icons1.png.import
+│   │   ├── 🖼️ icons2.png
+│   │   ├── 📄 icons2.png.import
+│   │   ├── 🖼️ icons3.png
+│   │   ├── 📄 icons3.png.import
+│   │   ├── 🖼️ mainmenuicons.png
+│   │   └── 📄 mainmenuicons.png.import
+│   └── 📁 paladin-icon-pack
+│       ├── 📁 AI
+│       │   └── 📄 Paladine_Skills_Icon_Pack.ai
+│       ├── 📁 EPS
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-01.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-02.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-03.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-04.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-05.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-06.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-07.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-08.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-09.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-10.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-11.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-12.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-13.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-14.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-15.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-16.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-17.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-18.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-19.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-20.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-21.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-22.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-23.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-24.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-25.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-26.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-27.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-28.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-29.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-30.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-31.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-32.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-33.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-34.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-35.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-36.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-37.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-38.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-39.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-40.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-41.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-42.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-43.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-44.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-45.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-46.eps
+│       │   ├── 📄 Paladine_Skills_Icon_Pack-47.eps
+│       │   └── 📄 Paladine_Skills_Icon_Pack-48.eps
+│       ├── 📁 PNG
+│       │   ├── 🖼️ 1.png
+│       │   ├── 📄 1.png.import
+│       │   ├── 🖼️ 10.png
+│       │   ├── 📄 10.png.import
+│       │   ├── 🖼️ 11.png
+│       │   ├── 📄 11.png.import
+│       │   ├── 🖼️ 12.png
+│       │   ├── 📄 12.png.import
+│       │   ├── 🖼️ 13.png
+│       │   ├── 📄 13.png.import
+│       │   ├── 🖼️ 14.png
+│       │   ├── 📄 14.png.import
+│       │   ├── 🖼️ 15.png
+│       │   ├── 📄 15.png.import
+│       │   ├── 🖼️ 16.png
+│       │   ├── 📄 16.png.import
+│       │   ├── 🖼️ 17.png
+│       │   ├── 📄 17.png.import
+│       │   ├── 🖼️ 18.png
+│       │   ├── 📄 18.png.import
+│       │   ├── 🖼️ 19.png
+│       │   ├── 📄 19.png.import
+│       │   ├── 🖼️ 2.png
+│       │   ├── 📄 2.png.import
+│       │   ├── 🖼️ 20.png
+│       │   ├── 📄 20.png.import
+│       │   ├── 🖼️ 21.png
+│       │   ├── 📄 21.png.import
+│       │   ├── 🖼️ 22.png
+│       │   ├── 📄 22.png.import
+│       │   ├── 🖼️ 23.png
+│       │   ├── 📄 23.png.import
+│       │   ├── 🖼️ 24.png
+│       │   ├── 📄 24.png.import
+│       │   ├── 🖼️ 25.png
+│       │   ├── 📄 25.png.import
+│       │   ├── 🖼️ 26.png
+│       │   ├── 📄 26.png.import
+│       │   ├── 🖼️ 27.png
+│       │   ├── 📄 27.png.import
+│       │   ├── 🖼️ 28.png
+│       │   ├── 📄 28.png.import
+│       │   ├── 🖼️ 29.png
+│       │   ├── 📄 29.png.import
+│       │   ├── 🖼️ 3.png
+│       │   ├── 📄 3.png.import
+│       │   ├── 🖼️ 30.png
+│       │   ├── 📄 30.png.import
+│       │   ├── 🖼️ 31.png
+│       │   ├── 📄 31.png.import
+│       │   ├── 🖼️ 32.png
+│       │   ├── 📄 32.png.import
+│       │   ├── 🖼️ 33.png
+│       │   ├── 📄 33.png.import
+│       │   ├── 🖼️ 34.png
+│       │   ├── 📄 34.png.import
+│       │   ├── 🖼️ 35.png
+│       │   ├── 📄 35.png.import
+│       │   ├── 🖼️ 36.png
+│       │   ├── 📄 36.png.import
+│       │   ├── 🖼️ 37.png
+│       │   ├── 📄 37.png.import
+│       │   ├── 🖼️ 38.png
+│       │   ├── 📄 38.png.import
+│       │   ├── 🖼️ 39.png
+│       │   ├── 📄 39.png.import
+│       │   ├── 🖼️ 4.png
+│       │   ├── 📄 4.png.import
+│       │   ├── 🖼️ 40.png
+│       │   ├── 📄 40.png.import
+│       │   ├── 🖼️ 41.png
+│       │   ├── 📄 41.png.import
+│       │   ├── 🖼️ 42.png
+│       │   ├── 📄 42.png.import
+│       │   ├── 🖼️ 43.png
+│       │   ├── 📄 43.png.import
+│       │   ├── 🖼️ 44.png
+│       │   ├── 📄 44.png.import
+│       │   ├── 🖼️ 45.png
+│       │   ├── 📄 45.png.import
+│       │   ├── 🖼️ 46.png
+│       │   ├── 📄 46.png.import
+│       │   ├── 🖼️ 47.png
+│       │   ├── 📄 47.png.import
+│       │   ├── 🖼️ 48.png
+│       │   ├── 📄 48.png.import
+│       │   ├── 🖼️ 5.png
+│       │   ├── 📄 5.png.import
+│       │   ├── 🖼️ 6.png
+│       │   ├── 📄 6.png.import
+│       │   ├── 🖼️ 7.png
+│       │   ├── 📄 7.png.import
+│       │   ├── 🖼️ 8.png
+│       │   ├── 📄 8.png.import
+│       │   ├── 🖼️ 9.png
+│       │   └── 📄 9.png.import
+│       └── 📁 TXT
+│           ├── 📄 license.txt
+│           └── 📄 readme.txt
+├── 📁 relay-server
+│   ├── 📝 README.md
+│   ├── ⚙️ package-lock.json
+│   ├── ⚙️ package.json
+│   ├── 📄 server.js
+│   ├── 📄 test_idle.js
+│   └── 📄 test_relay.js
+├── 📁 resources
+│   ├── 📁 characters
+│   │   ├── 📄 karasu.tres
+│   │   ├── 📄 kitsune.tres
+│   │   └── 📄 yamabushi.tres
+│   └── 📁 moves
+│       ├── 📄 karasu_heavy.tres
+│       ├── 📄 karasu_light.tres
+│       ├── 📄 karasu_special.tres
+│       ├── 📄 kitsune_heavy.tres
+│       ├── 📄 kitsune_light.tres
+│       ├── 📄 kitsune_special.tres
+│       ├── 📄 yamabushi_heavy.tres
+│       ├── 📄 yamabushi_light.tres
+│       └── 📄 yamabushi_special.tres
+├── 📁 sample-game-style
+│   ├── 🖼️ 750px-Mortal-Kombat-1992-Arcade.jpg
+│   ├── 📄 750px-Mortal-Kombat-1992-Arcade.jpg.import
+│   ├── 🖼️ SF6_Battle_HUD.jpg
+│   ├── 📄 SF6_Battle_HUD.jpg.import
+│   ├── 🖼️ Screenshot 2026-10-28 185346.png
+│   └── 📄 Screenshot 2026-10-28 185346.png.import
+├── 📁 scenes
+│   ├── 📄 character_select.tscn
+│   ├── 📄 game_arena.tscn
+│   ├── 📄 lobby.tscn
+│   ├── 📄 main_menu.tscn
+│   ├── 📄 player.tscn
+│   ├── 📄 projectile.tscn
+│   └── 📄 touch_controls.tscn
+├── 📁 scripts
+│   ├── 📄 audio_manager.gd
+│   ├── 📄 audio_manager.gd.uid
+│   ├── 🐍 build_resources.py
+│   ├── 📄 character_data.gd
+│   ├── 📄 character_data.gd.uid
+│   ├── 📄 character_select.gd
+│   ├── 📄 character_select.gd.uid
+│   ├── 🐍 check_res_paths.py
+│   ├── 📄 game_arena.gd
+│   ├── 📄 game_arena.gd.uid
+│   ├── 📄 game_state.gd
+│   ├── 📄 game_state.gd.uid
+│   ├── 📄 lobby.gd
+│   ├── 📄 lobby.gd.uid
+│   ├── 📄 main_menu.gd
+│   ├── 📄 main_menu.gd.uid
+│   ├── 📄 move_data.gd
+│   ├── 📄 move_data.gd.uid
+│   ├── 📄 network_manager.gd
+│   ├── 📄 network_manager.gd.uid
+│   ├── 📄 player.gd
+│   ├── 📄 player.gd.uid
+│   ├── 📄 projectile.gd
+│   ├── 📄 projectile.gd.uid
+│   ├── 📄 relay_client.gd
+│   ├── 📄 relay_client.gd.uid
+│   ├── 📄 scene_router.gd
+│   ├── 📄 scene_router.gd.uid
+│   ├── 📄 touch_controls.gd
+│   └── 📄 touch_controls.gd.uid
+├── 📁 ui
+│   └── 📁 theme
+│       ├── 📄 button_disabled.tres
+│       ├── 📄 button_focused.tres
+│       ├── 📄 button_hover.tres
+│       ├── 📄 button_normal.tres
+│       ├── 📄 button_pressed.tres
+│       └── 📄 game_theme.tres
+├── ⚙️ .editorconfig
+├── ⚙️ .gitattributes
+├── ⚙️ .gitignore
+├── 📝 ASSET_MANIFEST.md
+├── 📝 README.md
+├── 📄 default_bus_layout.tres
+├── 📄 file.tree
+├── 🖼️ icon.svg
+├── 📄 icon.svg.import
+├── 🖼️ logo.png
+├── 📄 logo.png.import
+├── 📄 project.godot
+├── 📄 run_lan_test.ps1
+└── 📄 run_online_test.ps1
+```
+
+---
+*Generated by FileTree Pro Extension*# File Tree: fight-back

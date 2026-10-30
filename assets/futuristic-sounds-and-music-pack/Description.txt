@@ -1,0 +1,40 @@
+Set #2
+
+Music Tracks:
+Game_menu_theme_loopable - suitable for the main menu or a melancholic moment
+Main_theme_night_city_loopable - fits as the main theme for a night-city setting
+police_theme_loopable - music theme for a police-themed pack
+Main_theme_loopable - main theme, suitable for almost any location
+Battle_theme_loopable - battle theme
+
+Sounds Inspired by the POLICE TECH Pack:
+Laser_shot - laser sound
+Helicopter_walk - helicopter movement sound
+Helicopter_engine_start - helicopter takeoff sound
+Helicopter_engine_stop - helicopter landing sound
+Airobike_Idle - airobike in idle state
+Airobike_walk - airobike moving
+Police_signal - police car siren
+Tank_shot - tank shot
+Truck_gun_Shot - truck-mounted gun shot
+Tank_walk - tank movement sound
+Truck_walk - truck movement sound
+Walkie_talkie - walkie-talkie sound
+Tech_death_1, Tech_death_2 - machine death sound (two variants)
+cars_door_opening - car door opening
+cars_door_closing - car door closing
+
+Sounds Inspired by the MARKET STREET Pack:
+Neon_1, Neon_2 - neon buzzing (two variants)
+Print_ticket - machine printing a ticket
+Can_drop - vending machine dropping a soda can
+Insert_coin - coin insertion in vending machine
+Coin_drop - vending machine dispensing change
+Drink_machine - vending machine pouring a drink
+
+Sounds Inspired by the RESIDENTIAL AREA Pack:
+Collect_sound - pickup sound
+outdoor_cooler - outdoor ventilation fan
+Cashmachine - cash register sound (ambience or UI purchase/sale)
+Crate_open_1, Crate_open_2_steam - crate opening (with steam / without steam)
+Collect_cash_1, Collect_cash_2 - paper money pickup (two variants)

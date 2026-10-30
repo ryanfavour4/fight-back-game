@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="MoveData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/move_data.gd" id="1_move"]
+
+[resource]
+script = ExtResource("1_move")
+move_name = "Spirit Palm"
+animation_name = "attack_light"
+startup_frame = 2
+active_frame_start = 3
+active_frame_end = 5
+recovery_frame = 9
+damage = 7.0
+hitstun_frames = 12
+knockback = Vector2(180, -140)
+hitbox_size = Vector2(60, 45)
+hitbox_offset = Vector2(45, -10)
+sfx_name = "swing"
+is_projectile = false
+projectile_speed = 550.0

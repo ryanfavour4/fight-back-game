@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/menu/menu_button_wide_focused.png" id="1_tex"]
+
+[resource]
+texture = ExtResource("1_tex")
+texture_margin_left = 32.0
+texture_margin_top = 20.0
+texture_margin_right = 32.0
+texture_margin_bottom = 20.0

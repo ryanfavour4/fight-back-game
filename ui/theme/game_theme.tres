@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=6 format=3]
+
+[ext_resource type="StyleBox" path="res://ui/theme/button_disabled.tres" id="1_dis"]
+[ext_resource type="StyleBox" path="res://ui/theme/button_focused.tres" id="2_foc"]
+[ext_resource type="StyleBox" path="res://ui/theme/button_hover.tres" id="3_hov"]
+[ext_resource type="StyleBox" path="res://ui/theme/button_normal.tres" id="4_nor"]
+[ext_resource type="StyleBox" path="res://ui/theme/button_pressed.tres" id="5_pre"]
+
+[resource]
+Button/colors/font_color = Color(0.92, 0.94, 0.96, 1)
+Button/colors/font_hover_color = Color(1, 0.9, 0.4, 1)
+Button/colors/font_pressed_color = Color(0.7, 0.85, 1, 1)
+Button/font_sizes/font_size = 20
+Button/styles/disabled = ExtResource("1_dis")
+Button/styles/focus = ExtResource("2_foc")
+Button/styles/hover = ExtResource("3_hov")
+Button/styles/normal = ExtResource("4_nor")
+Button/styles/pressed = ExtResource("5_pre")
