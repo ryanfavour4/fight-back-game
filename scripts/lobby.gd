@@ -73,6 +73,8 @@ func _ready() -> void:
 	NetworkManager.room_created.connect(_on_room_created)
 	NetworkManager.room_join_failed.connect(_on_room_join_failed)
 	NetworkManager.ping_updated.connect(_on_ping_updated)
+	if NetworkManager.has_signal("connection_progress"):
+		NetworkManager.connection_progress.connect(_on_connection_progress)
 
 	# Set default tab
 	_set_mode(true)
@@ -105,7 +107,12 @@ func _load_saved_settings() -> void:
 	if cfg.load(_config_path) == OK:
 		username_input.text = cfg.get_value("player", "name", "Fighter_" + str(randi_range(100, 999)))
 		ip_input.text = cfg.get_value("network", "last_ip", "127.0.0.1")
-		NetworkManager.relay_url = cfg.get_value("network", "relay_url", NetworkManager.relay_url)
+		if cfg.has_section_key("network", "relay_url"):
+			var saved_relay: String = cfg.get_value("network", "relay_url", "").strip_edges()
+			if not saved_relay.is_empty() and NetworkManager.relay_url_source != "--relay argument":
+				NetworkManager.relay_url = saved_relay
+				NetworkManager.relay_url_source = "saved settings"
+				print("[LOBBY] Loaded relay_url from saved settings: '%s'" % saved_relay)
 	else:
 		username_input.text = "Fighter_" + str(randi_range(100, 999))
 		ip_input.text = "127.0.0.1"
@@ -116,6 +123,15 @@ func _save_settings() -> void:
 	cfg.set_value("network", "last_ip", ip_input.text.strip_edges())
 	cfg.set_value("network", "relay_url", NetworkManager.relay_url)
 	cfg.save(_config_path)
+
+func _on_connection_progress(elapsed_sec: float, msg: String) -> void:
+	status_label.text = msg
+	status_label.modulate = Color(1.0, 0.85, 0.3)
+	if wakeup_modal:
+		wakeup_modal.visible = true
+		var desc_lbl = wakeup_modal.get_node_or_null("Margin/VBox/Desc") as Label
+		if desc_lbl:
+			desc_lbl.text = "Waking up the server...\nThis can take up to a minute on the free tier.\nElapsed: %d s / 90 s" % int(elapsed_sec)
 
 # ==============================================================================
 # ONLINE ACTIONS

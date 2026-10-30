@@ -54,6 +54,35 @@ var current_tick: int = 0
 @export var sync_frame: int = 0
 @export var sync_hitbox_active: bool = false
 
+# Input buffering & network hold constants
+const INPUT_BUFFER_WINDOW_FRAMES: int = 10
+const CLIENT_INPUT_HOLD_FRAMES: int = 8
+
+var buffered_attack: int = 0
+var attack_buffer_timer: int = 0
+var buffered_jump: bool = false
+var jump_buffer_timer: int = 0
+
+var _hold_light_frames: int = 0
+var _hold_heavy_frames: int = 0
+var _hold_special_frames: int = 0
+var _hold_jump_frames: int = 0
+
+var _prev_received_mask: int = 0
+var _prev_local_mask: int = 0
+
+var attack_register_count: Dictionary = {
+	"attack_light": 0,
+	"attack_heavy": 0,
+	"attack_special": 0
+}
+
+var _test_presses_sent: Dictionary = {
+	"light": 0,
+	"heavy": 0,
+	"special": 0
+}
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var body_shape: CollisionShape2D = $BodyCollision
 @onready var hurtbox: Area2D = $Hurtbox
@@ -170,6 +199,42 @@ func _physics_process(delta: float) -> void:
 # INPUT GATHERING & NETWORKING
 # ==============================================================================
 func _sample_local_input() -> int:
+	if NetworkManager.is_attack_test:
+		var mask: int = 0
+		var frame := Engine.get_physics_frames()
+		var arena = get_tree().current_scene
+		if arena and "is_round_active" in arena and arena.is_round_active:
+			# Press once every 35 frames (~0.58s), alternating between Light (1-30), Heavy (31-60), Special (61-90)
+			# Offset P1 and P2 slightly so their attack animations don't collide (P1 on %35==0, P2 on %35==18)
+			var offset: int = 0 if player_number == 1 else 18
+			if (frame + offset) % 35 == 0:
+				if _test_presses_sent["light"] < 30:
+					_test_presses_sent["light"] += 1
+					_hold_light_frames = CLIENT_INPUT_HOLD_FRAMES
+					print("[TEST INPUT] P%d sent LIGHT press #%d at frame %d" % [player_number, _test_presses_sent["light"], frame])
+				elif _test_presses_sent["heavy"] < 30:
+					_test_presses_sent["heavy"] += 1
+					_hold_heavy_frames = CLIENT_INPUT_HOLD_FRAMES
+					print("[TEST INPUT] P%d sent HEAVY press #%d at frame %d" % [player_number, _test_presses_sent["heavy"], frame])
+				elif _test_presses_sent["special"] < 30:
+					_test_presses_sent["special"] += 1
+					_hold_special_frames = CLIENT_INPUT_HOLD_FRAMES
+					print("[TEST INPUT] P%d sent SPECIAL press #%d at frame %d" % [player_number, _test_presses_sent["special"], frame])
+
+		if _hold_jump_frames > 0:
+			mask |= INPUT_JUMP
+			_hold_jump_frames -= 1
+		if _hold_light_frames > 0:
+			mask |= INPUT_LIGHT
+			_hold_light_frames -= 1
+		if _hold_heavy_frames > 0:
+			mask |= INPUT_HEAVY
+			_hold_heavy_frames -= 1
+		if _hold_special_frames > 0:
+			mask |= INPUT_SPECIAL
+			_hold_special_frames -= 1
+		return mask
+
 	if NetworkManager.is_autotest:
 		var mask: int = 0
 		var frame := Engine.get_physics_frames()
@@ -199,24 +264,85 @@ func _sample_local_input() -> int:
 		mask |= INPUT_LEFT
 	if Input.is_action_pressed("p_right"):
 		mask |= INPUT_RIGHT
+
+	# Detect rising edge button presses and initiate hold window
 	if Input.is_action_just_pressed("p_jump"):
-		mask |= INPUT_JUMP
+		_hold_jump_frames = CLIENT_INPUT_HOLD_FRAMES
 	if Input.is_action_just_pressed("p_light"):
-		mask |= INPUT_LIGHT
+		_hold_light_frames = CLIENT_INPUT_HOLD_FRAMES
 	if Input.is_action_just_pressed("p_heavy"):
-		mask |= INPUT_HEAVY
+		_hold_heavy_frames = CLIENT_INPUT_HOLD_FRAMES
 	if Input.is_action_just_pressed("p_special"):
+		_hold_special_frames = CLIENT_INPUT_HOLD_FRAMES
+
+	# Hold active attack and jump buttons in outgoing mask so single dropped packets are not lost
+	if _hold_jump_frames > 0:
+		mask |= INPUT_JUMP
+		_hold_jump_frames -= 1
+	if _hold_light_frames > 0:
+		mask |= INPUT_LIGHT
+		_hold_light_frames -= 1
+	if _hold_heavy_frames > 0:
+		mask |= INPUT_HEAVY
+		_hold_heavy_frames -= 1
+	if _hold_special_frames > 0:
 		mask |= INPUT_SPECIAL
+		_hold_special_frames -= 1
+
 	return mask
 
 @rpc("any_peer", "call_remote", "unreliable_ordered")
 func rpc_send_client_input(mask: int, tick: int) -> void:
-	if _is_host_sim():
-		host_cached_input = mask
+	receive_client_input(mask, tick)
+
+func receive_client_input(mask: int, tick: int) -> void:
+	if not _is_host_sim():
+		return
+	host_cached_input = mask
+	var new_client_presses: int = mask & ~_prev_received_mask
+	_prev_received_mask = mask
+
+	if new_client_presses & INPUT_LIGHT:
+		buffered_attack = INPUT_LIGHT
+		attack_buffer_timer = INPUT_BUFFER_WINDOW_FRAMES
+		print("[INPUT] P2 buffered LIGHT attack from network tick %d (frame %d)" % [tick, Engine.get_physics_frames()])
+	elif new_client_presses & INPUT_HEAVY:
+		buffered_attack = INPUT_HEAVY
+		attack_buffer_timer = INPUT_BUFFER_WINDOW_FRAMES
+		print("[INPUT] P2 buffered HEAVY attack from network tick %d (frame %d)" % [tick, Engine.get_physics_frames()])
+	elif new_client_presses & INPUT_SPECIAL:
+		buffered_attack = INPUT_SPECIAL
+		attack_buffer_timer = INPUT_BUFFER_WINDOW_FRAMES
+		print("[INPUT] P2 buffered SPECIAL attack from network tick %d (frame %d)" % [tick, Engine.get_physics_frames()])
+
+	if new_client_presses & INPUT_JUMP:
+		buffered_jump = true
+		jump_buffer_timer = INPUT_BUFFER_WINDOW_FRAMES
 
 # ==============================================================================
 # HOST SIMULATION (60 Hz FIXED)
 # ==============================================================================
+func _can_attack() -> bool:
+	if hitstop_frames_left > 0 or hitstun_frames_left > 0:
+		return false
+	if current_state in [State.IDLE, State.WALK, State.JUMP]:
+		return true
+	return false
+
+func _execute_attack_from_mask(atk_mask: int) -> void:
+	if atk_mask & INPUT_LIGHT:
+		attack_register_count["attack_light"] += 1
+		print("[BUFFER] P%d executed attack_light (Count: %d, frame: %d)" % [player_number, attack_register_count["attack_light"], Engine.get_physics_frames()])
+		_start_attack(character_data.light_move, "attack_light")
+	elif atk_mask & INPUT_HEAVY:
+		attack_register_count["attack_heavy"] += 1
+		print("[BUFFER] P%d executed attack_heavy (Count: %d, frame: %d)" % [player_number, attack_register_count["attack_heavy"], Engine.get_physics_frames()])
+		_start_attack(character_data.heavy_move, "attack_heavy")
+	elif atk_mask & INPUT_SPECIAL:
+		attack_register_count["attack_special"] += 1
+		print("[BUFFER] P%d executed attack_special (Count: %d, frame: %d)" % [player_number, attack_register_count["attack_special"], Engine.get_physics_frames()])
+		_start_attack(character_data.special_move, "attack_special")
+
 func _server_physics_step(delta: float) -> void:
 	# Hitstop freeze frames
 	if hitstop_frames_left > 0:
@@ -225,20 +351,61 @@ func _server_physics_step(delta: float) -> void:
 		_update_sync_state()
 		return
 
-	# Determine active input mask for this player
+	# Determine active input mask and buffer new presses
 	var input_mask: int = 0
 	if player_number == 1:
-		input_mask = _sample_local_input()
+		var raw_input := _sample_local_input()
+		var new_presses := raw_input & ~_prev_local_mask
+		_prev_local_mask = raw_input
+
+		if new_presses & INPUT_LIGHT:
+			buffered_attack = INPUT_LIGHT
+			attack_buffer_timer = INPUT_BUFFER_WINDOW_FRAMES
+		elif new_presses & INPUT_HEAVY:
+			buffered_attack = INPUT_HEAVY
+			attack_buffer_timer = INPUT_BUFFER_WINDOW_FRAMES
+		elif new_presses & INPUT_SPECIAL:
+			buffered_attack = INPUT_SPECIAL
+			attack_buffer_timer = INPUT_BUFFER_WINDOW_FRAMES
+
+		if new_presses & INPUT_JUMP:
+			buffered_jump = true
+			jump_buffer_timer = INPUT_BUFFER_WINDOW_FRAMES
+
+		input_mask = raw_input
 	else:
 		input_mask = host_cached_input
-		# Consume one-shot attack & jump actions so late or duplicate packets do not repeat
-		host_cached_input &= ~(INPUT_JUMP | INPUT_LIGHT | INPUT_HEAVY | INPUT_SPECIAL)
 
 	local_input_mask = input_mask
 
 	# Failsafe stuck check
 	state_ticks += 1
 	_check_failsafe_stuck()
+
+	# Process buffered attack if fighter can act
+	if attack_buffer_timer > 0:
+		if _can_attack():
+			var atk := buffered_attack
+			buffered_attack = 0
+			attack_buffer_timer = 0
+			_execute_attack_from_mask(atk)
+		else:
+			attack_buffer_timer -= 1
+			if attack_buffer_timer <= 0:
+				buffered_attack = 0
+
+	# Process buffered jump if fighter can act
+	if jump_buffer_timer > 0:
+		if is_on_floor() and (current_state in [State.IDLE, State.WALK]):
+			buffered_jump = false
+			jump_buffer_timer = 0
+			velocity.y = character_data.jump_velocity
+			AudioManager.play_jump()
+			_transition_to(State.JUMP)
+		else:
+			jump_buffer_timer -= 1
+			if jump_buffer_timer <= 0:
+				buffered_jump = false
 
 	# Auto-face opponent when in neutral states
 	_update_auto_facing()
@@ -277,9 +444,6 @@ func _state_idle_step(delta: float, input: int) -> void:
 		_transition_to(State.JUMP)
 		return
 
-	if _check_attack_inputs(input):
-		return
-
 	if input & INPUT_JUMP:
 		velocity.y = character_data.jump_velocity
 		AudioManager.play_jump()
@@ -297,9 +461,6 @@ func _state_walk_step(delta: float, input: int) -> void:
 
 	if not is_on_floor():
 		_transition_to(State.JUMP)
-		return
-
-	if _check_attack_inputs(input):
 		return
 
 	if input & INPUT_JUMP:
@@ -469,8 +630,18 @@ func _on_animation_finished() -> void:
 	if current_state == State.ATTACK:
 		_set_hitbox_active(false)
 		_transition_to(State.IDLE if is_on_floor() else State.JUMP)
+		if attack_buffer_timer > 0 and _can_attack():
+			var atk := buffered_attack
+			buffered_attack = 0
+			attack_buffer_timer = 0
+			_execute_attack_from_mask(atk)
 	elif current_state == State.HURT and health > 0.0:
 		_transition_to(State.IDLE if is_on_floor() else State.JUMP)
+		if attack_buffer_timer > 0 and _can_attack():
+			var atk := buffered_attack
+			buffered_attack = 0
+			attack_buffer_timer = 0
+			_execute_attack_from_mask(atk)
 
 func _on_frame_changed() -> void:
 	if not _is_host_sim():
@@ -514,7 +685,10 @@ func take_hit(damage_amount: float, knockback: Vector2, hitstun_frames: int, hit
 	if not _is_host_sim() or current_state == State.DEAD:
 		return
 
-	health = maxf(0.0, health - damage_amount)
+	if NetworkManager.is_attack_test:
+		health = max_hp
+	else:
+		health = maxf(0.0, health - damage_amount)
 	velocity = knockback
 	hitstun_frames_left = hitstun_frames
 	_transition_to(State.HURT)
@@ -613,20 +787,73 @@ func get_ordered_ring_buffer() -> Array[Dictionary]:
 	return ring_buffer.duplicate()
 
 # ==============================================================================
-# CLIENT INTERPOLATION & RENDERING
+# CLIENT PREDICTION, INTERPOLATION & RENDERING
 # ==============================================================================
 func _client_interpolation_step(delta: float) -> void:
-	# Send local client input to host each tick
 	if player_number == 2:
-		var mask := _sample_local_input()
-		NetworkManager.send_client_input(mask, current_tick)
+		_client_predicted_step(delta)
+	else:
+		_client_remote_interpolation_step(delta)
 
-	# Smoothly interpolate position towards authoritative host position
+func _client_predicted_step(delta: float) -> void:
+	var mask := _sample_local_input()
+	NetworkManager.send_client_input(mask, current_tick)
+
+	# If host reports HURT or DEAD or large position discrepancy, prioritize host state
+	if sync_state in [int(State.HURT), int(State.DEAD)] or position.distance_to(sync_position) > 60.0:
+		position = sync_position
+		velocity = sync_velocity
+		current_state = sync_state as State
+	else:
+		# Local movement prediction: 0ms responsive client feel
+		var move_dir: float = 0.0
+		if mask & INPUT_LEFT:
+			move_dir -= 1.0
+		if mask & INPUT_RIGHT:
+			move_dir += 1.0
+
+		if is_on_floor():
+			if (mask & INPUT_JUMP) and current_state != State.ATTACK:
+				velocity.y = character_data.jump_velocity
+				AudioManager.play_jump()
+				current_state = State.JUMP
+			elif current_state != State.ATTACK:
+				velocity.x = move_dir * character_data.walk_speed
+				if move_dir != 0.0:
+					current_state = State.WALK
+				else:
+					current_state = State.IDLE
+		else:
+			# Air drift
+			velocity.x = move_dir * (character_data.walk_speed * 0.75)
+			current_state = State.JUMP
+
+		if not is_on_floor():
+			velocity.y += 1800.0 * delta
+
+		move_and_slide()
+
+		# Gentle time-based reconciliation towards authoritative host position
+		var blend: float = 1.0 - exp(-12.0 * delta)
+		position = position.lerp(sync_position, blend)
+
+	facing_direction = sync_facing
+	sprite.flip_h = (facing_direction < 0)
+
+	if health != sync_health:
+		health = sync_health
+		health_changed.emit(health, max_hp)
+
+	_sync_client_animation(true)
+
+func _client_remote_interpolation_step(delta: float) -> void:
 	var dist := position.distance_to(sync_position)
 	if dist > 60.0:
-		position = sync_position # Snap if too far
+		position = sync_position # Snap if discrepancy is large
 	else:
-		position = position.lerp(sync_position, 18.0 * delta)
+		# Time-based smooth exponential interpolation
+		var blend: float = 1.0 - exp(-22.0 * delta)
+		position = position.lerp(sync_position, blend)
 
 	velocity = sync_velocity
 	facing_direction = sync_facing
@@ -636,22 +863,50 @@ func _client_interpolation_step(delta: float) -> void:
 		health = sync_health
 		health_changed.emit(health, max_hp)
 
-	var old_anim := sprite.animation
-	if sprite.animation != sync_anim:
-		sprite.play(sync_anim)
-		# Audio & visual cues on animation change for client
-		if sync_anim == "attack_special":
-			AudioManager.play_special()
-		elif sync_anim in ["attack_light", "attack_heavy"]:
-			AudioManager.play_swing()
-		elif sync_anim == "jump" and old_anim != "jump":
-			AudioManager.play_jump()
-		elif sync_anim == "dead" and old_anim != "dead":
-			AudioManager.play_ko()
-
-		if old_anim == "jump" and sync_anim in ["idle", "walk"]:
-			landing_dust.restart()
-			landing_dust.emitting = true
-
-	sprite.frame = sync_frame
+	_sync_client_animation(false)
 	current_state = sync_state as State
+
+func _sync_client_animation(is_local_predicted: bool) -> void:
+	var old_anim := sprite.animation
+	if is_local_predicted:
+		if sync_state in [int(State.ATTACK), int(State.HURT), int(State.DEAD)]:
+			if sprite.animation != sync_anim:
+				sprite.play(sync_anim)
+				if sync_anim == "attack_special":
+					AudioManager.play_special()
+				elif sync_anim in ["attack_light", "attack_heavy"]:
+					AudioManager.play_swing()
+				elif sync_anim == "dead":
+					AudioManager.play_ko()
+			sprite.frame = sync_frame
+			current_state = sync_state as State
+		else:
+			var target_anim: String = "idle"
+			if not is_on_floor():
+				target_anim = "jump"
+			elif absf(velocity.x) > 10.0:
+				target_anim = "walk"
+			if sprite.animation != target_anim:
+				sprite.play(target_anim)
+				if target_anim == "jump" and old_anim != "jump":
+					AudioManager.play_jump()
+			if old_anim == "jump" and target_anim in ["idle", "walk"]:
+				landing_dust.restart()
+				landing_dust.emitting = true
+	else:
+		if sprite.animation != sync_anim:
+			sprite.play(sync_anim)
+			if sync_anim == "attack_special":
+				AudioManager.play_special()
+			elif sync_anim in ["attack_light", "attack_heavy"]:
+				AudioManager.play_swing()
+			elif sync_anim == "jump" and old_anim != "jump":
+				AudioManager.play_jump()
+			elif sync_anim == "dead" and old_anim != "dead":
+				AudioManager.play_ko()
+
+			if old_anim == "jump" and sync_anim in ["idle", "walk"]:
+				landing_dust.restart()
+				landing_dust.emitting = true
+
+		sprite.frame = sync_frame

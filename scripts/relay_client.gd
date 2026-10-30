@@ -21,13 +21,17 @@ signal event_received(event_name: String, args: Array)
 
 signal ping_updated(ping_ms: int)
 signal server_awake_status(is_awake: bool)
+signal connection_progress(elapsed_sec: float, message: String)
 
 const GAME_VERSION: String = "1.0.0"
 const KEEPALIVE_INTERVAL_SEC: float = 25.0
 const PING_INTERVAL_SEC: float = 1.0
+const TOTAL_CONNECT_TIMEOUT_SEC: float = 90.0
+const RETRY_INTERVAL_SEC: float = 2.5
 
 var ws: WebSocketPeer = null
 var relay_url: String = ""
+var relay_url_source: String = "default"
 var current_room_code: String = ""
 var is_host: bool = false
 var local_username: String = ""
@@ -36,8 +40,11 @@ var last_ping_ms: int = 0
 var _last_keepalive_time: float = 0.0
 var _last_ping_time: float = 0.0
 var _is_connecting: bool = false
-var _connect_timer: float = 0.0
-const CONNECT_TIMEOUT_SEC: float = 10.0
+var _total_connect_elapsed: float = 0.0
+var _second_log_timer: float = 0.0
+var _retry_cooldown: float = 0.0
+var _last_close_code: int = -1
+var _last_close_reason: String = ""
 
 # HTTP pre-warm request node
 var http_request: HTTPRequest = null
@@ -51,33 +58,78 @@ func _ready() -> void:
 	http_request.request_completed.connect(_on_http_request_completed)
 	add_child(http_request)
 
+func _state_to_name(st: int) -> String:
+	match st:
+		WebSocketPeer.STATE_CONNECTING: return "STATE_CONNECTING (0)"
+		WebSocketPeer.STATE_OPEN: return "STATE_OPEN (1)"
+		WebSocketPeer.STATE_CLOSING: return "STATE_CLOSING (2)"
+		WebSocketPeer.STATE_CLOSED: return "STATE_CLOSED (3)"
+		_: return "STATE_UNKNOWN (" + str(st) + ")"
+
 func _process(delta: float) -> void:
+	if _is_connecting:
+		_total_connect_elapsed += delta
+		_second_log_timer += delta
+
+		var cur_state: int = WebSocketPeer.STATE_CLOSED
+		if ws != null:
+			ws.poll()
+			cur_state = ws.get_ready_state()
+
+		# Log state each second while connecting
+		if _second_log_timer >= 1.0:
+			_second_log_timer -= 1.0
+			var msg := "Waking up the server... (%d s)" % int(_total_connect_elapsed)
+			print("[RELAY] Connecting to '%s' (Source: %s) | Elapsed: %0.1fs / %0.1fs | WebSocketPeer state: %s" % [
+				relay_url, relay_url_source, _total_connect_elapsed, TOTAL_CONNECT_TIMEOUT_SEC, _state_to_name(cur_state)
+			])
+			connection_progress.emit(_total_connect_elapsed, msg)
+
+		if cur_state == WebSocketPeer.STATE_OPEN:
+			_is_connecting = false
+			_total_connect_elapsed = 0.0
+			is_server_awake = true
+			print("[RELAY] SUCCESS: Connected to relay server '%s'!" % relay_url)
+			connected_to_relay.emit()
+			_send_pending_handshake()
+
+		elif cur_state == WebSocketPeer.STATE_CLOSED or ws == null:
+			if ws != null:
+				_last_close_code = ws.get_close_code()
+				_last_close_reason = ws.get_close_reason()
+
+			# Check if 90s budget expired
+			if _total_connect_elapsed >= TOTAL_CONNECT_TIMEOUT_SEC:
+				_is_connecting = false
+				ws = null
+				var msg := "Failed to connect to relay server after %d seconds." % int(TOTAL_CONNECT_TIMEOUT_SEC)
+				if not _last_close_reason.is_empty():
+					msg += " (" + _last_close_reason + ")"
+				elif _last_close_code > 0:
+					msg += " (Close Code " + str(_last_close_code) + ")"
+				print("[RELAY] TIMEOUT: Connection attempt failed permanently after %0.1fs! Last close code: %d, reason: '%s'" % [
+					_total_connect_elapsed, _last_close_code, _last_close_reason
+				])
+				connection_failed.emit(msg)
+				return
+			else:
+				# Server may be waking up - retry connection
+				_retry_cooldown -= delta
+				if _retry_cooldown <= 0.0:
+					_retry_cooldown = RETRY_INTERVAL_SEC
+					print("[RELAY] Server sleeping or connection refused (Close code=%d, reason='%s'). Retrying in %0.1fs... (Elapsed: %0.1fs / %0.1fs)" % [
+						_last_close_code, _last_close_reason, RETRY_INTERVAL_SEC, _total_connect_elapsed, TOTAL_CONNECT_TIMEOUT_SEC
+					])
+					prewarm_server(relay_url)
+					_open_websocket_socket()
+
+		return
+
 	if ws == null:
 		return
 
 	ws.poll()
 	var state := ws.get_ready_state()
-
-	if _is_connecting:
-		_connect_timer += delta
-		if state == WebSocketPeer.STATE_OPEN:
-			_is_connecting = false
-			_connect_timer = 0.0
-			is_server_awake = true
-			connected_to_relay.emit()
-			_send_pending_handshake()
-		elif state == WebSocketPeer.STATE_CLOSED or _connect_timer >= CONNECT_TIMEOUT_SEC:
-			_is_connecting = false
-			var err_code := ws.get_close_code()
-			var err_reason := ws.get_close_reason()
-			ws = null
-			var msg := "Failed to connect to relay server"
-			if not err_reason.is_empty():
-				msg += " (" + err_reason + ")"
-			elif err_code > 0:
-				msg += " (Code " + str(err_code) + ")"
-			connection_failed.emit(msg)
-			return
 
 	if state == WebSocketPeer.STATE_OPEN:
 		# Process incoming packets
@@ -92,10 +144,11 @@ func _process(delta: float) -> void:
 			_last_ping_time = now_sec
 			_send_ping()
 
-	elif state == WebSocketPeer.STATE_CLOSED and not _is_connecting:
+	elif state == WebSocketPeer.STATE_CLOSED:
 		var code := ws.get_close_code()
 		var reason := ws.get_close_reason()
 		ws = null
+		print("[RELAY] Connection closed! Code: %d, reason: '%s'" % [code, reason])
 		connection_closed.emit(reason if not reason.is_empty() else "Connection closed by server (code " + str(code) + ")")
 
 # ==============================================================================
@@ -129,31 +182,45 @@ func _on_http_request_completed(_result: int, response_code: int, _headers: Pack
 var _pending_action: String = "" # "create" | "join"
 var _pending_code: String = ""
 
-func connect_and_create_room(url: String, username: String) -> void:
+func connect_and_create_room(url: String, username: String, url_source: String = "default") -> void:
 	relay_url = url
+	relay_url_source = url_source
 	local_username = username
 	is_host = true
 	_pending_action = "create"
+	print("[RELAY] Initiating room creation. Target URL: '%s' (Source: %s)" % [relay_url, relay_url_source])
 	_start_websocket_connection()
 
-func connect_and_join_room(url: String, code: String, username: String) -> void:
+func connect_and_join_room(url: String, code: String, username: String, url_source: String = "default") -> void:
 	relay_url = url
+	relay_url_source = url_source
 	local_username = username
 	is_host = false
 	_pending_action = "join"
 	_pending_code = code.strip_edges().to_upper()
+	print("[RELAY] Initiating room join for code '%s'. Target URL: '%s' (Source: %s)" % [_pending_code, relay_url, relay_url_source])
 	_start_websocket_connection()
 
 func _start_websocket_connection() -> void:
 	disconnect_relay()
+	_is_connecting = true
+	_total_connect_elapsed = 0.0
+	_second_log_timer = 0.0
+	_retry_cooldown = 0.0
+	_last_close_code = -1
+	_last_close_reason = ""
+	prewarm_server(relay_url)
+	_open_websocket_socket()
+
+func _open_websocket_socket() -> void:
+	if ws != null:
+		ws = null
 	ws = WebSocketPeer.new()
 	var err := ws.connect_to_url(relay_url)
 	if err != OK:
+		print("[RELAY] ws.connect_to_url('%s') returned immediate error code: %d" % [relay_url, err])
 		ws = null
-		connection_failed.emit("Could not open WebSocket to " + relay_url + " (Error " + str(err) + ")")
-		return
-	_is_connecting = true
-	_connect_timer = 0.0
+		_retry_cooldown = RETRY_INTERVAL_SEC
 
 func _send_pending_handshake() -> void:
 	if _pending_action == "create":
@@ -177,6 +244,9 @@ func disconnect_relay() -> void:
 			ws.close(1000, "Client leaving")
 		ws = null
 	_is_connecting = false
+	_total_connect_elapsed = 0.0
+	_second_log_timer = 0.0
+	_retry_cooldown = 0.0
 	current_room_code = ""
 
 # ==============================================================================

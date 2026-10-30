@@ -16,6 +16,7 @@ signal room_created(room_code: String)
 signal room_join_failed(error_code: String, error_msg: String)
 signal ping_updated(ping_ms: int)
 signal fighter_states_received(tick: int, payload: Dictionary)
+signal connection_progress(elapsed_sec: float, message: String)
 
 enum NetworkMode { LAN_ENET, ONLINE_ROOM }
 
@@ -31,11 +32,13 @@ var is_host: bool = false
 var connection_timer: Timer
 
 var relay_url: String = DEFAULT_RELAY_URL
+var relay_url_source: String = "default"
 var current_room_code: String = ""
 var last_ping_ms: int = 0
 
 var auto_cli_mode: bool = false
 var is_autotest: bool = false
+var is_attack_test: bool = false
 var custom_cli_name: String = ""
 
 var _upnp_thread: Thread
@@ -76,6 +79,8 @@ func _setup_relay_client() -> void:
 	relay_client.ping_updated.connect(_on_relay_ping_updated)
 	relay_client.connection_failed.connect(_on_relay_connection_failed)
 	relay_client.connection_closed.connect(_on_relay_connection_closed)
+	if relay_client.has_signal("connection_progress"):
+		relay_client.connection_progress.connect(func(elapsed, msg): connection_progress.emit(elapsed, msg))
 
 # ==============================================================================
 # ONLINE ROOM MODE
@@ -85,18 +90,24 @@ func create_online_room(username: String) -> void:
 	current_mode = NetworkMode.ONLINE_ROOM
 	is_host = true
 	GameState.local_username = username.strip_edges() if not username.strip_edges().is_empty() else "Host"
-	relay_client.connect_and_create_room(relay_url, GameState.local_username)
+	print("[ONLINE] Creating room... Relay URL: '%s' (Source: %s)" % [relay_url, relay_url_source])
+	relay_client.connect_and_create_room(relay_url, GameState.local_username, relay_url_source)
 
 func join_online_room(code: String, username: String) -> void:
 	close_connection()
 	current_mode = NetworkMode.ONLINE_ROOM
 	is_host = false
 	GameState.local_username = username.strip_edges() if not username.strip_edges().is_empty() else "Client"
-	relay_client.connect_and_join_room(relay_url, code, GameState.local_username)
+	print("[ONLINE] Joining room '%s'... Relay URL: '%s' (Source: %s)" % [code, relay_url, relay_url_source])
+	relay_client.connect_and_join_room(relay_url, code, GameState.local_username, relay_url_source)
 
 func _on_relay_room_created(code: String) -> void:
 	current_room_code = code
 	print("[ONLINE] Room created successfully! Code: " + code)
+	var f := FileAccess.open("last_room_code.txt", FileAccess.WRITE)
+	if f:
+		f.store_string(code)
+		f.close()
 	room_created.emit(code)
 	GameState.register_players(1, 2)
 
@@ -410,11 +421,15 @@ func _check_cli_args() -> void:
 			auto_join_ip = "127.0.0.1"
 		elif arg == "--autotest":
 			is_autotest = true
+		elif arg == "--test-attacks":
+			is_attack_test = true
+			is_autotest = true
 		elif arg.begins_with("--name="):
 			custom_name = arg.substr(7).strip_edges()
 			custom_cli_name = custom_name
 		elif arg.begins_with("--relay="):
 			relay_url = arg.substr(8).strip_edges()
+			relay_url_source = "--relay argument"
 		elif arg == "--create-room":
 			online_create = true
 		elif arg.begins_with("--join-room="):

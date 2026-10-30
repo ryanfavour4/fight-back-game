@@ -63,6 +63,8 @@ var _latest_state_tick: int = -1
 
 var player_scene: PackedScene = preload("res://scenes/player.tscn")
 var projectile_scene: PackedScene = preload("res://scenes/projectile.tscn")
+var tex_gem_empty: Texture2D = preload("res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/orbs/orb_socket_128.png")
+var tex_gem_filled: Texture2D = preload("res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/orbs/orb_fill_health_128.png")
 
 func _is_server_authority() -> bool:
 	if NetworkManager.current_mode == NetworkManager.NetworkMode.LAN_ENET:
@@ -188,15 +190,18 @@ func _physics_process(delta: float) -> void:
 
 	if _is_server_authority():
 		if is_round_active:
-			match_time_left -= delta
+			if NetworkManager.is_attack_test:
+				match_time_left = 99.0
+			else:
+				match_time_left -= delta
 			if match_time_left <= 0.0:
 				match_time_left = 0.0
 				_handle_time_out()
 			if NetworkManager.current_mode == NetworkManager.NetworkMode.LAN_ENET:
 				rpc("rpc_sync_timer", match_time_left)
 			else:
-				if Engine.get_physics_frames() % 2 == 0:
-					_send_online_state_snapshot()
+				# 60 Hz full state snapshot rate during active combat
+				_send_online_state_snapshot()
 		elif NetworkManager.current_mode == NetworkManager.NetworkMode.ONLINE_ROOM:
 			if Engine.get_physics_frames() % 4 == 0:
 				_send_online_state_snapshot()
@@ -259,8 +264,23 @@ func _on_fighter_states_received(tick: int, payload: Dictionary) -> void:
 		p2.sync_frame = d2["fr"]
 		p2.sync_hitbox_active = d2["hb"]
 
+var _attack_test_reported: bool = false
+
 func _process_autotest_combat() -> void:
-	pass
+	if NetworkManager.is_attack_test and not _attack_test_reported:
+		if p1 and p2 and is_instance_valid(p1) and is_instance_valid(p2):
+			if p1.attack_register_count["attack_light"] >= 30 and p1.attack_register_count["attack_heavy"] >= 30 and p1.attack_register_count["attack_special"] >= 30 and p2.attack_register_count["attack_light"] >= 30 and p2.attack_register_count["attack_heavy"] >= 30 and p2.attack_register_count["attack_special"] >= 30:
+				_attack_test_reported = true
+				print("================================================================================")
+				print("=== [ATTACK BUFFER 30/30 VERIFICATION SUCCESS] ===")
+				print("P1 Registered: Light=%d/30, Heavy=%d/30, Special=%d/30" % [p1.attack_register_count["attack_light"], p1.attack_register_count["attack_heavy"], p1.attack_register_count["attack_special"]])
+				print("P2 Registered: Light=%d/30, Heavy=%d/30, Special=%d/30" % [p2.attack_register_count["attack_light"], p2.attack_register_count["attack_heavy"], p2.attack_register_count["attack_special"]])
+				print("All 30 presses registered with 100% reliability for both Host (P1) and Client (P2)!")
+				print("================================================================================")
+				var t := get_tree().create_timer(1.5)
+				t.timeout.connect(func():
+					get_tree().quit(0)
+				)
 
 func _update_camera(delta: float) -> void:
 	if not p1 or not p2 or not is_instance_valid(p1) or not is_instance_valid(p2):
@@ -359,8 +379,7 @@ func rpc_show_round_intro(r_num: int) -> void:
 		var t2 := get_tree().create_timer(0.8)
 		t2.timeout.connect(func():
 			banner_label.visible = false
-			if _is_server_authority():
-				is_round_active = true
+			is_round_active = true
 		)
 	)
 
@@ -444,20 +463,41 @@ func rpc_update_match_progress(p1_wins: int, p2_wins: int) -> void:
 	_update_gem_indicators()
 
 func _update_gem_indicators() -> void:
-	var p1_id := 1
-	var p2_id := GameState.client_peer_id if GameState.client_peer_id > 0 else 2
+	var p1_id: int = 1
+	if p1 and is_instance_valid(p1) and "peer_id" in p1:
+		p1_id = int(p1.peer_id)
+	var p2_id: int = GameState.client_peer_id if GameState.client_peer_id > 0 else 2
+	if p2 and is_instance_valid(p2) and "peer_id" in p2:
+		p2_id = int(p2.peer_id)
 	var p1_w: int = GameState.rounds_won.get(p1_id, 0)
 	var p2_w: int = GameState.rounds_won.get(p2_id, 0)
+
+	var my_peer := str(multiplayer.get_unique_id() if NetworkManager.current_mode == NetworkManager.NetworkMode.LAN_ENET else (1 if NetworkManager.is_host else 2))
+	print("[ROUND CIRCLES] Peer %s updated circles: P1_wins=%d (G1=%s, G2=%s) | P2_wins=%d (G1=%s, G2=%s)" % [
+		my_peer,
+		p1_w, "RED" if p1_w >= 1 else "EMPTY", "RED" if p1_w >= 2 else "EMPTY",
+		p2_w, "RED" if p2_w >= 1 else "EMPTY", "RED" if p2_w >= 2 else "EMPTY"
+	])
 
 	for i in range(p1_gems.get_child_count()):
 		var gem := p1_gems.get_child(i) as TextureRect
 		if gem:
-			gem.modulate = Color(1, 0.85, 0.2, 1) if i < p1_w else Color(0.3, 0.3, 0.4, 0.5)
+			if i < p1_w:
+				gem.texture = tex_gem_filled
+				gem.modulate = Color(0.95, 0.12, 0.12, 1.0) # RED for won round
+			else:
+				gem.texture = tex_gem_empty
+				gem.modulate = Color(0.25, 0.25, 0.35, 0.6) # Dark empty socket
 
 	for i in range(p2_gems.get_child_count()):
 		var gem := p2_gems.get_child(i) as TextureRect
 		if gem:
-			gem.modulate = Color(0.3, 0.85, 1, 1) if i < p2_w else Color(0.3, 0.3, 0.4, 0.5)
+			if i < p2_w:
+				gem.texture = tex_gem_filled
+				gem.modulate = Color(0.95, 0.12, 0.12, 1.0) # RED for won round
+			else:
+				gem.texture = tex_gem_empty
+				gem.modulate = Color(0.25, 0.25, 0.35, 0.6) # Dark empty socket
 
 @rpc("authority", "call_local", "reliable")
 func rpc_show_match_results(overall_winner: int) -> void:
@@ -503,6 +543,7 @@ func _on_rematch_state_changed() -> void:
 func rpc_restart_match() -> void:
 	results_panel.visible = false
 	clear_all_projectiles()
+	GameState.reset_for_rematch()
 	_update_gem_indicators()
 	if NetworkManager.is_autotest:
 		print("=== [AUTOTEST SUCCESS] Full match flow verified: Connect -> Character Select -> Battle -> KO -> Results -> Rematch Restart! ===")
