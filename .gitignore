@@ -6,6 +6,7 @@
 
 # Node dependencies
 /relay-server/node_modules/
+node_modules/
 
 # IDE
 .vscode/
@@ -15,6 +16,10 @@
 *.tmp
 *.bak
 *.log
+last_room_code.txt
+
+# Development & Test Tools
+dev-tools/
 
 # OS files
 .DS_Store

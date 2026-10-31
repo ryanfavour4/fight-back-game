@@ -23,7 +23,7 @@ signal ping_updated(ping_ms: int)
 signal server_awake_status(is_awake: bool)
 signal connection_progress(elapsed_sec: float, message: String)
 
-const GAME_VERSION: String = "1.0.0"
+const GAME_VERSION: String = "1.1.0"
 const KEEPALIVE_INTERVAL_SEC: float = 25.0
 const PING_INTERVAL_SEC: float = 1.0
 const TOTAL_CONNECT_TIMEOUT_SEC: float = 90.0

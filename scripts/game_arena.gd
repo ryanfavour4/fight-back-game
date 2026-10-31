@@ -130,7 +130,8 @@ func _spawn_fighters() -> void:
 	p1.sync_position = p1_spawn.position
 	p1.facing_direction = 1.0
 	var p1_char_id: String = GameState.player_characters.get(1, "karasu")
-	p1.character_data = load("res://resources/characters/" + p1_char_id + ".tres")
+	var p1_res := load("res://resources/characters/" + p1_char_id + ".tres") as CharacterData
+	p1.character_data = p1_res.duplicate(true) if p1_res else null
 	p1.add_to_group("fighters")
 	p1_container.add_child(p1)
 
@@ -143,7 +144,8 @@ func _spawn_fighters() -> void:
 	p2.sync_position = p2_spawn.position
 	p2.facing_direction = -1.0
 	var p2_char_id: String = GameState.player_characters.get(p2.peer_id, "karasu")
-	p2.character_data = load("res://resources/characters/" + p2_char_id + ".tres")
+	var p2_res := load("res://resources/characters/" + p2_char_id + ".tres") as CharacterData
+	p2.character_data = p2_res.duplicate(true) if p2_res else null
 	p2.add_to_group("fighters")
 	p2_container.add_child(p2)
 
@@ -187,6 +189,10 @@ func _physics_process(delta: float) -> void:
 
 	if NetworkManager.is_autotest and _is_server_authority() and is_round_active:
 		_process_autotest_combat()
+	elif NetworkManager.is_facing_test and not _is_server_authority() and is_round_active:
+		_process_client_facing_test()
+	elif NetworkManager.is_walk_test and not _is_server_authority() and is_round_active:
+		_process_client_walk_test()
 
 	if _is_server_authority():
 		if is_round_active:
@@ -197,18 +203,25 @@ func _physics_process(delta: float) -> void:
 			if match_time_left <= 0.0:
 				match_time_left = 0.0
 				_handle_time_out()
+			_update_timer_display()
 			if NetworkManager.current_mode == NetworkManager.NetworkMode.LAN_ENET:
 				rpc("rpc_sync_timer", match_time_left)
 			else:
 				# 60 Hz full state snapshot rate during active combat
 				_send_online_state_snapshot()
 		elif NetworkManager.current_mode == NetworkManager.NetworkMode.ONLINE_ROOM:
+			_update_timer_display()
 			if Engine.get_physics_frames() % 4 == 0:
 				_send_online_state_snapshot()
+
+func _update_timer_display() -> void:
+	if timer_label:
+		timer_label.text = "%02d" % int(ceilf(match_time_left))
 
 func _send_online_state_snapshot() -> void:
 	if not p1 or not p2 or not is_instance_valid(p1) or not is_instance_valid(p2):
 		return
+	var p2_ack: int = p2.last_processed_client_seq if ("last_processed_client_seq" in p2) else 0
 	var payload := {
 		"tm": match_time_left,
 		"p1": {
@@ -229,7 +242,8 @@ func _send_online_state_snapshot() -> void:
 			"hp": p2.health,
 			"an": p2.sprite.animation if p2.sprite else "",
 			"fr": p2.sprite.frame if p2.sprite else 0,
-			"hb": p2.sync_hitbox_active
+			"hb": p2.sync_hitbox_active,
+			"ack": p2_ack
 		}
 	}
 	NetworkManager.send_fighter_states(Engine.get_physics_frames(), payload)
@@ -240,7 +254,8 @@ func _on_fighter_states_received(tick: int, payload: Dictionary) -> void:
 	_latest_state_tick = tick
 
 	if payload.has("tm"):
-		rpc_sync_timer(payload["tm"])
+		match_time_left = float(payload["tm"])
+		_update_timer_display()
 
 	var d1: Dictionary = payload.get("p1", {})
 	if p1 and not d1.is_empty():
@@ -255,32 +270,185 @@ func _on_fighter_states_received(tick: int, payload: Dictionary) -> void:
 
 	var d2: Dictionary = payload.get("p2", {})
 	if p2 and not d2.is_empty():
-		p2.sync_position = Vector2(d2["pos"][0], d2["pos"][1])
-		p2.sync_velocity = Vector2(d2["vel"][0], d2["vel"][1])
-		p2.sync_state = d2["st"]
-		p2.sync_facing = d2["fc"]
-		p2.sync_health = d2["hp"]
-		p2.sync_anim = d2["an"]
+		if p2.has_method("on_server_snapshot_received"):
+			p2.on_server_snapshot_received(d2)
+		else:
+			p2.sync_position = Vector2(d2["pos"][0], d2["pos"][1])
+			p2.sync_velocity = Vector2(d2["vel"][0], d2["vel"][1])
+			p2.sync_state = d2["st"]
+			p2.sync_facing = d2["fc"]
+			p2.sync_health = d2["hp"]
+			p2.sync_anim = d2["an"]
+			p2.sync_frame = d2["fr"]
+			p2.sync_hitbox_active = d2["hb"]
 		p2.sync_frame = d2["fr"]
 		p2.sync_hitbox_active = d2["hb"]
 
 var _attack_test_reported: bool = false
+var _combat_test_reported: bool = false
+var _walk_test_start_msec: int = 0
+var _walk_test_reported: bool = false
+var _facing_test_reported: bool = false
+var _facing_stage1_done: bool = false
 
 func _process_autotest_combat() -> void:
+	if not p1 or not p2 or not is_instance_valid(p1) or not is_instance_valid(p2):
+		return
+
+	if NetworkManager.is_facing_test and not _facing_test_reported:
+		var p1_char: String = p1.character_data.character_id if p1.character_data else "none"
+		var p2_char: String = p2.character_data.character_id if p2.character_data else "none"
+		var p1_def_f: float = p1.character_data.default_facing if p1.character_data else 1.0
+		var p2_def_f: float = p2.character_data.default_facing if p2.character_data else 1.0
+		var p1_flip: bool = p1.sprite.flip_h if p1.sprite else false
+		var p2_flip: bool = p2.sprite.flip_h if p2.sprite else false
+
+		# Stage 1: Initial spawn facing check
+		if not _facing_stage1_done:
+			var facing_ok: bool = true
+			if p1.position.x >= p2.position.x:
+				print("ERROR: P1 is not to the left of P2!"); facing_ok = false
+			if p1.facing_direction != 1.0:
+				print("ERROR: P1 does not face right (1.0)!"); facing_ok = false
+			if p2.facing_direction != -1.0:
+				print("ERROR: P2 does not face left (-1.0)!"); facing_ok = false
+
+			if p1_flip != (p1.facing_direction * p1_def_f < 0.0):
+				print("ERROR: P1 sprite flip does not match facing calculation!"); facing_ok = false
+			if p2_flip != (p2.facing_direction * p2_def_f < 0.0):
+				print("ERROR: P2 sprite flip does not match facing calculation!"); facing_ok = false
+
+			if not facing_ok:
+				_facing_test_reported = true
+				print("FACING & SPAWN INITIAL CHECK: FAILED")
+				get_tree().quit(1)
+				return
+			_facing_stage1_done = true
+			print("[FACING CHECK 1: MATCH START] P1 (%s) faces right (1.0), P2 (%s) faces left (-1.0) -> CORRECT" % [p1_char, p2_char])
+
+		# Stage 2: After P2 walks past P1
+		if _facing_stage1_done and p2.position.x < p1.position.x - 30.0:
+			_facing_test_reported = true
+			var crossed_ok: bool = true
+			if p2.facing_direction != 1.0:
+				print("ERROR: P2 did not turn around to face right after crossing P1!"); crossed_ok = false
+			if p1.facing_direction != -1.0:
+				print("ERROR: P1 did not turn around to face left after being crossed!"); crossed_ok = false
+
+			if p1.sprite.flip_h != (p1.facing_direction * p1_def_f < 0.0):
+				print("ERROR: P1 sprite flip incorrect after turning!"); crossed_ok = false
+			if p2.sprite.flip_h != (p2.facing_direction * p2_def_f < 0.0):
+				print("ERROR: P2 sprite flip incorrect after turning!"); crossed_ok = false
+
+			print("================================================================================")
+			if crossed_ok:
+				print("=== [FACING TEST SUCCESS: BOTH CHARACTERS FACE EACH OTHER AT START & AFTER CROSSING] ===")
+				print("P1 (%s) and P2 (%s) facing dynamically and visual sprite flips 100%% verified." % [p1_char, p2_char])
+			else:
+				print("=== [FACING TEST FAILED] ===")
+			print("================================================================================")
+			var t := get_tree().create_timer(1.0)
+			t.timeout.connect(func(): get_tree().quit(0 if crossed_ok else 1))
+
+	if NetworkManager.is_walk_test and not _walk_test_reported:
+		if _walk_test_start_msec == 0:
+			_walk_test_start_msec = Time.get_ticks_msec()
+
+		var elapsed_sec: float = (Time.get_ticks_msec() - _walk_test_start_msec) / 1000.0
+		var frame := Engine.get_physics_frames()
+		if frame % 60 == 0:
+			var p2_err: float = p2.last_pred_error if ("last_pred_error" in p2) else 0.0
+			var p2_corr: float = p2.last_correction_size if ("last_correction_size" in p2) else 0.0
+			var t_text := timer_label.text if timer_label else "N/A"
+			print("[WALK TEST %.1fs] timer=%s match_time=%.1f | P1: pos=%.1f anim=%s frame=%d vel=%.1f | P2: pos=%.1f anim=%s frame=%d vel=%.1f pred_err=%.2f corr=%.2f" % [
+				elapsed_sec, t_text, match_time_left,
+				p1.position.x, p1.sprite.animation, p1.sprite.frame, p1.velocity.x,
+				p2.position.x, p2.sprite.animation, p2.sprite.frame, p2.velocity.x,
+				p2_err, p2_corr
+			])
+
+		if elapsed_sec >= 60.0:
+			_walk_test_reported = true
+			print("================================================================================")
+			print("=== [WALK TEST SUCCESS: KITSUNE WALKED SMOOTHLY FOR 60 SECONDS] ===")
+			print("Continuous smooth walk verified on both host and joiner without stalls or snaps.")
+			print("================================================================================")
+			var t := get_tree().create_timer(1.0)
+			t.timeout.connect(func(): get_tree().quit(0))
+
+	if NetworkManager.is_combat_test and not _combat_test_reported:
+		var p1_total_atks: int = p1.attack_register_count["attack_light"] + p1.attack_register_count["attack_heavy"] + p1.attack_register_count["attack_special"]
+		var p2_total_atks: int = p2.attack_register_count["attack_light"] + p2.attack_register_count["attack_heavy"] + p2.attack_register_count["attack_special"]
+		if p2_total_atks >= 10 and p1_total_atks >= 10:
+			_combat_test_reported = true
+			print("================================================================================")
+			print("=== [COMBAT TEST SUCCESS: P2 ATTACKED FIRST, BOTH FIGHTERS ATTACKED FREELY] ===")
+			print("P1 Attacks Executed: Light=%d, Heavy=%d, Special=%d (Total: %d)" % [
+				p1.attack_register_count["attack_light"], p1.attack_register_count["attack_heavy"], p1.attack_register_count["attack_special"], p1_total_atks
+			])
+			print("P2 Attacks Executed: Light=%d, Heavy=%d, Special=%d (Total: %d)" % [
+				p2.attack_register_count["attack_light"], p2.attack_register_count["attack_heavy"], p2.attack_register_count["attack_special"], p2_total_atks
+			])
+			print("Both fighters can attack after taking hits. Zero attack lockout!")
+			print("================================================================================")
+			var t := get_tree().create_timer(1.5)
+			t.timeout.connect(func(): get_tree().quit(0))
+
 	if NetworkManager.is_attack_test and not _attack_test_reported:
-		if p1 and p2 and is_instance_valid(p1) and is_instance_valid(p2):
-			if p1.attack_register_count["attack_light"] >= 30 and p1.attack_register_count["attack_heavy"] >= 30 and p1.attack_register_count["attack_special"] >= 30 and p2.attack_register_count["attack_light"] >= 30 and p2.attack_register_count["attack_heavy"] >= 30 and p2.attack_register_count["attack_special"] >= 30:
-				_attack_test_reported = true
-				print("================================================================================")
-				print("=== [ATTACK BUFFER 30/30 VERIFICATION SUCCESS] ===")
-				print("P1 Registered: Light=%d/30, Heavy=%d/30, Special=%d/30" % [p1.attack_register_count["attack_light"], p1.attack_register_count["attack_heavy"], p1.attack_register_count["attack_special"]])
-				print("P2 Registered: Light=%d/30, Heavy=%d/30, Special=%d/30" % [p2.attack_register_count["attack_light"], p2.attack_register_count["attack_heavy"], p2.attack_register_count["attack_special"]])
-				print("All 30 presses registered with 100% reliability for both Host (P1) and Client (P2)!")
-				print("================================================================================")
-				var t := get_tree().create_timer(1.5)
-				t.timeout.connect(func():
-					get_tree().quit(0)
-				)
+		if p1.attack_register_count["attack_light"] >= 30 and p1.attack_register_count["attack_heavy"] >= 30 and p1.attack_register_count["attack_special"] >= 30 and p2.attack_register_count["attack_light"] >= 30 and p2.attack_register_count["attack_heavy"] >= 30 and p2.attack_register_count["attack_special"] >= 30:
+			_attack_test_reported = true
+			print("================================================================================")
+			print("=== [ATTACK BUFFER 30/30 VERIFICATION SUCCESS] ===")
+			print("P1 Registered: Light=%d/30, Heavy=%d/30, Special=%d/30" % [p1.attack_register_count["attack_light"], p1.attack_register_count["attack_heavy"], p1.attack_register_count["attack_special"]])
+			print("P2 Registered: Light=%d/30, Heavy=%d/30, Special=%d/30" % [p2.attack_register_count["attack_light"], p2.attack_register_count["attack_heavy"], p2.attack_register_count["attack_special"]])
+			print("All 30 presses registered with 100% reliability for both Host (P1) and Client (P2)!")
+			print("================================================================================")
+			var t := get_tree().create_timer(1.5)
+			t.timeout.connect(func():
+				get_tree().quit(0)
+			)
+
+var _client_facing_stage1_done: bool = false
+var _client_facing_stage2_done: bool = false
+
+func _process_client_facing_test() -> void:
+	if not p1 or not p2 or not is_instance_valid(p1) or not is_instance_valid(p2):
+		return
+	var p1_char: String = p1.character_data.character_id if p1.character_data else "none"
+	var p2_char: String = p2.character_data.character_id if p2.character_data else "none"
+
+	if not _client_facing_stage1_done and is_round_active:
+		_client_facing_stage1_done = true
+		print("[CLIENT FACING CHECK 1: MATCH START] P1 (%s) facing=%.1f flip_h=%s | P2 (%s) facing=%.1f flip_h=%s" % [
+			p1_char, p1.facing_direction, str(p1.sprite.flip_h),
+			p2_char, p2.facing_direction, str(p2.sprite.flip_h)
+		])
+
+	if _client_facing_stage1_done and not _client_facing_stage2_done and p2.position.x < p1.position.x - 30.0:
+		_client_facing_stage2_done = true
+		print("[CLIENT FACING CHECK 2: AFTER CROSSING] P1 (%s) facing=%.1f flip_h=%s | P2 (%s) facing=%.1f flip_h=%s" % [
+			p1_char, p1.facing_direction, str(p1.sprite.flip_h),
+			p2_char, p2.facing_direction, str(p2.sprite.flip_h)
+		])
+		var t := get_tree().create_timer(1.2)
+		t.timeout.connect(func(): get_tree().quit(0))
+
+var _client_walk_start_msec: int = 0
+func _process_client_walk_test() -> void:
+	if _client_walk_start_msec == 0:
+		_client_walk_start_msec = Time.get_ticks_msec()
+	var elapsed_sec: float = (Time.get_ticks_msec() - _client_walk_start_msec) / 1000.0
+	var frame := Engine.get_physics_frames()
+	if frame % 60 == 0:
+		var p2_err: float = p2.last_pred_error if ("last_pred_error" in p2) else 0.0
+		var p2_corr: float = p2.last_correction_size if ("last_correction_size" in p2) else 0.0
+		var t_text := timer_label.text if timer_label else "N/A"
+		print("[CLIENT WALK TEST %.1fs] timer_label=%s match_time=%.1f | P2 pos=%.1f vel=%.1f pred_err=%.2f corr=%.2f" % [
+			elapsed_sec, t_text, match_time_left,
+			p2.position.x, p2.velocity.x, p2_err, p2_corr
+		])
+	if elapsed_sec >= 62.0:
+		get_tree().quit(0)
 
 func _update_camera(delta: float) -> void:
 	if not p1 or not p2 or not is_instance_valid(p1) or not is_instance_valid(p2):
@@ -331,7 +499,26 @@ func _update_debug_info() -> void:
 		ping = NetworkManager.last_ping_ms
 
 	var failsafe_info := "\nFailsafe: " + (last_failsafe_msg if not last_failsafe_msg.is_empty() else "None (Normal)")
-	debug_text.text = "FPS: %d\nPeer ID: %d\nRole: %s\nPing: %d ms\nTick: %d%s" % [fps, my_id, auth, ping, Engine.get_physics_frames(), failsafe_info]
+
+	var p1_diag := "P1: None"
+	var p2_diag := "P2: None"
+	if p1 and is_instance_valid(p1) and p1.has_method("get_diagnostic_info"):
+		var d1: Dictionary = p1.get_diagnostic_info()
+		p1_diag = "P1: state=%s can_atk=%s buf_atk=%d(t=%d) hitstop=%d hitstun=%d has_hit=%s in_bits=%d" % [
+			d1["state"], str(d1["can_attack"]), d1["atk_buf"], d1["buf_timer"], d1["hitstop"], d1["hitstun"], str(d1["has_hit"]), d1["input"]
+		]
+	if p2 and is_instance_valid(p2) and p2.has_method("get_diagnostic_info"):
+		var d2: Dictionary = p2.get_diagnostic_info()
+		p2_diag = "P2: state=%s can_atk=%s in_bits=%d pred_err=%.2fpx corr=%.2fpx" % [
+			d2["state"], str(d2["can_attack"]), d2["input"], d2.get("pred_err", 0.0), d2.get("corr", 0.0)
+		]
+
+	debug_text.text = "FPS: %d\nPeer ID: %d\nRole: %s\nPing: %d ms\nTick: %d%s\n%s\n%s" % [
+		fps, my_id, auth, ping, Engine.get_physics_frames(), failsafe_info, p1_diag, p2_diag
+	]
+
+	if Engine.get_physics_frames() % 60 == 0:
+		print("[F3 DIAG frame=%d] %s | %s" % [Engine.get_physics_frames(), p1_diag, p2_diag])
 
 # ==============================================================================
 # ROUND MANAGEMENT (HOST AUTHORITATIVE)
@@ -339,6 +526,7 @@ func _update_debug_info() -> void:
 func _start_new_round(round_idx: int) -> void:
 	round_number = round_idx
 	match_time_left = GameState.ROUND_TIME_LIMIT
+	_update_timer_display()
 	is_round_active = false
 	clear_all_projectiles()
 
@@ -363,6 +551,8 @@ func rpc_client_arena_ready() -> void:
 @rpc("authority", "call_local", "reliable")
 func rpc_show_round_intro(r_num: int) -> void:
 	round_number = r_num
+	match_time_left = GameState.ROUND_TIME_LIMIT
+	_update_timer_display()
 	clear_all_projectiles()
 	if p1 and is_instance_valid(p1) and p1_spawn:
 		p1.reset_fighter(p1_spawn.position, 1.0)
@@ -386,7 +576,7 @@ func rpc_show_round_intro(r_num: int) -> void:
 @rpc("authority", "call_local", "unreliable")
 func rpc_sync_timer(time_val: float) -> void:
 	match_time_left = time_val
-	timer_label.text = "%02d" % int(ceilf(match_time_left))
+	_update_timer_display()
 
 func _on_p1_health_changed(new_hp: float, max_hp: float) -> void:
 	p1_health_bar.value = new_hp

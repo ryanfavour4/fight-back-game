@@ -39,6 +39,9 @@ var last_ping_ms: int = 0
 var auto_cli_mode: bool = false
 var is_autotest: bool = false
 var is_attack_test: bool = false
+var is_combat_test: bool = false
+var is_walk_test: bool = false
+var is_facing_test: bool = false
 var custom_cli_name: String = ""
 
 var _upnp_thread: Thread
@@ -423,6 +426,15 @@ func _check_cli_args() -> void:
 			is_autotest = true
 		elif arg == "--test-attacks":
 			is_attack_test = true
+			is_autotest = true
+		elif arg == "--test-combat":
+			is_combat_test = true
+			is_autotest = true
+		elif arg == "--test-walk":
+			is_walk_test = true
+			is_autotest = true
+		elif arg == "--test-facing":
+			is_facing_test = true
 			is_autotest = true
 		elif arg.begins_with("--name="):
 			custom_name = arg.substr(7).strip_edges()

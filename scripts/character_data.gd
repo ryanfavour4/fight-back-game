@@ -12,6 +12,7 @@ class_name CharacterData
 @export var walk_speed: float = 280.0
 @export var jump_velocity: float = -650.0
 @export var damage_multiplier: float = 1.0
+@export var default_facing: float = 1.0 # 1.0 = sprite sheet faces right, -1.0 = faces left
 
 @export_group("Sprite Sheets")
 @export var idle_sheet_path: String = ""

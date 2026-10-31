@@ -14,6 +14,7 @@ max_health = 90.0
 walk_speed = 250.0
 jump_velocity = -630.0
 damage_multiplier = 1.1
+default_facing = 1.0
 idle_sheet_path = "res://assets/characters/PNG/Kitsune/Idle.png"
 idle_frames = 8
 walk_sheet_path = "res://assets/characters/PNG/Kitsune/Walk.png"
