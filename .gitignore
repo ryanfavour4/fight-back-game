@@ -1,34 +1,59 @@
-# Godot generated files
+# --- Godot generated (keep *.import and *.uid files committed!) ---
 .godot/
+.import/
 
-# Android generated files
+# --- Exported builds (upload these to GitHub Releases instead) ---
+export/
+builds/
+*.exe
+*.pck
+*.apk
+*.aab
+*.zip
+*.7z
+
+# --- Signing keys and secrets, never commit ---
+*.keystore
+*.jks
+export_credentials.cfg
+.env
+.env.*
+
+# --- Android generated ---
 /android/
 
-# Node dependencies
-/relay-server/node_modules/
+# --- Node (relay server) ---
 node_modules/
 
-# IDE
+# --- Editors ---
 .vscode/
 .idea/
 
-# Temporary files
+# --- Temporary / generated ---
 *.tmp
 *.bak
 *.log
+*.tree
 last_room_code.txt
-
-# Development & Test Tools
 dev-tools/
 
-# OS files
+# --- OS files ---
 .DS_Store
 Thumbs.db
+desktop.ini
 __MACOSX/
 
-# Design source files
+# --- Design source files (not used by the game) ---
+assets/**/PSD/
+assets/**/AI/
+assets/**/EPS/
 assets/**/*.psd
 assets/**/*.PSD
 assets/**/*.ai
 assets/**/*.AI
-assets/**/__MACOSX/
+assets/**/*.eps
+assets/**/*.EPS
+assets/**/4 Examples/
+assets/**/preview/
+assets/**/*.pdf
+assets/**/*.url

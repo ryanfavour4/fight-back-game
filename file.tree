@@ -1,6 +1,6 @@
 
 
-**Generated:** 10/30/2026, 6:33:30 AM
+**Generated:** 10/31/2026, 2:18:31 AM
 **Root Path:** `c:\Users\ryanf\Downloads\game\fight-back`
 
 ```
@@ -61,14 +61,7 @@
 │   │   │       ├── 📄 6.png.import
 │   │   │       ├── 🖼️ dead forest.png
 │   │   │       └── 📄 dead forest.png.import
-│   │   ├── 📁 PSD
-│   │   │   └── 📄 Horizontal Battle Backgrounds (vampires).psd
-│   │   └── 📁 __MACOSX
-│   │       ├── 📁 PNG
-│   │       │   ├── ⚙️ ._.DS_Store
-│   │       │   └── ⚙️ ._Free Assets Craftpix!.url
-│   │       ├── ⚙️ ._Free Assets Craftpix!.url
-│   │       └── ⚙️ .gdignore
+│   │   └── 📁 PSD
 │   ├── 📁 characters
 │   │   ├── 📁 PNG
 │   │   │   ├── 📁 Karasu_tengu
@@ -139,9 +132,6 @@
 │   │   │       ├── 🖼️ Walk.png
 │   │   │       └── 📄 Walk.png.import
 │   │   └── 📁 PSD
-│   │       ├── 📄 Karasu_tengu_Spritelist.psd
-│   │       ├── 📄 Kitcune_Spritelist.psd
-│   │       └── 📄 Yamabushi_tengu_Spritelist.psd
 │   ├── 📁 dark-fantasy-hud
 │   │   └── 📁 Dark-Fantasy-HUD-FREE-Sample
 │   │       ├── 📁 png
@@ -616,7 +606,6 @@
 │   │   │       ├── 🖼️ con9.png
 │   │   │       └── 📄 con9.png.import
 │   │   ├── 📄 License.txt
-│   │   ├── 📄 icons.psd
 │   │   └── 📄 readme.txt
 │   ├── 📁 futuristic-sounds-and-music-pack
 │   │   ├── 📁 Music
@@ -703,61 +692,6 @@
 │   │   │   ├── 📄 cars_door_opening.wav.import
 │   │   │   ├── 🎵 outdoor_cooler.wav
 │   │   │   └── 📄 outdoor_cooler.wav.import
-│   │   ├── 📁 __MACOSX
-│   │   │   ├── 📁 Music
-│   │   │   │   ├── 📁 MP3
-│   │   │   │   │   ├── ⚙️ ._Battle_theme_loopable.mp3
-│   │   │   │   │   ├── ⚙️ ._Game_menu_theme_loopable.mp3
-│   │   │   │   │   ├── ⚙️ ._Main_theme_loopable.mp3
-│   │   │   │   │   ├── ⚙️ ._Main_theme_night_city_loopable.mp3
-│   │   │   │   │   └── ⚙️ ._police_theme_loopable.mp3
-│   │   │   │   ├── 📁 WAV
-│   │   │   │   │   ├── ⚙️ ._Battle_theme_loopable.wav
-│   │   │   │   │   ├── ⚙️ ._Game_menu_theme_loopable.wav
-│   │   │   │   │   ├── ⚙️ ._Main_theme_loopable.wav
-│   │   │   │   │   ├── ⚙️ ._Main_theme_night_city_loopable.wav
-│   │   │   │   │   └── ⚙️ ._police_theme_loopable.wav
-│   │   │   │   ├── ⚙️ ._.DS_Store
-│   │   │   │   ├── ⚙️ ._MP3
-│   │   │   │   └── ⚙️ ._WAV
-│   │   │   ├── 📁 Sounds
-│   │   │   │   ├── ⚙️ ._Airobike_idle.wav
-│   │   │   │   ├── ⚙️ ._Airobike_walk.wav
-│   │   │   │   ├── ⚙️ ._Can_drop.wav
-│   │   │   │   ├── ⚙️ ._Cashmachine.wav
-│   │   │   │   ├── ⚙️ ._Coin_drop.wav
-│   │   │   │   ├── ⚙️ ._Collect_cash_1.wav
-│   │   │   │   ├── ⚙️ ._Collect_cash_2.wav
-│   │   │   │   ├── ⚙️ ._Collect_sound.wav
-│   │   │   │   ├── ⚙️ ._Crate_open_1.wav
-│   │   │   │   ├── ⚙️ ._Crate_open_2_steam.wav
-│   │   │   │   ├── ⚙️ ._Drink_machine.wav
-│   │   │   │   ├── ⚙️ ._Helicopter_engine_start.wav
-│   │   │   │   ├── ⚙️ ._Helicopter_engine_stop.wav
-│   │   │   │   ├── ⚙️ ._Helicopter_walk.wav
-│   │   │   │   ├── ⚙️ ._Insert_coin.wav
-│   │   │   │   ├── ⚙️ ._Laser_shot.wav
-│   │   │   │   ├── ⚙️ ._Neon_1.wav
-│   │   │   │   ├── ⚙️ ._Neon_2.wav
-│   │   │   │   ├── ⚙️ ._Police_signal.wav
-│   │   │   │   ├── ⚙️ ._Print_ticket.wav
-│   │   │   │   ├── ⚙️ ._Tank_shot.wav
-│   │   │   │   ├── ⚙️ ._Tank_walk.wav
-│   │   │   │   ├── ⚙️ ._Tech_death_1.wav
-│   │   │   │   ├── ⚙️ ._Tech_death_2.wav
-│   │   │   │   ├── ⚙️ ._Truck_gun_shot.wav
-│   │   │   │   ├── ⚙️ ._Truck_walk.wav
-│   │   │   │   ├── ⚙️ ._Walkie_talkie.wav
-│   │   │   │   ├── ⚙️ ._cars_door_closing.wav
-│   │   │   │   ├── ⚙️ ._cars_door_opening.wav
-│   │   │   │   └── ⚙️ ._outdoor_cooler.wav
-│   │   │   ├── ⚙️ ._COUPON.pdf
-│   │   │   ├── ⚙️ ._COUPON.png
-│   │   │   ├── ⚙️ ._Description.txt
-│   │   │   ├── ⚙️ ._Free Assets Craftpix!.url
-│   │   │   ├── ⚙️ ._Music
-│   │   │   ├── ⚙️ ._Sounds
-│   │   │   └── ⚙️ .gdignore
 │   │   ├── 📕 COUPON.pdf
 │   │   ├── 🖼️ COUPON.png
 │   │   ├── 📄 COUPON.png.import
@@ -1474,9 +1408,6 @@
 │   │   │   ├── 🖼️ 9Craftpix.png
 │   │   │   └── 📄 9Craftpix.png.import
 │   │   ├── 📁 PSD
-│   │   │   ├── 📄 Backtileset.psd
-│   │   │   ├── 📄 Font_decorations.psd
-│   │   │   └── 📄 Transparent.psd
 │   │   ├── 📄 Font.txt
 │   │   ├── 📄 License.txt
 │   │   ├── 🖼️ Palette.png
@@ -1931,7 +1862,6 @@
 │   │   └── 📄 mainmenuicons.png.import
 │   └── 📁 paladin-icon-pack
 │       ├── 📁 AI
-│       │   └── 📄 Paladine_Skills_Icon_Pack.ai
 │       ├── 📁 EPS
 │       │   ├── 📄 Paladine_Skills_Icon_Pack-01.eps
 │       │   ├── 📄 Paladine_Skills_Icon_Pack-02.eps
@@ -2169,8 +2099,7 @@
 ├── 🖼️ logo.png
 ├── 📄 logo.png.import
 ├── 📄 project.godot
-├── 📄 run_lan_test.ps1
-└── 📄 run_online_test.ps1
+└── 📝 short-guide.md
 ```
 
 ---
