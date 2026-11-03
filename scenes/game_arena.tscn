@@ -49,7 +49,6 @@ motion_scale = Vector2(0.1, 0.1)
 
 [node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer1_Sky"]
 position = Vector2(960, 100)
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_bg1")
 
 [node name="Layer2_Spikes" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -57,7 +56,6 @@ motion_scale = Vector2(0.25, 0.25)
 
 [node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer2_Spikes"]
 position = Vector2(960, 300)
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_bg2")
 
 [node name="Layer3_Bridge" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -65,7 +63,6 @@ motion_scale = Vector2(0.5, 0.5)
 
 [node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer3_Bridge"]
 position = Vector2(960, 380)
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_bg3")
 
 [node name="Layer4_Wall" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -73,7 +70,6 @@ motion_scale = Vector2(0.75, 0.75)
 
 [node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer4_Wall"]
 position = Vector2(960, 400)
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_bg4")
 
 [node name="Layer5_Ground" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -81,7 +77,6 @@ motion_scale = Vector2(1, 1)
 
 [node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer5_Ground"]
 position = Vector2(960, 410)
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_bg5")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

@@ -60,6 +60,8 @@ var _round_started: bool = false
 var _next_projectile_id: int = 0
 var last_failsafe_msg: String = ""
 var _latest_state_tick: int = -1
+var _hit_spark_pool: Array[CPUParticles2D] = []
+var _hit_spark_index: int = 0
 
 var player_scene: PackedScene = preload("res://scenes/player.tscn")
 var projectile_scene: PackedScene = preload("res://scenes/projectile.tscn")
@@ -77,6 +79,7 @@ func _ready() -> void:
 	_setup_debug_overlay()
 	_setup_leave_menu()
 	_setup_results_panel()
+	_setup_hit_spark_pool()
 	_spawn_fighters()
 
 	NetworkManager.peer_left.connect(_on_opponent_disconnected)
@@ -897,24 +900,32 @@ func clear_all_projectiles() -> void:
 		for child in projectiles_container.get_children():
 			child.queue_free()
 
+func _setup_hit_spark_pool() -> void:
+	for i in range(6):
+		var spark := CPUParticles2D.new()
+		spark.amount = 14
+		spark.lifetime = 0.25
+		spark.one_shot = true
+		spark.explosiveness = 1.0
+		spark.spread = 180.0
+		spark.gravity = Vector2(0, 0)
+		spark.initial_velocity_min = 120.0
+		spark.initial_velocity_max = 240.0
+		spark.scale_amount_min = 3.0
+		spark.scale_amount_max = 6.0
+		spark.color = Color(1, 0.9, 0.2, 1)
+		spark.emitting = false
+		add_child(spark)
+		_hit_spark_pool.append(spark)
+
 func _spawn_hit_spark(pos: Vector2) -> void:
-	var spark := CPUParticles2D.new()
+	if _hit_spark_pool.is_empty():
+		return
+	var spark: CPUParticles2D = _hit_spark_pool[_hit_spark_index]
+	_hit_spark_index = (_hit_spark_index + 1) % _hit_spark_pool.size()
 	spark.global_position = pos
-	spark.amount = 14
-	spark.lifetime = 0.25
-	spark.one_shot = true
-	spark.explosiveness = 1.0
-	spark.spread = 180.0
-	spark.gravity = Vector2(0, 0)
-	spark.initial_velocity_min = 120.0
-	spark.initial_velocity_max = 240.0
-	spark.scale_amount_min = 3.0
-	spark.scale_amount_max = 6.0
-	spark.color = Color(1, 0.9, 0.2, 1)
+	spark.restart()
 	spark.emitting = true
-	add_child(spark)
-	var t := get_tree().create_timer(0.3)
-	t.timeout.connect(spark.queue_free)
 
 @rpc("authority", "call_local", "reliable")
 func rpc_trigger_melee_hit_effects(hit_gpos: Vector2, sfx_name: String, is_heavy: bool) -> void:

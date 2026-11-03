@@ -43,8 +43,14 @@ var is_combat_test: bool = false
 var is_walk_test: bool = false
 var is_facing_test: bool = false
 var custom_cli_name: String = ""
+var _cached_arena: Node = null
 
 var _upnp_thread: Thread
+
+func _get_arena() -> Node:
+	if _cached_arena == null or not is_instance_valid(_cached_arena):
+		_cached_arena = get_tree().current_scene
+	return _cached_arena
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -168,7 +174,7 @@ func _on_relay_event_received(event_name: String, args: Array) -> void:
 				node.callv(method_name, method_args)
 	elif event_name == "client_input":
 		if is_host and args.size() >= 2:
-			var arena = get_tree().current_scene
+			var arena = _get_arena()
 			if arena and "p2" in arena and arena.p2 and arena.p2.has_method("rpc_send_client_input"):
 				arena.p2.rpc_send_client_input(args[0], args[1])
 
@@ -196,7 +202,7 @@ func send_fighter_states(tick: int, payload: Dictionary) -> void:
 
 func send_client_input(mask: int, tick: int) -> void:
 	if current_mode == NetworkMode.LAN_ENET:
-		var arena = get_tree().current_scene
+		var arena = _get_arena()
 		if arena and "p2" in arena and arena.p2:
 			arena.p2.rpc_id(1, "rpc_send_client_input", mask, tick)
 	else:

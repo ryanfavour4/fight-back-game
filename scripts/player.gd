@@ -38,6 +38,8 @@ var state_ticks: int = 0
 # Ring buffer for freeze diagnostics (~120 ticks)
 const RING_BUFFER_SIZE: int = 120
 var ring_buffer: Array[Dictionary] = []
+var _ring_buffer_idx: int = 0
+var _arena_cached: Node = null
 
 # Input caching
 var local_input_mask: int = 0
@@ -109,6 +111,11 @@ var _test_presses_sent: Dictionary = {
 var projectile_scene: PackedScene = preload("res://scenes/projectile.tscn")
 
 func _ready() -> void:
+	_arena_cached = get_tree().current_scene
+	ring_buffer.resize(RING_BUFFER_SIZE)
+	for i in range(RING_BUFFER_SIZE):
+		ring_buffer[i] = {}
+
 	hitbox.area_entered.connect(_on_hitbox_area_entered)
 	sprite.animation_finished.connect(_on_animation_finished)
 	sprite.frame_changed.connect(_on_frame_changed)
@@ -213,11 +220,16 @@ func _physics_process(delta: float) -> void:
 # ==============================================================================
 # INPUT GATHERING & NETWORKING
 # ==============================================================================
+func _get_arena() -> Node:
+	if _arena_cached == null or not is_instance_valid(_arena_cached):
+		_arena_cached = get_tree().current_scene
+	return _arena_cached
+
 func _sample_local_input() -> int:
 	if NetworkManager.is_combat_test:
 		var mask: int = 0
 		var frame := Engine.get_physics_frames()
-		var arena = get_tree().current_scene
+		var arena = _get_arena()
 		if arena and "is_round_active" in arena and arena.is_round_active:
 			if opponent and is_instance_valid(opponent):
 				var dist: float = absf(global_position.x - opponent.global_position.x)
@@ -267,7 +279,7 @@ func _sample_local_input() -> int:
 
 	if NetworkManager.is_facing_test:
 		var mask: int = 0
-		var arena = get_tree().current_scene
+		var arena = _get_arena()
 		if arena and "is_round_active" in arena and arena.is_round_active:
 			if player_number == 2:
 				# Walk left past P1
@@ -279,7 +291,7 @@ func _sample_local_input() -> int:
 	if NetworkManager.is_walk_test:
 		var mask: int = 0
 		var frame := Engine.get_physics_frames()
-		var arena = get_tree().current_scene
+		var arena = _get_arena()
 		if arena and "is_round_active" in arena and arena.is_round_active:
 			# Walk right for 120 frames, then left for 120 frames
 			var cycle := (frame / 120) % 2
@@ -292,7 +304,7 @@ func _sample_local_input() -> int:
 	if NetworkManager.is_attack_test:
 		var mask: int = 0
 		var frame := Engine.get_physics_frames()
-		var arena = get_tree().current_scene
+		var arena = _get_arena()
 		if arena and "is_round_active" in arena and arena.is_round_active:
 			# Press once every 35 frames (~0.58s), alternating between Light (1-30), Heavy (31-60), Special (61-90)
 			# Offset P1 and P2 slightly so their attack animations don't collide (P1 on %35==0, P2 on %35==18)
@@ -726,7 +738,7 @@ func _spawn_projectile() -> void:
 	if current_move == null or not current_move.is_projectile:
 		return
 
-	var arena = get_tree().current_scene
+	var arena = _get_arena()
 	if arena and arena.has_method("spawn_projectile_networked"):
 		var spawn_pos := position + Vector2(facing_direction * 45.0, -45.0)
 		var dmg := current_move.damage * character_data.damage_multiplier
@@ -817,7 +829,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		target.hitstop_frames_left = 3
 
 		# Notify arena to trigger melee hit effects (sparks, SFX, screen shake) across network
-		var arena = get_tree().current_scene
+		var arena = _get_arena()
 		if arena and arena.has_method("rpc_trigger_melee_hit_effects"):
 			NetworkManager.send_network_event("/root/GameArena", "rpc_trigger_melee_hit_effects", [hitbox.global_position, current_move.sfx_name, dmg >= 15.0])
 
@@ -860,7 +872,9 @@ func reset_fighter(spawn_pos: Vector2, facing: float) -> void:
 	hitstun_frames_left = 0
 	hitstop_frames_left = 0
 	state_ticks = 0
-	ring_buffer.clear()
+	_ring_buffer_idx = 0
+	for d in ring_buffer:
+		d.clear()
 	input_history.clear()
 	client_input_queue.clear()
 	client_input_seq = 0
@@ -914,34 +928,45 @@ func _check_failsafe_stuck() -> void:
 		if current_state in [State.ATTACK, State.HURT]:
 			_transition_to(State.IDLE if is_on_floor() else State.JUMP)
 			_play_anim("idle" if is_on_floor() else "jump")
-		var arena = get_tree().current_scene
+		var arena = _get_arena()
 		if arena and arena.has_method("on_failsafe_triggered"):
 			arena.on_failsafe_triggered(player_number, stuck_reason)
 
 func _record_tick_state(input_mask: int) -> void:
-	var entry: Dictionary = {
-		"tick": current_tick,
-		"time_ms": Time.get_ticks_msec(),
-		"state": State.keys()[current_state] if current_state < State.size() else str(current_state),
-		"state_ticks": state_ticks,
-		"anim": sprite.animation if sprite else "",
-		"frame": sprite.frame if sprite else -1,
-		"is_playing": sprite.is_playing() if sprite else false,
-		"gpos": global_position,
-		"vel": velocity,
-		"hitstop": hitstop_frames_left,
-		"hitstun": hitstun_frames_left,
-		"input": input_mask,
-		"has_proj": has_spawned_projectile,
-		"hitbox_act": sync_hitbox_active,
-		"on_floor": is_on_floor()
-	}
-	ring_buffer.append(entry)
-	if ring_buffer.size() > RING_BUFFER_SIZE:
-		ring_buffer.pop_front()
+	if not OS.is_debug_build():
+		return
+	if ring_buffer.size() < RING_BUFFER_SIZE:
+		ring_buffer.resize(RING_BUFFER_SIZE)
+		for i in range(RING_BUFFER_SIZE):
+			if ring_buffer[i] == null:
+				ring_buffer[i] = {}
+
+	var entry: Dictionary = ring_buffer[_ring_buffer_idx]
+	entry["tick"] = current_tick
+	entry["time_ms"] = Time.get_ticks_msec()
+	entry["state"] = State.keys()[current_state] if current_state < State.size() else str(current_state)
+	entry["state_ticks"] = state_ticks
+	entry["anim"] = sprite.animation if sprite else ""
+	entry["frame"] = sprite.frame if sprite else -1
+	entry["is_playing"] = sprite.is_playing() if sprite else false
+	entry["gpos"] = global_position
+	entry["vel"] = velocity
+	entry["hitstop"] = hitstop_frames_left
+	entry["hitstun"] = hitstun_frames_left
+	entry["input"] = input_mask
+	entry["has_proj"] = has_spawned_projectile
+	entry["hitbox_act"] = sync_hitbox_active
+	entry["on_floor"] = is_on_floor()
+
+	_ring_buffer_idx = (_ring_buffer_idx + 1) % RING_BUFFER_SIZE
 
 func get_ordered_ring_buffer() -> Array[Dictionary]:
-	return ring_buffer.duplicate()
+	var ordered: Array[Dictionary] = []
+	for i in range(RING_BUFFER_SIZE):
+		var idx := (_ring_buffer_idx + i) % RING_BUFFER_SIZE
+		if not ring_buffer[idx].is_empty():
+			ordered.append(ring_buffer[idx])
+	return ordered
 
 # ==============================================================================
 # CLIENT PREDICTION, INTERPOLATION & RENDERING

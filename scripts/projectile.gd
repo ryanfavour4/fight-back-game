@@ -15,6 +15,7 @@ var has_hit: bool = false
 var lifetime: float = 2.0
 var is_visual_only: bool = false
 var proj_id: int = 0
+var _arena_cached: Node = null
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var col_shape: CollisionShape2D = $CollisionShape2D
@@ -22,7 +23,13 @@ var proj_id: int = 0
 static var _cached_fly_frames: SpriteFrames = null
 static var _cached_burst_frames: SpriteFrames = null
 
+func _get_arena() -> Node:
+	if _arena_cached == null or not is_instance_valid(_arena_cached):
+		_arena_cached = get_tree().current_scene
+	return _arena_cached
+
 func _ready() -> void:
+	_arena_cached = get_tree().current_scene
 	if not is_visual_only:
 		area_entered.connect(_on_area_entered)
 	else:
@@ -103,7 +110,7 @@ func _physics_process(delta: float) -> void:
 
 	if position.x < 30.0 or position.x > 1890.0:
 		if _is_host_sim():
-			var arena = get_tree().current_scene
+			var arena = _get_arena()
 			if arena and arena.has_method("notify_projectile_impact"):
 				arena.notify_projectile_impact(proj_id, global_position, false)
 		play_impact_and_free(false)
@@ -123,7 +130,7 @@ func _on_area_entered(area: Area2D) -> void:
 
 			# Hitstop freeze on target and camera shake
 			target.hitstop_frames_left = 3
-			var arena = get_tree().current_scene
+			var arena = _get_arena()
 			if arena and arena.has_method("notify_projectile_impact"):
 				arena.notify_projectile_impact(proj_id, global_position, true)
 			else:

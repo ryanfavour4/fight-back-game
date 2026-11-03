@@ -36,6 +36,7 @@ node_modules/
 *.tree
 last_room_code.txt
 dev-tools/
+test_logs/
 
 # --- OS files ---
 .DS_Store
