@@ -42,6 +42,7 @@ var is_attack_test: bool = false
 var is_combat_test: bool = false
 var is_walk_test: bool = false
 var is_facing_test: bool = false
+var is_smoothness_test: bool = false
 var custom_cli_name: String = ""
 var _cached_arena: Node = null
 
@@ -441,6 +442,9 @@ func _check_cli_args() -> void:
 			is_autotest = true
 		elif arg == "--test-facing":
 			is_facing_test = true
+			is_autotest = true
+		elif arg == "--test-smoothness":
+			is_smoothness_test = true
 			is_autotest = true
 		elif arg.begins_with("--name="):
 			custom_name = arg.substr(7).strip_edges()

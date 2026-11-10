@@ -132,11 +132,37 @@ func _process(delta: float) -> void:
 	var state := ws.get_ready_state()
 
 	if state == WebSocketPeer.STATE_OPEN:
-		# Process incoming packets
+		# Process incoming packets in this frame batch
+		var latest_batch_tick: int = -1
+		var latest_batch_payload: Dictionary = {}
+
 		while ws.get_available_packet_count() > 0:
 			var packet := ws.get_packet()
 			var json_str := packet.get_string_from_utf8()
-			_handle_incoming_json(json_str)
+			var parsed: Variant = JSON.parse_string(json_str)
+			if not (parsed is Dictionary):
+				continue
+			var msg := parsed as Dictionary
+			var type: String = msg.get("type", "")
+
+			if type == "game_data" and msg.get("sub_type", "") == "state":
+				# Coalesce state snapshots within this frame: keep only the newest tick
+				var tick: int = msg.get("tick", 0)
+				if tick > latest_batch_tick:
+					latest_batch_tick = tick
+					if msg.has("payload") and msg["payload"] is Dictionary:
+						latest_batch_payload = msg["payload"]
+					elif msg.has("payload_str"):
+						var parsed_p = str_to_var(msg["payload_str"])
+						if parsed_p is Dictionary:
+							latest_batch_payload = parsed_p
+			else:
+				# EVENTS and non-state packets are NEVER coalesced; process immediately in order
+				_route_parsed_message(msg)
+
+		# Apply the newest state snapshot from this frame batch
+		if latest_batch_tick >= 0 and not latest_batch_payload.is_empty():
+			state_received.emit(latest_batch_tick, latest_batch_payload)
 
 		# Keepalive & Ping management
 		var now_sec := Time.get_ticks_msec() / 1000.0
@@ -255,22 +281,32 @@ func disconnect_relay() -> void:
 func send_state(tick: int, payload: Dictionary) -> void:
 	if ws == null or ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
 		return
+	# Direct structured JSON payload: eliminates nested var_to_str stringification
 	_send_json({
 		"type": "game_data",
 		"sub_type": "state",
 		"tick": tick,
-		"payload_str": var_to_str(payload)
+		"payload": payload
 	})
 
 func send_event(event_name: String, args: Array) -> void:
 	if ws == null or ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
 		return
-	_send_json({
-		"type": "game_data",
-		"sub_type": "event",
-		"event": event_name,
-		"args_str": var_to_str(args)
-	})
+	# For client_input (sent at 60 Hz), send pure structured JSON array
+	if event_name == "client_input":
+		_send_json({
+			"type": "game_data",
+			"sub_type": "event",
+			"event": event_name,
+			"args": args
+		})
+	else:
+		_send_json({
+			"type": "game_data",
+			"sub_type": "event",
+			"event": event_name,
+			"args_str": var_to_str(args)
+		})
 
 func _send_ping() -> void:
 	if ws == null or ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
@@ -291,10 +327,10 @@ func _send_json(data: Dictionary) -> void:
 # ==============================================================================
 func _handle_incoming_json(json_str: String) -> void:
 	var parsed: Variant = JSON.parse_string(json_str)
-	if not (parsed is Dictionary):
-		return
+	if parsed is Dictionary:
+		_route_parsed_message(parsed as Dictionary)
 
-	var msg := parsed as Dictionary
+func _route_parsed_message(msg: Dictionary) -> void:
 	var type: String = msg.get("type", "")
 
 	match type:
@@ -336,22 +372,22 @@ func _handle_incoming_json(json_str: String) -> void:
 			if sub_type == "state":
 				var tick: int = msg.get("tick", 0)
 				var payload: Dictionary = {}
-				if msg.has("payload_str"):
+				if msg.has("payload") and msg["payload"] is Dictionary:
+					payload = msg["payload"]
+				elif msg.has("payload_str"):
 					var parsed_p = str_to_var(msg["payload_str"])
 					if parsed_p is Dictionary:
 						payload = parsed_p
-				elif msg.has("payload"):
-					payload = msg.get("payload", {})
 				state_received.emit(tick, payload)
 			elif sub_type == "event":
 				var event_name: String = msg.get("event", "")
 				var args: Array = []
-				if msg.has("args_str"):
+				if msg.has("args") and msg["args"] is Array:
+					args = msg["args"]
+				elif msg.has("args_str"):
 					var parsed_a = str_to_var(msg["args_str"])
 					if parsed_a is Array:
 						args = parsed_a
 					else:
 						args = [parsed_a]
-				elif msg.has("args"):
-					args = msg.get("args", [])
 				event_received.emit(event_name, args)

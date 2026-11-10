@@ -190,7 +190,9 @@ func _physics_process(delta: float) -> void:
 	_update_debug_info()
 	_log_fighter_diagnostics()
 
-	if NetworkManager.is_autotest and _is_server_authority() and is_round_active:
+	if NetworkManager.is_smoothness_test and is_round_active:
+		_process_smoothness_test(delta)
+	elif NetworkManager.is_autotest and _is_server_authority() and is_round_active:
 		_process_autotest_combat()
 	elif NetworkManager.is_facing_test and not _is_server_authority() and is_round_active:
 		_process_client_facing_test()
@@ -210,8 +212,10 @@ func _physics_process(delta: float) -> void:
 			if NetworkManager.current_mode == NetworkManager.NetworkMode.LAN_ENET:
 				rpc("rpc_sync_timer", match_time_left)
 			else:
-				# 60 Hz full state snapshot rate during active combat
-				_send_online_state_snapshot()
+				# 30 Hz full state snapshot rate during active combat (every 2nd physics frame)
+				# Preserves 60 Hz physics simulation while cutting network congestion and packet clumping by 50%
+				if Engine.get_physics_frames() % 2 == 0:
+					_send_online_state_snapshot()
 		elif NetworkManager.current_mode == NetworkManager.NetworkMode.ONLINE_ROOM:
 			_update_timer_display()
 			if Engine.get_physics_frames() % 4 == 0:
@@ -452,6 +456,101 @@ func _process_client_walk_test() -> void:
 		])
 	if elapsed_sec >= 62.0:
 		get_tree().quit(0)
+
+var smoothness_test_frame: int = 0
+var _prev_remote_pos: Vector2 = Vector2.ZERO
+var _walk_speeds: Array[float] = []
+var _turn_max_delta_x: float = 0.0
+var _landing_floor_errors: Array[float] = []
+var _idle_max_drift: float = 0.0
+var _idle_initial_pos: Vector2 = Vector2.ZERO
+var _cross_min_dist: float = 9999.0
+var _smoothness_reported: bool = false
+
+func _process_smoothness_test(delta: float) -> void:
+	if not p1 or not p2:
+		return
+	smoothness_test_frame += 1
+	var f := smoothness_test_frame
+
+	var remote: CharacterBody2D = p1 if not _is_server_authority() else p2
+	var cur_pos := remote.position
+
+	if _prev_remote_pos != Vector2.ZERO:
+		var dx := absf(cur_pos.x - _prev_remote_pos.x)
+		var spd := dx / delta
+
+		# Phase 1 & 2: Continuous walk (frames 30..150 and 210..330)
+		if (f >= 30 and f <= 150) or (f >= 210 and f <= 330):
+			_walk_speeds.append(spd)
+
+		# Phase 3: Sudden turn (frames 360..480)
+		elif f >= 360 and f <= 480:
+			if dx > _turn_max_delta_x:
+				_turn_max_delta_x = dx
+
+		# Phase 4: Jump & landing (frames 500..660)
+		elif f >= 560 and f <= 660:
+			if remote.current_state in [remote.State.IDLE, remote.State.WALK]:
+				_landing_floor_errors.append(absf(cur_pos.y - 620.0))
+
+		# Phase 5: Standing still (frames 660..800)
+		elif f >= 670 and f <= 800:
+			if _idle_initial_pos == Vector2.ZERO:
+				_idle_initial_pos = cur_pos
+			else:
+				var drift := cur_pos.distance_to(_idle_initial_pos)
+				if drift > _idle_max_drift:
+					_idle_max_drift = drift
+
+		# Phase 6: Moving past each other (frames 800..1050)
+		elif f >= 800 and f <= 1050:
+			var sep := absf(p1.position.x - p2.position.x)
+			if sep < _cross_min_dist:
+				_cross_min_dist = sep
+
+	_prev_remote_pos = cur_pos
+
+	if f >= 1050 and not _smoothness_reported:
+		_smoothness_reported = true
+		_report_smoothness_results()
+
+func _report_smoothness_results() -> void:
+	var role := "CLIENT (observing Host P1)" if not _is_server_authority() else "HOST (observing Joiner P2)"
+	var sum_spd: float = 0.0
+	var min_spd: float = 99999.0
+	var max_spd: float = 0.0
+	for s in _walk_speeds:
+		sum_spd += s
+		if s < min_spd: min_spd = s
+		if s > max_spd: max_spd = s
+	var avg_spd: float = sum_spd / max(1, _walk_speeds.size())
+
+	var var_sum: float = 0.0
+	for s in _walk_speeds:
+		var_sum += (s - avg_spd) * (s - avg_spd)
+	var stddev_spd: float = sqrt(var_sum / max(1, _walk_speeds.size()))
+
+	var max_land_err: float = 0.0
+	var avg_land_err: float = 0.0
+	if not _landing_floor_errors.is_empty():
+		var l_sum: float = 0.0
+		for e in _landing_floor_errors:
+			l_sum += e
+			if e > max_land_err: max_land_err = e
+		avg_land_err = l_sum / _landing_floor_errors.size()
+
+	print("================================================================================")
+	print("=== [SMOOTHNESS REPORT: %s] ===" % role)
+	print("1. Continuous Walk Speed: Avg=%.1f px/s | Min=%.1f | Max=%.1f | StdDev=%.2f px/s" % [avg_spd, min_spd, max_spd, stddev_spd])
+	print("2. Sudden Turn Max Single-Frame Delta: %.2f px (Normal frame delta is ~4.17 px)" % _turn_max_delta_x)
+	print("3. Landing Floor Error (y - 620): Max=%.2f px | Avg=%.2f px" % [max_land_err, avg_land_err])
+	print("4. Idle Standing Still Drift: Max=%.3f px" % _idle_max_drift)
+	print("5. Moving Past Each Other Min Separation: %.1f px" % _cross_min_dist)
+	print("================================================================================")
+
+	var t := get_tree().create_timer(1.0)
+	t.timeout.connect(func(): get_tree().quit(0))
 
 func _update_camera(delta: float) -> void:
 	if not p1 or not p2 or not is_instance_valid(p1) or not is_instance_valid(p2):

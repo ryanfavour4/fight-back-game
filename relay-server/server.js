@@ -103,6 +103,14 @@ wss.on('connection', (ws, req) => {
   ws.roomCode = null;
   ws.role = null; // 'host' | 'client'
   ws.isAlive = true;
+  ws._pendingState = null;
+  ws._drainListenerAttached = false;
+
+  // Verify and enable TCP_NODELAY to prevent 40ms Nagle buffering spikes
+  const sock = ws._socket || req.socket;
+  if (sock && typeof sock.setNoDelay === 'function') {
+    sock.setNoDelay(true);
+  }
 
   ws.on('message', (raw) => {
     // 1. Message rate limiting
@@ -133,7 +141,7 @@ wss.on('connection', (ws, req) => {
       return;
     }
 
-    handleMessage(ws, data);
+    handleMessage(ws, data, raw);
   });
 
   ws.on('close', () => {
@@ -146,7 +154,7 @@ wss.on('connection', (ws, req) => {
   });
 });
 
-function handleMessage(ws, data) {
+function handleMessage(ws, data, raw) {
   const type = data.type;
 
   // Keep-alive ping
@@ -284,14 +292,43 @@ function handleMessage(ws, data) {
 
     const targetWs = (ws.role === 'host') ? room.clientWs : room.hostWs;
     if (targetWs && targetWs.readyState === WebSocket.OPEN) {
-      // Direct forwarding of message to opponent
-      targetWs.send(JSON.stringify(data));
+      const payloadToSend = raw ? raw.toString() : JSON.stringify(data);
+      const subType = data.sub_type;
+
+      if (subType === 'state') {
+        // Safe latest-state coalescing:
+        // If the destination socket has un-flushed bytes in its buffer,
+        // coalesce this state update so only the most recent state is sent when it drains.
+        if (targetWs.bufferedAmount > 0) {
+          targetWs._pendingState = payloadToSend;
+          if (!targetWs._drainListenerAttached && targetWs._socket) {
+            targetWs._drainListenerAttached = true;
+            targetWs._socket.once('drain', () => {
+              targetWs._drainListenerAttached = false;
+              if (targetWs._pendingState && targetWs.readyState === WebSocket.OPEN) {
+                const latest = targetWs._pendingState;
+                targetWs._pendingState = null;
+                targetWs.send(latest);
+              }
+            });
+          }
+        } else {
+          targetWs._pendingState = null;
+          targetWs.send(payloadToSend);
+        }
+      } else {
+        // EVENTS (attacks, hit confirms, damage, inputs, round intro, KO, rematch)
+        // are NEVER delayed, dropped or coalesced: send immediately!
+        targetWs.send(payloadToSend);
+      }
     }
     return;
   }
 }
 
 function handleDisconnect(ws) {
+  ws._pendingState = null;
+  ws._drainListenerAttached = false;
   const code = ws.roomCode;
   if (!code || !rooms.has(code)) return;
 

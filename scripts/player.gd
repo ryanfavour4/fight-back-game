@@ -288,6 +288,43 @@ func _sample_local_input() -> int:
 						mask |= INPUT_LEFT
 		return mask
 
+	if NetworkManager.is_smoothness_test:
+		var mask: int = 0
+		var arena = _get_arena()
+		if arena and "is_round_active" in arena and arena.is_round_active:
+			var f: int = arena.smoothness_test_frame
+			# Phase 1 (0..180): P1 walks right continuously (3s)
+			if f < 180:
+				if player_number == 1:
+					mask |= INPUT_RIGHT
+			# Phase 2 (180..360): P1 walks left continuously (3s)
+			elif f < 360:
+				if player_number == 1:
+					mask |= INPUT_LEFT
+			# Phase 3 (360..480): Sudden direction changes every 20 frames (2s)
+			elif f < 480:
+				if player_number == 1:
+					if ((f - 360) / 20) % 2 == 0:
+						mask |= INPUT_RIGHT
+					else:
+						mask |= INPUT_LEFT
+			# Phase 4 (480..660): P1 jumps and lands (3s)
+			elif f < 660:
+				if player_number == 1 and f == 500:
+					mask |= INPUT_JUMP
+					_hold_jump_frames = 6
+			# Phase 5 (660..800): Standing completely still (2.3s)
+			elif f < 800:
+				mask = 0
+			# Phase 6 (800..1050): Moving past each other
+			elif f < 1050:
+				# P1 walks right, P2 walks left
+				if player_number == 1:
+					mask |= INPUT_RIGHT
+				else:
+					mask |= INPUT_LEFT
+		return mask
+
 	if NetworkManager.is_walk_test:
 		var mask: int = 0
 		var frame := Engine.get_physics_frames()
@@ -1164,9 +1201,11 @@ func _client_remote_interpolation_step(delta: float) -> void:
 	var dist := position.distance_to(sync_position)
 	if dist > 150.0:
 		position = sync_position # Snap if discrepancy is large
+	elif dist < 0.5:
+		position = sync_position # Snap sub-pixel differences to eliminate micro-drift
 	else:
-		# Time-based smooth exponential interpolation
-		var blend: float = 1.0 - exp(-22.0 * delta)
+		# Responsive exponential blend: reduced visual catch-up delay from ~136ms down to ~80ms
+		var blend: float = 1.0 - exp(-32.0 * delta)
 		position = position.lerp(sync_position, blend)
 
 	velocity = sync_velocity
