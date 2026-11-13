@@ -13,6 +13,7 @@ signal rematch_state_changed()
 const CHAR_KARASU: String = "karasu"
 const CHAR_KITSUNE: String = "kitsune"
 const CHAR_YAMABUSHI: String = "yamabushi"
+const CHAR_LAVA_WIZARD: String = "lava_wizard"
 
 const MAX_ROUNDS_TO_WIN: int = 2
 const ROUND_TIME_LIMIT: float = 99.0

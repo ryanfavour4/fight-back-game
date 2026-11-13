@@ -52,6 +52,18 @@ All characters have standard sprite frames with **height 128px** (except Kitsune
 - **Avatar**: `res://assets/fantasy-character-avatar-face-icons/PNG/Transperent/con26.png` (64x64, Red Tengu Demon with pointed nose)
 - **Role & Stats**: Heavy powerhouse tengu. Higher health (120), slightly slower speed, high knockback.
 
+### Lava Wizard (`assets/characters/PNG/Lava_wizard`)
+All primary wizard sheets are normalized to **$256 \times 208$ per cell**, aligned by feet baseline ($y = 202$) and horizontal body center ($x = 128$), with empty overhead space trimmed:
+- **Idle**: `res://assets/characters/PNG/Lava_wizard/Idle.png` (2048x208, 8 frames, 256x208)
+- **Walk**: `res://assets/characters/PNG/Lava_wizard/Walk.png` (2048x208, 8 frames, 256x208)
+- **Attack_2 (Heavy / Slam)**: `res://assets/characters/PNG/Lava_wizard/Attack_2.png` (2048x208, 8 frames, 256x208; `Attack_1.png` is aliased to this)
+- **Attack_3 (Fire Blast)**: `res://assets/characters/PNG/Lava_wizard/Attack_3.png` (2560x208, 10 frames, 256x208)
+- **Special Projectile (Fire_1)**: `res://assets/characters/PNG/Lava_wizard/Fire_1.png` (1024x128, 8 frames, 128x128 flying loop)
+- **Special Burst (Fire_2)**: `res://assets/characters/PNG/Lava_wizard/Fire_2.png` (768x128, 6 frames, 128x128 impact burst)
+- **Avatar / Reference**: `res://assets/characters/PNG/Lava_wizard/source/golem-wizard.png` (1024x674)
+- **Role & Stats**: Golem wizard zoner. High damage ranged caster.
+- **Source & Archive**: Fullsize originals and metadata preserved in `source/`; superseded/raw files in `_archive/` (both protected with `.gdignore`).
+
 ---
 
 ## 2. Stage: Castle Battlement (Stage 3)

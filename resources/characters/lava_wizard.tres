@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/character_data.gd" id="1_char"]
+[ext_resource type="Resource" path="res://resources/moves/lava_wizard_light.tres" id="2_light"]
+[ext_resource type="Resource" path="res://resources/moves/lava_wizard_heavy.tres" id="3_heavy"]
+[ext_resource type="Resource" path="res://resources/moves/lava_wizard_special.tres" id="4_spec"]
+
+[resource]
+script = ExtResource("1_char")
+character_id = "lava_wizard"
+display_name = "Lava Wizard"
+avatar_path = "res://assets/characters/PNG/Lava_wizard/avatar.png"
+max_health = 110.0
+walk_speed = 220.0
+jump_velocity = -620.0
+damage_multiplier = 1.15
+default_facing = 1.0
+sprite_offset = Vector2(0, -98)
+sprite_scale = Vector2(1.0, 1.0)
+idle_sheet_path = "res://assets/characters/PNG/Lava_wizard/Idle.png"
+idle_frames = 8
+walk_sheet_path = "res://assets/characters/PNG/Lava_wizard/Walk.png"
+walk_frames = 8
+jump_sheet_path = "res://assets/characters/PNG/Lava_wizard/Jump.png"
+jump_frames = 8
+attack_light_sheet_path = "res://assets/characters/PNG/Lava_wizard/Attack_1.png"
+attack_light_frames = 8
+attack_heavy_sheet_path = "res://assets/characters/PNG/Lava_wizard/Attack_2.png"
+attack_heavy_frames = 8
+attack_special_sheet_path = "res://assets/characters/PNG/Lava_wizard/Attack_3.png"
+attack_special_frames = 10
+hurt_sheet_path = "res://assets/characters/PNG/Lava_wizard/Hurt.png"
+hurt_frames = 8
+dead_sheet_path = "res://assets/characters/PNG/Lava_wizard/Dead.png"
+dead_frames = 12
+light_move = ExtResource("2_light")
+heavy_move = ExtResource("3_heavy")
+special_move = ExtResource("4_spec")

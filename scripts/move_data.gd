@@ -17,3 +17,4 @@ class_name MoveData
 @export var sfx_name: String = "swing"
 @export var is_projectile: bool = false
 @export var projectile_speed: float = 550.0
+@export var projectile_spawn_offset: Vector2 = Vector2(45.0, -45.0)

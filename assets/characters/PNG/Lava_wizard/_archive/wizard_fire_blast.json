@@ -1,0 +1,270 @@
+{
+  "animation_name": "fire_blast",
+  "character": "Lava Wizard",
+  "sheet_file": "wizard_fire_blast_sheet.png",
+  "frame_count": 10,
+  "cell_size": {
+    "width": 1024,
+    "height": 576
+  },
+  "total_sheet_size": {
+    "width": 10240,
+    "height": 576
+  },
+  "total_duration_ms": 740,
+  "loop": false,
+  "projectile_spawn": {
+    "frame_1based": 6,
+    "frame_0based": 5,
+    "spawn_timestamp_ms": 340,
+    "staff_tip_coordinates_canvas": {
+      "x": 862,
+      "y": 223
+    },
+    "staff_tip_offset_from_origin": {
+      "dx_forward": 402,
+      "dy_upward": -317
+    },
+    "wooden_staff_head_canvas": {
+      "x": 810,
+      "y": 266
+    },
+    "projectile_file": "fire_ball.png",
+    "projectile_size": {
+      "width": 332,
+      "height": 124
+    }
+  },
+  "alignment": {
+    "body_center_x": 460,
+    "feet_baseline_y": 540
+  },
+  "frames": [
+    {
+      "frame_index_1based": 1,
+      "frame_index_0based": 0,
+      "file_name": "10frame_01_golem-wizard.png",
+      "standard_file_name": "frame_01.png",
+      "label": "golem-wizard (Idle neutral)",
+      "duration_ms": 70,
+      "start_time_ms": 0,
+      "end_time_ms": 70,
+      "cell_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 576
+      },
+      "spawns_projectile": false
+    },
+    {
+      "frame_index_1based": 2,
+      "frame_index_0based": 1,
+      "file_name": "10frame_02_NEW_A_anticipation.png",
+      "standard_file_name": "frame_02.png",
+      "label": "NEW A (Anticipation / lean back)",
+      "duration_ms": 60,
+      "start_time_ms": 70,
+      "end_time_ms": 130,
+      "cell_rect": {
+        "x": 1024,
+        "y": 0,
+        "width": 1024,
+        "height": 576
+      },
+      "spawns_projectile": false
+    },
+    {
+      "frame_index_1based": 3,
+      "frame_index_0based": 2,
+      "file_name": "10frame_03_NEW_B_transition.png",
+      "standard_file_name": "frame_03.png",
+      "label": "NEW B (Transition / staff 45\u00b0)",
+      "duration_ms": 60,
+      "start_time_ms": 130,
+      "end_time_ms": 190,
+      "cell_rect": {
+        "x": 2048,
+        "y": 0,
+        "width": 1024,
+        "height": 576
+      },
+      "spawns_projectile": false
+    },
+    {
+      "frame_index_1based": 4,
+      "frame_index_0based": 3,
+      "file_name": "10frame_04_fire-attack-1.png",
+      "standard_file_name": "frame_04.png",
+      "label": "fire-attack-frame-1 (Pointing thrust)",
+      "duration_ms": 80,
+      "start_time_ms": 190,
+      "end_time_ms": 270,
+      "cell_rect": {
+        "x": 3072,
+        "y": 0,
+        "width": 1024,
+        "height": 576
+      },
+      "spawns_projectile": false
+    },
+    {
+      "frame_index_1based": 5,
+      "frame_index_0based": 4,
+      "file_name": "10frame_05_NEW_C_charge.png",
+      "standard_file_name": "frame_05.png",
+      "label": "NEW C (Charge buildup)",
+      "duration_ms": 70,
+      "start_time_ms": 270,
+      "end_time_ms": 340,
+      "cell_rect": {
+        "x": 4096,
+        "y": 0,
+        "width": 1024,
+        "height": 576
+      },
+      "spawns_projectile": false
+    },
+    {
+      "frame_index_1based": 6,
+      "frame_index_0based": 5,
+      "file_name": "10frame_06_fire-attack-2.png",
+      "standard_file_name": "frame_06.png",
+      "label": "fire-attack-frame-2 (BLAST! White flash & projectile launch)",
+      "duration_ms": 120,
+      "start_time_ms": 340,
+      "end_time_ms": 460,
+      "cell_rect": {
+        "x": 5120,
+        "y": 0,
+        "width": 1024,
+        "height": 576
+      },
+      "spawns_projectile": true
+    },
+    {
+      "frame_index_1based": 7,
+      "frame_index_0based": 6,
+      "file_name": "10frame_07_NEW_D_recoil.png",
+      "standard_file_name": "frame_07.png",
+      "label": "NEW D (Recoil kickback)",
+      "duration_ms": 70,
+      "start_time_ms": 460,
+      "end_time_ms": 530,
+      "cell_rect": {
+        "x": 6144,
+        "y": 0,
+        "width": 1024,
+        "height": 576
+      },
+      "spawns_projectile": false
+    },
+    {
+      "frame_index_1based": 8,
+      "frame_index_0based": 7,
+      "file_name": "10frame_08_fire-attack-1.png",
+      "standard_file_name": "frame_08.png",
+      "label": "fire-attack-frame-1 (Settling)",
+      "duration_ms": 80,
+      "start_time_ms": 530,
+      "end_time_ms": 610,
+      "cell_rect": {
+        "x": 7168,
+        "y": 0,
+        "width": 1024,
+        "height": 576
+      },
+      "spawns_projectile": false
+    },
+    {
+      "frame_index_1based": 9,
+      "frame_index_0based": 8,
+      "file_name": "10frame_09_NEW_E_return.png",
+      "standard_file_name": "frame_09.png",
+      "label": "NEW E (Return / staff lowering 45\u00b0)",
+      "duration_ms": 60,
+      "start_time_ms": 610,
+      "end_time_ms": 670,
+      "cell_rect": {
+        "x": 8192,
+        "y": 0,
+        "width": 1024,
+        "height": 576
+      },
+      "spawns_projectile": false
+    },
+    {
+      "frame_index_1based": 10,
+      "frame_index_0based": 9,
+      "file_name": "10frame_10_golem-wizard.png",
+      "standard_file_name": "frame_10.png",
+      "label": "golem-wizard (Idle neutral)",
+      "duration_ms": 70,
+      "start_time_ms": 670,
+      "end_time_ms": 740,
+      "cell_rect": {
+        "x": 9216,
+        "y": 0,
+        "width": 1024,
+        "height": 576
+      },
+      "spawns_projectile": false
+    }
+  ],
+  "projectile_flight": {
+    "sheet_name": "fire-ball-frame-1_animation_sheet.png",
+    "scaled_sheet_name": "projectile_flight_scaled_sheet.png",
+    "frame_count": 8,
+    "native_cell_size": {
+      "width": 128,
+      "height": 128
+    },
+    "scaled_cell_size": {
+      "width": 333,
+      "height": 333
+    },
+    "fps": 12,
+    "frame_duration_ms": 83.33,
+    "loop": true,
+    "spawn": {
+      "wizard_frame_1based": 6,
+      "wizard_frame_0based": 5,
+      "spawn_timestamp_ms": 340,
+      "staff_tip_canvas": {
+        "x": 862,
+        "y": 223
+      },
+      "offset_from_origin": {
+        "dx_forward": 402,
+        "dy_upward": -317
+      }
+    }
+  },
+  "projectile_impact_burst": {
+    "sheet_name": "Fireball_Burst_sheet.png",
+    "scaled_impact_sheet": "fireball_impact_frames_4_to_9_sheet.png",
+    "total_frames_in_source": 9,
+    "frames_used_1based": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "frames_used_0based": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "frames_used_count": 6,
+    "fps": 15,
+    "frame_duration_ms": 66.67,
+    "loop": false,
+    "centering": "Center of burst (130, 133) aligned with impact point",
+    "remove_projectile_on_contact": true
+  }
+}

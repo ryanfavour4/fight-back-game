@@ -174,8 +174,8 @@ func _apply_character_data() -> void:
 	max_hp = character_data.max_health
 	health = max_hp
 	sprite.sprite_frames = character_data.build_sprite_frames()
-	sprite.scale = Vector2(1.5, 1.5)
-	sprite.offset = Vector2(0, -64)
+	sprite.scale = character_data.sprite_scale if "sprite_scale" in character_data else Vector2(1.5, 1.5)
+	sprite.offset = character_data.sprite_offset if "sprite_offset" in character_data else Vector2(0, -64)
 	_play_anim("idle")
 
 func _is_host_sim() -> bool:
@@ -325,6 +325,60 @@ func _sample_local_input() -> int:
 					mask |= INPUT_LEFT
 		return mask
 
+	if NetworkManager.is_wizard_test:
+		var mask: int = 0
+		var arena = _get_arena()
+		if arena and "is_round_active" in arena and arena.is_round_active:
+			var f: int = arena.wizard_test_frame if "wizard_test_frame" in arena else 0
+			# Phase 1 (0..35): Idle
+			if f >= 35 and f < 75:
+				if player_number == 1:
+					mask |= INPUT_RIGHT
+			elif f >= 75 and f < 115:
+				if player_number == 1:
+					mask |= INPUT_LEFT
+			# Phase 3 (115..175): Jump
+			elif f >= 120 and f <= 125:
+				if player_number == 1:
+					mask |= INPUT_JUMP
+					_hold_jump_frames = 6
+			# Phase 4 (175..320): P1 walks right, crossing P2 (starts 720, reaches 1260+)
+			elif f >= 175 and f < 320:
+				if player_number == 1:
+					mask |= INPUT_RIGHT
+			# Phase 5 (330..370): Light attack while past P2
+			elif f >= 340 and f <= 344:
+				if player_number == 1:
+					mask |= INPUT_LIGHT
+					_hold_light_frames = 4
+			# Phase 6 (380..420): Heavy attack while past P2
+			elif f >= 390 and f <= 394:
+				if player_number == 1:
+					mask |= INPUT_HEAVY
+					_hold_heavy_frames = 4
+			# P1 steps right slightly to create fireball distance
+			elif f >= 420 and f < 450:
+				if player_number == 1:
+					mask |= INPUT_RIGHT
+			# Phase 7 (460..500): Special fireball (cast left at P2)
+			elif f >= 465 and f <= 469:
+				if player_number == 1:
+					mask |= INPUT_SPECIAL
+					_hold_special_frames = 4
+			# Phase 8 & 9 (510..1200): P2 approaches P1 and attacks continuously until KO
+			elif f >= 510:
+				if player_number == 2:
+					if opponent and is_instance_valid(opponent):
+						var d := absf(position.x - opponent.position.x)
+						if d > 65.0:
+							mask |= (INPUT_RIGHT if position.x < opponent.position.x else INPUT_LEFT)
+						else:
+							if (f % 16) < 4:
+								mask |= INPUT_HEAVY
+							elif (f % 8) < 4:
+								mask |= INPUT_LIGHT
+		return mask
+
 	if NetworkManager.is_walk_test:
 		var mask: int = 0
 		var frame := Engine.get_physics_frames()
@@ -382,12 +436,12 @@ func _sample_local_input() -> int:
 			dist = absf(global_position.x - opponent.global_position.x)
 
 		if dist > 220.0:
-			if character_data and character_data.character_id == "kitsune" and frame % 45 == 0:
+			if character_data and character_data.character_id in ["kitsune", "lava_wizard"] and frame % 45 == 0:
 				mask |= INPUT_SPECIAL
 			else:
 				mask |= (INPUT_RIGHT if facing_direction > 0 else INPUT_LEFT)
 		elif dist > 80.0:
-			if character_data and character_data.character_id == "kitsune" and frame % 40 == 0:
+			if character_data and character_data.character_id in ["kitsune", "lava_wizard"] and frame % 40 == 0:
 				mask |= INPUT_SPECIAL
 			elif frame % 20 < 10:
 				mask |= (INPUT_RIGHT if facing_direction > 0 else INPUT_LEFT)
@@ -777,8 +831,10 @@ func _spawn_projectile() -> void:
 
 	var arena = _get_arena()
 	if arena and arena.has_method("spawn_projectile_networked"):
-		var spawn_pos := position + Vector2(facing_direction * 45.0, -45.0)
-		var dmg := current_move.damage * character_data.damage_multiplier
+		var offset_vec: Vector2 = current_move.projectile_spawn_offset if "projectile_spawn_offset" in current_move else Vector2(45.0, -45.0)
+		var spawn_pos := position + Vector2(facing_direction * offset_vec.x, offset_vec.y)
+		var dmg := current_move.damage * (character_data.damage_multiplier if character_data else 1.0)
+		var char_id: String = character_data.character_id if character_data else "kitsune"
 		arena.spawn_projectile_networked(
 			spawn_pos,
 			facing_direction,
@@ -787,7 +843,8 @@ func _spawn_projectile() -> void:
 			player_number,
 			dmg,
 			current_move.knockback,
-			current_move.hitstun_frames
+			current_move.hitstun_frames,
+			char_id
 		)
 
 func _transition_to(new_state: State) -> void:
@@ -1029,6 +1086,9 @@ func _client_predicted_step(delta: float) -> void:
 		_update_auto_facing()
 		_sync_client_animation(true)
 		return
+	elif current_state in [State.ATTACK, State.HURT]:
+		# Host has recovered from hitstun or finished attack; exit local action state
+		current_state = State.IDLE if is_on_floor() else State.JUMP
 
 	# Record entry before simulation
 	var hist_entry: Dictionary = {
@@ -1120,9 +1180,13 @@ func _simulate_predicted_step(input_mask: int, delta: float, is_replaying: bool 
 		State.ATTACK:
 			velocity.x = move_toward(velocity.x, 0.0, 2000.0 * delta)
 			_apply_gravity(delta)
+			if sync_state != int(State.ATTACK):
+				current_state = State.IDLE if is_on_floor() else State.JUMP
 		State.HURT:
 			velocity.x = move_toward(velocity.x, 0.0, 900.0 * delta)
 			_apply_gravity(delta)
+			if sync_state != int(State.HURT):
+				current_state = State.IDLE if is_on_floor() else State.JUMP
 		State.DEAD:
 			velocity.x = move_toward(velocity.x, 0.0, 1800.0 * delta)
 			_apply_gravity(delta)
@@ -1234,6 +1298,8 @@ func _sync_client_animation(is_local_predicted: bool) -> void:
 			sprite.frame = sync_frame
 			current_state = sync_state as State
 		else:
+			if current_state in [State.ATTACK, State.HURT]:
+				current_state = State.IDLE if is_on_floor() else State.JUMP
 			var target_anim: String = "idle"
 			if not is_on_floor():
 				target_anim = "jump"

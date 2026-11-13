@@ -11,6 +11,7 @@ extends Area2D
 
 var direction: float = 1.0
 var owner_peer_id: int = 1
+var character_id: String = "kitsune"
 var has_hit: bool = false
 var lifetime: float = 2.0
 var is_visual_only: bool = false
@@ -20,8 +21,8 @@ var _arena_cached: Node = null
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var col_shape: CollisionShape2D = $CollisionShape2D
 
-static var _cached_fly_frames: SpriteFrames = null
-static var _cached_burst_frames: SpriteFrames = null
+static var _cached_fly_frames_map: Dictionary = {}
+static var _cached_burst_frames_map: Dictionary = {}
 
 func _get_arena() -> Node:
 	if _arena_cached == null or not is_instance_valid(_arena_cached):
@@ -40,66 +41,100 @@ func _ready() -> void:
 
 	_setup_sprite_frames()
 
-static func get_fly_sprite_frames() -> SpriteFrames:
-	if _cached_fly_frames != null:
-		return _cached_fly_frames
+static func get_fly_sprite_frames(char_id: String = "kitsune") -> SpriteFrames:
+	if _cached_fly_frames_map.has(char_id):
+		return _cached_fly_frames_map[char_id]
 
 	var sf := SpriteFrames.new()
 	if sf.has_animation("default"):
 		sf.remove_animation("default")
 
-	var path := "res://assets/characters/PNG/Kitsune/Fire_1.png"
-	if ResourceLoader.exists(path):
-		var tex: Texture2D = load(path)
-		sf.add_animation("fly")
-		sf.set_animation_speed("fly", 16.0)
-		sf.set_animation_loop("fly", true)
-		for i in range(14):
-			var atlas := AtlasTexture.new()
-			atlas.atlas = tex
-			atlas.region = Rect2(i * 64, 0, 64, 64)
-			atlas.filter_clip = true
-			sf.add_frame("fly", atlas)
+	if char_id == "lava_wizard":
+		var path := "res://assets/characters/PNG/Lava_wizard/Fire_1.png"
+		if ResourceLoader.exists(path):
+			var tex: Texture2D = load(path)
+			sf.add_animation("fly")
+			sf.set_animation_speed("fly", 16.0)
+			sf.set_animation_loop("fly", true)
+			for i in range(8):
+				var atlas := AtlasTexture.new()
+				atlas.atlas = tex
+				atlas.region = Rect2(i * 128, 0, 128, 128)
+				atlas.filter_clip = true
+				sf.add_frame("fly", atlas)
+	else:
+		var path := "res://assets/characters/PNG/Kitsune/Fire_1.png"
+		if ResourceLoader.exists(path):
+			var tex: Texture2D = load(path)
+			sf.add_animation("fly")
+			sf.set_animation_speed("fly", 16.0)
+			sf.set_animation_loop("fly", true)
+			for i in range(14):
+				var atlas := AtlasTexture.new()
+				atlas.atlas = tex
+				atlas.region = Rect2(i * 64, 0, 64, 64)
+				atlas.filter_clip = true
+				sf.add_frame("fly", atlas)
 
-	_cached_fly_frames = sf
-	return _cached_fly_frames
+	_cached_fly_frames_map[char_id] = sf
+	return sf
 
-static func get_burst_sprite_frames() -> SpriteFrames:
-	if _cached_burst_frames != null:
-		return _cached_burst_frames
+static func get_burst_sprite_frames(char_id: String = "kitsune") -> SpriteFrames:
+	if _cached_burst_frames_map.has(char_id):
+		return _cached_burst_frames_map[char_id]
 
 	var sf := SpriteFrames.new()
 	if sf.has_animation("default"):
 		sf.remove_animation("default")
 
-	var path := "res://assets/characters/PNG/Kitsune/Fire_2.png"
-	if ResourceLoader.exists(path):
-		var tex: Texture2D = load(path)
-		sf.add_animation("burst")
-		sf.set_animation_speed("burst", 20.0)
-		sf.set_animation_loop("burst", false)
-		for i in range(11):
-			var atlas := AtlasTexture.new()
-			atlas.atlas = tex
-			atlas.region = Rect2(i * 64, 0, 64, 64)
-			atlas.filter_clip = true
-			sf.add_frame("burst", atlas)
+	if char_id == "lava_wizard":
+		var path := "res://assets/characters/PNG/Lava_wizard/Fire_2.png"
+		if ResourceLoader.exists(path):
+			var tex: Texture2D = load(path)
+			sf.add_animation("burst")
+			sf.set_animation_speed("burst", 16.0)
+			sf.set_animation_loop("burst", false)
+			# Skip frame 0 due to clipped left edge; play frames 1 through 5
+			for i in range(1, 6):
+				var atlas := AtlasTexture.new()
+				atlas.atlas = tex
+				atlas.region = Rect2(i * 128, 0, 128, 128)
+				atlas.filter_clip = true
+				sf.add_frame("burst", atlas)
+	else:
+		var path := "res://assets/characters/PNG/Kitsune/Fire_2.png"
+		if ResourceLoader.exists(path):
+			var tex: Texture2D = load(path)
+			sf.add_animation("burst")
+			sf.set_animation_speed("burst", 20.0)
+			sf.set_animation_loop("burst", false)
+			for i in range(11):
+				var atlas := AtlasTexture.new()
+				atlas.atlas = tex
+				atlas.region = Rect2(i * 64, 0, 64, 64)
+				atlas.filter_clip = true
+				sf.add_frame("burst", atlas)
 
-	_cached_burst_frames = sf
-	return _cached_burst_frames
+	_cached_burst_frames_map[char_id] = sf
+	return sf
 
 func _setup_sprite_frames() -> void:
 	if sprite == null:
 		return
-	sprite.sprite_frames = get_fly_sprite_frames()
-	sprite.scale = Vector2(1.5, 1.5)
+	sprite.sprite_frames = get_fly_sprite_frames(character_id)
+	sprite.scale = Vector2(1.0, 1.0) if character_id == "lava_wizard" else Vector2(1.5, 1.5)
 	sprite.flip_h = (direction < 0)
 	sprite.play("fly")
 
 func _is_host_sim() -> bool:
-	if NetworkManager.current_mode == NetworkManager.NetworkMode.LAN_ENET:
-		return multiplayer.is_server()
-	return NetworkManager.is_host
+	var nm = null
+	if Engine.get_main_loop() and "root" in Engine.get_main_loop():
+		nm = Engine.get_main_loop().root.get_node_or_null("NetworkManager")
+	if nm:
+		if nm.current_mode == nm.NetworkMode.LAN_ENET:
+			return multiplayer.is_server()
+		return nm.is_host
+	return multiplayer.is_server() if multiplayer else true
 
 func _physics_process(delta: float) -> void:
 	position.x += direction * speed * delta
@@ -149,10 +184,10 @@ func play_impact_and_free(spawn_burst: bool) -> void:
 
 func _spawn_burst_effect(pos: Vector2) -> void:
 	var burst := AnimatedSprite2D.new()
-	burst.sprite_frames = get_burst_sprite_frames()
+	burst.sprite_frames = get_burst_sprite_frames(character_id)
 	burst.animation = "burst"
 	burst.global_position = pos
-	burst.scale = Vector2(1.5, 1.5)
+	burst.scale = Vector2(1.0, 1.0) if character_id == "lava_wizard" else Vector2(1.5, 1.5)
 	burst.flip_h = (direction < 0)
 	burst.animation_finished.connect(burst.queue_free)
 

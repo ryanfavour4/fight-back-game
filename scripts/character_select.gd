@@ -23,6 +23,7 @@ extends Control
 @onready var btn_karasu: Button = $VBoxContainer/RosterSection/GridContainer/BtnKarasu
 @onready var btn_kitsune: Button = $VBoxContainer/RosterSection/GridContainer/BtnKitsune
 @onready var btn_yamabushi: Button = $VBoxContainer/RosterSection/GridContainer/BtnYamabushi
+@onready var btn_lava_wizard: Button = $VBoxContainer/RosterSection/GridContainer/BtnLavaWizard
 @onready var lock_in_button: Button = $VBoxContainer/BottomBar/LockInButton
 @onready var status_banner: Label = $VBoxContainer/BottomBar/StatusBanner
 
@@ -34,18 +35,22 @@ func _ready() -> void:
 	characters["karasu"] = preload("res://resources/characters/karasu.tres")
 	characters["kitsune"] = preload("res://resources/characters/kitsune.tres")
 	characters["yamabushi"] = preload("res://resources/characters/yamabushi.tres")
+	characters["lava_wizard"] = preload("res://resources/characters/lava_wizard.tres")
 
 	btn_karasu.pressed.connect(func(): _select_char("karasu"))
 	btn_kitsune.pressed.connect(func(): _select_char("kitsune"))
 	btn_yamabushi.pressed.connect(func(): _select_char("yamabushi"))
+	btn_lava_wizard.pressed.connect(func(): _select_char("lava_wizard"))
 
 	btn_karasu.mouse_entered.connect(func(): _preview_char("karasu"))
 	btn_kitsune.mouse_entered.connect(func(): _preview_char("kitsune"))
 	btn_yamabushi.mouse_entered.connect(func(): _preview_char("yamabushi"))
+	btn_lava_wizard.mouse_entered.connect(func(): _preview_char("lava_wizard"))
 
 	btn_karasu.focus_entered.connect(func(): _preview_char("karasu"))
 	btn_kitsune.focus_entered.connect(func(): _preview_char("kitsune"))
 	btn_yamabushi.focus_entered.connect(func(): _preview_char("yamabushi"))
+	btn_lava_wizard.focus_entered.connect(func(): _preview_char("lava_wizard"))
 
 	lock_in_button.pressed.connect(_on_lock_in_pressed)
 
@@ -95,9 +100,13 @@ func _preview_char(char_id: String) -> void:
 		special_desc.text = "Special: Fox-Fire - Ranged spiritual flame projectile."
 	elif char_id == "yamabushi":
 		special_desc.text = "Special: Earth Quake - Heavy seismic shockwave."
+	elif char_id == "lava_wizard":
+		special_desc.text = "Special: Fire Blast - Ranged fiery projectile cast from staff tip."
 
 	# Animated preview
 	preview_sprite.sprite_frames = c.build_sprite_frames()
+	preview_sprite.scale = c.sprite_scale if "sprite_scale" in c else Vector2(1.5, 1.5)
+	preview_sprite.offset = c.sprite_offset if "sprite_offset" in c else Vector2(0, -64)
 	preview_sprite.play("idle")
 
 func _select_char(char_id: String) -> void:

@@ -13,6 +13,8 @@ class_name CharacterData
 @export var jump_velocity: float = -650.0
 @export var damage_multiplier: float = 1.0
 @export var default_facing: float = 1.0 # 1.0 = sprite sheet faces right, -1.0 = faces left
+@export var sprite_offset: Vector2 = Vector2(0, -64)
+@export var sprite_scale: Vector2 = Vector2(1.5, 1.5)
 
 @export_group("Sprite Sheets")
 @export var idle_sheet_path: String = ""
@@ -51,6 +53,10 @@ func build_sprite_frames() -> SpriteFrames:
 	_add_anim_from_sheet(sf, "attack_special", attack_special_sheet_path, attack_special_frames, 10.0, false)
 	_add_anim_from_sheet(sf, "hurt", hurt_sheet_path, hurt_frames, 8.0, false)
 	_add_anim_from_sheet(sf, "dead", dead_sheet_path, dead_frames, 8.0, false)
+	# Run: reuse Walk at a faster speed
+	_add_anim_from_sheet(sf, "run", walk_sheet_path, walk_frames, 15.0, true)
+	# Idle_2: reuse Idle
+	_add_anim_from_sheet(sf, "idle_2", idle_sheet_path, idle_frames, 8.0, true)
 
 	return sf
 

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="MoveData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/move_data.gd" id="1_move"]
+
+[resource]
+script = ExtResource("1_move")
+move_name = "Staff Slam"
+animation_name = "attack_heavy"
+startup_frame = 5
+active_frame_start = 6
+active_frame_end = 6
+recovery_frame = 7
+damage = 15.0
+hitstun_frames = 18
+knockback = Vector2(320, -200)
+hitbox_size = Vector2(80, 60)
+hitbox_offset = Vector2(60, -30)
+sfx_name = "swing"
+is_projectile = false
+projectile_speed = 550.0
+projectile_spawn_offset = Vector2(45, -45)

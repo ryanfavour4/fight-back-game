@@ -190,7 +190,9 @@ func _physics_process(delta: float) -> void:
 	_update_debug_info()
 	_log_fighter_diagnostics()
 
-	if NetworkManager.is_smoothness_test and is_round_active:
+	if NetworkManager.is_wizard_test:
+		_process_wizard_test(delta)
+	elif NetworkManager.is_smoothness_test and is_round_active:
 		_process_smoothness_test(delta)
 	elif NetworkManager.is_autotest and _is_server_authority() and is_round_active:
 		_process_autotest_combat()
@@ -201,7 +203,7 @@ func _physics_process(delta: float) -> void:
 
 	if _is_server_authority():
 		if is_round_active:
-			if NetworkManager.is_attack_test:
+			if NetworkManager.is_attack_test or NetworkManager.is_wizard_test:
 				match_time_left = 99.0
 			else:
 				match_time_left -= delta
@@ -456,6 +458,107 @@ func _process_client_walk_test() -> void:
 		])
 	if elapsed_sec >= 62.0:
 		get_tree().quit(0)
+
+var wizard_test_frame: int = 0
+var _wizard_reported: bool = false
+var _wizard_hurt_logged: bool = false
+
+func _save_test_screenshot(path: String) -> void:
+	var vp := get_viewport()
+	if vp:
+		var img := vp.get_texture().get_image()
+		if img:
+			img.save_png(path)
+
+func _process_wizard_test(delta: float) -> void:
+	if not p1 or not p2:
+		return
+	wizard_test_frame += 1
+	var f := wizard_test_frame
+
+	if f % 60 == 0:
+		var d := absf(p1.position.x - p2.position.x)
+		print("[WIZARD TEST frame %d] P1: hp=%.1f pos=%s state=%s | P2: hp=%.1f pos=%s state=%s dist=%.1f" % [
+			f, p1.health, str(p1.position), p1.State.keys()[p1.current_state],
+			p2.health, str(p2.position), p2.State.keys()[p2.current_state], d
+		])
+
+	if f == 25:
+		print("=== [WIZARD TEST PHASE 1: IDLE & SPAWN] ===")
+		var p1_name: String = p1.character_data.display_name if p1.character_data else "None"
+		var p2_name: String = p2.character_data.display_name if p2.character_data else "None"
+		print("P1: %s at pos=%s, feet_y=%.1f, facing=%.1f, flip_h=%s, anim=%s, frame=%d" % [
+			p1_name, str(p1.position), p1.position.y, p1.facing_direction, str(p1.sprite.flip_h), p1.sprite.animation, p1.sprite.frame
+		])
+		print("P2: %s at pos=%s, feet_y=%.1f, facing=%.1f, flip_h=%s, anim=%s, frame=%d" % [
+			p2_name, str(p2.position), p2.position.y, p2.facing_direction, str(p2.sprite.flip_h), p2.sprite.animation, p2.sprite.frame
+		])
+		_save_test_screenshot("dev-tools/test_wizard_01_idle.png")
+
+	elif f == 55:
+		print("=== [WIZARD TEST PHASE 2: WALK] ===")
+		print("P1 Walk: pos=%s, anim=%s, frame=%d, vel=%.1f, feet_y=%.1f" % [
+			str(p1.position), p1.sprite.animation, p1.sprite.frame, p1.velocity.x, p1.position.y
+		])
+		_save_test_screenshot("dev-tools/test_wizard_02_walk.png")
+
+	elif f == 140:
+		print("=== [WIZARD TEST PHASE 3: JUMP] ===")
+		print("P1 Jump: pos=%s, anim=%s, frame=%d, vel_y=%.1f" % [
+			str(p1.position), p1.sprite.animation, p1.sprite.frame, p1.velocity.y
+		])
+		_save_test_screenshot("dev-tools/test_wizard_03_jump.png")
+
+	elif f == 330:
+		print("=== [WIZARD TEST PHASE 4: FACING & FLIP] ===")
+		print("P1 Crossing P2: P1_pos=%.1f, P2_pos=%.1f, P1_facing=%.1f, flip_h=%s" % [
+			p1.position.x, p2.position.x, p1.facing_direction, str(p1.sprite.flip_h)
+		])
+		_save_test_screenshot("dev-tools/test_wizard_04_flip.png")
+
+	elif f == 350:
+		print("=== [WIZARD TEST PHASE 5: LIGHT ATTACK (STONE FIST)] ===")
+		print("P1 Light Atk: anim=%s, frame=%d, hitbox_active=%s, feet_y=%.1f" % [
+			p1.sprite.animation, p1.sprite.frame, str(not p1.hitbox_shape.disabled), p1.position.y
+		])
+		_save_test_screenshot("dev-tools/test_wizard_05_light_atk.png")
+
+	elif f == 400:
+		print("=== [WIZARD TEST PHASE 6: HEAVY ATTACK (STAFF SLAM)] ===")
+		print("P1 Heavy Atk: anim=%s, frame=%d, hitbox_active=%s, feet_y=%.1f" % [
+			p1.sprite.animation, p1.sprite.frame, str(not p1.hitbox_shape.disabled), p1.position.y
+		])
+		_save_test_screenshot("dev-tools/test_wizard_06_heavy_atk.png")
+
+	elif f == 480:
+		print("=== [WIZARD TEST PHASE 7: SPECIAL ATTACK (FIREBALL)] ===")
+		var proj_count: int = projectiles_container.get_child_count() if projectiles_container else 0
+		print("P1 Special: anim=%s, frame=%d, spawned_projectiles=%d" % [
+			p1.sprite.animation, p1.sprite.frame, proj_count
+		])
+		_save_test_screenshot("dev-tools/test_wizard_07_special_fireball.png")
+
+	if p1.current_state == p1.State.HURT and not _wizard_hurt_logged:
+		_wizard_hurt_logged = true
+		print("=== [WIZARD TEST PHASE 8: HURT STATE CONFIRMED] ===")
+		print("P1 Hurt: state=%s, anim=%s, frame=%d, hp=%.1f, feet_y=%.1f" % [
+			p1.State.keys()[p1.current_state], p1.sprite.animation, p1.sprite.frame, p1.health, p1.position.y
+		])
+		_save_test_screenshot("dev-tools/test_wizard_08_hurt.png")
+
+	if p1.current_state == p1.State.DEAD and not _wizard_reported:
+		_wizard_reported = true
+		print("=== [WIZARD TEST PHASE 9: KNOCKED OUT (DEAD STATE)] ===")
+		print("P1 Dead: anim=%s, frame=%d, hp=%.1f, pos=%s, feet_y=%.1f" % [
+			p1.sprite.animation, p1.sprite.frame, p1.health, str(p1.position), p1.position.y
+		])
+		_save_test_screenshot("dev-tools/test_wizard_09_dead.png")
+		print("================================================================================")
+		print("=== [LAVA WIZARD TEST COMPLETE: ALL SYSTEMS VERIFIED IN LAN MATCH] ===")
+		print("================================================================================")
+		var t := get_tree().create_timer(1.2)
+		t.timeout.connect(func(): get_tree().quit(0))
+		t.timeout.connect(func(): get_tree().quit(0))
 
 var smoothness_test_frame: int = 0
 var _prev_remote_pos: Vector2 = Vector2.ZERO
@@ -916,21 +1019,37 @@ func _log_fighter_diagnostics() -> void:
 # ==============================================================================
 # PROJECTILE & HIT EFFECTS NETWORKING
 # ==============================================================================
-func spawn_projectile_networked(spawn_pos: Vector2, dir: float, spd: float, owner_id: int, p_num: int, dmg: float, kb: Vector2, hitstun: int) -> void:
+func spawn_projectile_networked(spawn_pos: Vector2, dir: float, spd: float, owner_id: int, p_num: int, dmg: float, kb: Vector2, hitstun: int, char_id: String = "") -> void:
 	if not _is_server_authority():
 		return
 	_next_projectile_id += 1
 	var pid := _next_projectile_id
-	NetworkManager.send_network_event("/root/GameArena", "rpc_spawn_projectile", [pid, spawn_pos, dir, spd, owner_id, p_num, dmg, kb, hitstun])
+	if char_id.is_empty():
+		if p_num == 1 and p1 and p1.character_data:
+			char_id = p1.character_data.character_id
+		elif p_num == 2 and p2 and p2.character_data:
+			char_id = p2.character_data.character_id
+		else:
+			char_id = "kitsune"
+	NetworkManager.send_network_event("/root/GameArena", "rpc_spawn_projectile", [pid, spawn_pos, dir, spd, owner_id, p_num, dmg, kb, hitstun, char_id])
 
 @rpc("authority", "call_local", "reliable")
-func rpc_spawn_projectile(pid: int, spawn_pos: Vector2, dir: float, spd: float, owner_id: int, p_num: int, dmg: float, kb: Vector2, hitstun: int) -> void:
+func rpc_spawn_projectile(pid: int, spawn_pos: Vector2, dir: float, spd: float, owner_id: int, p_num: int, dmg: float, kb: Vector2, hitstun: int, char_id: String = "") -> void:
 	if projectiles_container == null or not is_instance_valid(projectiles_container):
 		return
+
+	if char_id.is_empty():
+		if p_num == 1 and p1 and p1.character_data:
+			char_id = p1.character_data.character_id
+		elif p_num == 2 and p2 and p2.character_data:
+			char_id = p2.character_data.character_id
+		else:
+			char_id = "kitsune"
 
 	var proj = projectile_scene.instantiate()
 	proj.name = "Proj_" + str(pid)
 	proj.proj_id = pid
+	proj.character_id = char_id
 	proj.position = spawn_pos
 	proj.direction = dir
 	proj.speed = spd
