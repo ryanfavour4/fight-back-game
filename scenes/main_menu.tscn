@@ -1,8 +1,9 @@
 [gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_menu"]
-[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/castle.png" id="2_bg"]
-[ext_resource type="Texture2D" path="res://assets/logo/logo.png" id="3_logo"]
+[ext_resource type="Texture2D" path="res://assets/v2/ui/menu_background.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/v2/ui/logo.png" id="3_logo"]
+[ext_resource type="StyleBox" path="res://ui/theme/v2_panel.tres" id="4_panel"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
 bg_color = Color(0.08, 0.09, 0.13, 0.95)
@@ -43,7 +44,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.05, 0.06, 0.09, 0.65)
+color = Color(0.06, 0.04, 0.03, 0.35)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -59,7 +60,7 @@ theme_override_constants/separation = 24
 alignment = 1
 
 [node name="LogoContainer" type="Control" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(480, 220)
+custom_minimum_size = Vector2(520, 160)
 layout_mode = 2
 
 [node name="Logo" type="TextureRect" parent="CenterContainer/VBoxContainer/LogoContainer"]
@@ -69,34 +70,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(240, 110)
+pivot_offset = Vector2(260, 80)
 texture = ExtResource("3_logo")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="ButtonsContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(340, 0)
+custom_minimum_size = Vector2(380, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 14
+theme_override_constants/separation = 16
 
 [node name="VersusButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsContainer"]
-custom_minimum_size = Vector2(320, 56)
+custom_minimum_size = Vector2(380, 62)
 layout_mode = 2
 text = "VERSUS / MULTIPLAYER"
 
 [node name="ControlsButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsContainer"]
-custom_minimum_size = Vector2(320, 56)
+custom_minimum_size = Vector2(380, 62)
 layout_mode = 2
 text = "HOW TO PLAY"
 
 [node name="SettingsButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsContainer"]
-custom_minimum_size = Vector2(320, 56)
+custom_minimum_size = Vector2(380, 62)
 layout_mode = 2
 text = "AUDIO SETTINGS"
 
 [node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsContainer"]
-custom_minimum_size = Vector2(320, 56)
+custom_minimum_size = Vector2(380, 62)
 layout_mode = 2
 text = "QUIT"
 
@@ -115,7 +116,7 @@ offset_right = 280.0
 offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+theme_override_styles/panel = ExtResource("4_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="ControlsDialog"]
 layout_mode = 2
@@ -177,7 +178,7 @@ offset_right = 240.0
 offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+theme_override_styles/panel = ExtResource("4_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="SettingsDialog"]
 layout_mode = 2

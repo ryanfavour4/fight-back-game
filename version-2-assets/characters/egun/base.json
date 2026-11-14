@@ -1,0 +1,30 @@
+{
+  "character": "Egun",
+  "art_style": "semi-realistic illustrated fighting-game art, bold clean outlines, cel shading with soft painted gradients",
+  "body": {
+    "build": "very muscular, broad shoulders, thick defined arms and thighs, powerful athletic frame",
+    "skin": "deep warm brown, mid-tone #8A4B2A",
+    "face": "stern, intense and focused expression, strong brows, deep-set shadowed eyes, hard jawline",
+    "hair": "none visible, fully covered by headpiece"
+  },
+  "headwear": {
+    "shape": "tall, rigid, flat-topped cylindrical crown, slightly tapered, with a leather-brown frame running down both sides of the face and a thin gold band across the front at brow level",
+    "colour": "dark indigo #2B2F55 body with thin vertical gold pinstripes, leather brown #7A3B22 frame",
+    "detail": "column of 3 white cowrie shells on each side of the frame (cowries stacked vertically, split slit facing out); gold brow band #D9A441"
+  },
+  "outfit": {
+    "top": "sleeveless crossover wrap vest (kimono-style V neck), deep burgundy #7A1226 with darker maroon #5E0D1C lapel and collar, thin gold piping #D9A441 along the lapels, shoulder edges and back seams, squared stiff shoulders",
+    "waist": "thick coiled natural rope belt, tan #B98A55, wrapped about 4 layers, with 3 large white cowrie shells #F1DFC6 attached at the front centre (2 visible from the side)",
+    "bottom": "pleated knee-length wrapper skirt: burgundy #7A1226 centre panels with mustard-gold #D79A2B side panels; a dark indigo #2B2F55 central panel hangs between the front pleats, longer burgundy and indigo tails at front and back",
+    "footwear": "dark indigo #2B2F55 knee-high soft boots with flat soles, two thin gold bands #D9A441 (one near the top, one at the ankle)",
+    "metals_or_trim": "gold #D9A441 (light) and #B8801F (shade)"
+  },
+  "accessories": {
+    "jewellery": "none besides cowrie shells on the crown and belt",
+    "wraps_or_gear": "burgundy #7A1226 cloth wraps on both forearms and fists (fingerless, fingers and thumbs exposed), with thin red cord winding and a gold band #D9A441 near the elbow end and another at the wrist",
+    "weapons_or_props": "none, unarmed fighter"
+  },
+  "signature_details": "tall cowrie-studded indigo crown; rope belt with three cowries; burgundy-and-mustard pleated wrapper with indigo centre strip; knee-high indigo boots with gold bands; burgundy hand wraps",
+  "poses_reference": "front view neutral stance, back view, side profile, front and back three-quarter views, low wide hero fighting stance with one hand raised near chest and the other extended open",
+  "rules": "keep every detail identical in every image; do not change the crown shape, number and placement of cowrie shells, rope belt, wrapper colour blocking (burgundy centre, mustard sides, indigo centre strip), boot design, hand wraps, or any colours"
+}

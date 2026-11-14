@@ -49,7 +49,33 @@ static func get_fly_sprite_frames(char_id: String = "kitsune") -> SpriteFrames:
 	if sf.has_animation("default"):
 		sf.remove_animation("default")
 
-	if char_id == "lava_wizard":
+	if char_id == "detola":
+		var path := "res://assets/v2/characters/detola/fly.png"
+		if ResourceLoader.exists(path):
+			var tex: Texture2D = load(path)
+			sf.add_animation("fly")
+			sf.set_animation_speed("fly", 16.0)
+			sf.set_animation_loop("fly", true)
+			for i in range(8):
+				var atlas := AtlasTexture.new()
+				atlas.atlas = tex
+				atlas.region = Rect2(i * 96, 0, 96, 96)
+				atlas.filter_clip = true
+				sf.add_frame("fly", atlas)
+	elif char_id == "egun":
+		var path := "res://assets/v2/characters/egun/fly.png"
+		if ResourceLoader.exists(path):
+			var tex: Texture2D = load(path)
+			sf.add_animation("fly")
+			sf.set_animation_speed("fly", 16.0)
+			sf.set_animation_loop("fly", true)
+			for i in range(8):
+				var atlas := AtlasTexture.new()
+				atlas.atlas = tex
+				atlas.region = Rect2(i * 96, 0, 96, 96)
+				atlas.filter_clip = true
+				sf.add_frame("fly", atlas)
+	elif char_id == "lava_wizard":
 		var path := "res://assets/characters/PNG/Lava_wizard/Fire_1.png"
 		if ResourceLoader.exists(path):
 			var tex: Texture2D = load(path)
@@ -87,7 +113,33 @@ static func get_burst_sprite_frames(char_id: String = "kitsune") -> SpriteFrames
 	if sf.has_animation("default"):
 		sf.remove_animation("default")
 
-	if char_id == "lava_wizard":
+	if char_id == "detola":
+		var path := "res://assets/v2/characters/detola/burst.png"
+		if ResourceLoader.exists(path):
+			var tex: Texture2D = load(path)
+			sf.add_animation("burst")
+			sf.set_animation_speed("burst", 16.0)
+			sf.set_animation_loop("burst", false)
+			for i in range(6):
+				var atlas := AtlasTexture.new()
+				atlas.atlas = tex
+				atlas.region = Rect2(i * 128, 0, 128, 128)
+				atlas.filter_clip = true
+				sf.add_frame("burst", atlas)
+	elif char_id == "egun":
+		var path := "res://assets/v2/characters/egun/burst.png"
+		if ResourceLoader.exists(path):
+			var tex: Texture2D = load(path)
+			sf.add_animation("burst")
+			sf.set_animation_speed("burst", 16.0)
+			sf.set_animation_loop("burst", false)
+			for i in range(6):
+				var atlas := AtlasTexture.new()
+				atlas.atlas = tex
+				atlas.region = Rect2(i * 128, 0, 128, 128)
+				atlas.filter_clip = true
+				sf.add_frame("burst", atlas)
+	elif char_id == "lava_wizard":
 		var path := "res://assets/characters/PNG/Lava_wizard/Fire_2.png"
 		if ResourceLoader.exists(path):
 			var tex: Texture2D = load(path)
@@ -122,7 +174,7 @@ func _setup_sprite_frames() -> void:
 	if sprite == null:
 		return
 	sprite.sprite_frames = get_fly_sprite_frames(character_id)
-	sprite.scale = Vector2(1.0, 1.0) if character_id == "lava_wizard" else Vector2(1.5, 1.5)
+	sprite.scale = Vector2(1.0, 1.0) if character_id in ["detola", "egun", "lava_wizard"] else Vector2(1.5, 1.5)
 	sprite.flip_h = (direction < 0)
 	sprite.play("fly")
 

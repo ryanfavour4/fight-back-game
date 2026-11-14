@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/character_data.gd" id="1_char"]
+[ext_resource type="Resource" path="res://resources/moves/detola_light.tres" id="2_ml"]
+[ext_resource type="Resource" path="res://resources/moves/detola_heavy.tres" id="3_mh"]
+[ext_resource type="Resource" path="res://resources/moves/detola_special.tres" id="4_ms"]
+
+[resource]
+script = ExtResource("1_char")
+character_id = "detola"
+display_name = "Detola"
+avatar_path = "res://assets/v2/characters/detola/avatar.png"
+max_health = 100.0
+walk_speed = 290.0
+jump_velocity = -650.0
+damage_multiplier = 1.05
+default_facing = 1.0
+sprite_offset = Vector2(0, -170)
+sprite_scale = Vector2(1, 1)
+idle_sheet_path = "res://assets/v2/characters/detola/idle.png"
+idle_frames = 8
+walk_sheet_path = "res://assets/v2/characters/detola/walk.png"
+walk_frames = 8
+jump_sheet_path = "res://assets/v2/characters/detola/jump.png"
+jump_frames = 6
+attack_light_sheet_path = "res://assets/v2/characters/detola/attack_light.png"
+attack_light_frames = 4
+attack_heavy_sheet_path = "res://assets/v2/characters/detola/attack_heavy.png"
+attack_heavy_frames = 6
+attack_special_sheet_path = "res://assets/v2/characters/detola/attack_special.png"
+attack_special_frames = 8
+hurt_sheet_path = "res://assets/v2/characters/detola/hurt.png"
+hurt_frames = 3
+dead_sheet_path = "res://assets/v2/characters/detola/dead.png"
+dead_frames = 6
+light_move = ExtResource("2_ml")
+heavy_move = ExtResource("3_mh")
+special_move = ExtResource("4_ms")

@@ -169,7 +169,7 @@ func _setup_collision_layers() -> void:
 
 func _apply_character_data() -> void:
 	if character_data == null:
-		character_data = preload("res://resources/characters/karasu.tres")
+		character_data = preload("res://resources/characters/detola.tres")
 
 	max_hp = character_data.max_health
 	health = max_hp
@@ -436,12 +436,12 @@ func _sample_local_input() -> int:
 			dist = absf(global_position.x - opponent.global_position.x)
 
 		if dist > 220.0:
-			if character_data and character_data.character_id in ["kitsune", "lava_wizard"] and frame % 45 == 0:
+			if character_data and character_data.character_id in ["detola", "egun", "kitsune", "lava_wizard"] and frame % 45 == 0:
 				mask |= INPUT_SPECIAL
 			else:
 				mask |= (INPUT_RIGHT if facing_direction > 0 else INPUT_LEFT)
 		elif dist > 80.0:
-			if character_data and character_data.character_id in ["kitsune", "lava_wizard"] and frame % 40 == 0:
+			if character_data and character_data.character_id in ["detola", "egun", "kitsune", "lava_wizard"] and frame % 40 == 0:
 				mask |= INPUT_SPECIAL
 			elif frame % 20 < 10:
 				mask |= (INPUT_RIGHT if facing_direction > 0 else INPUT_LEFT)

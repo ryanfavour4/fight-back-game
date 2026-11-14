@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/v2/stages/national_theatre/sky.png" id="1_sky"]
+[ext_resource type="Texture2D" path="res://assets/v2/stages/national_theatre/skyline_trees.png" id="2_trees"]
+[ext_resource type="Texture2D" path="res://assets/v2/stages/national_theatre/main_building.png" id="3_building"]
+[ext_resource type="Texture2D" path="res://assets/v2/stages/national_theatre/floor.png" id="4_floor"]
+
+[node name="NationalTheatreStage" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Layer1_Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+
+[node name="SkySprite" type="Sprite2D" parent="ParallaxBackground/Layer1_Sky"]
+position = Vector2(960, 200)
+texture = ExtResource("1_sky")
+
+[node name="Layer2_Skyline" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.25, 0.25)
+
+[node name="SkylineSprite" type="Sprite2D" parent="ParallaxBackground/Layer2_Skyline"]
+position = Vector2(960, 390)
+texture = ExtResource("2_trees")
+
+[node name="Layer3_Building" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="BuildingSprite" type="Sprite2D" parent="ParallaxBackground/Layer3_Building"]
+position = Vector2(960, 350)
+texture = ExtResource("3_building")
+
+[node name="Layer4_Floor" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(1, 1)
+
+[node name="FloorSprite" type="Sprite2D" parent="ParallaxBackground/Layer4_Floor"]
+position = Vector2(960, 847)
+texture = ExtResource("4_floor")

@@ -48,6 +48,19 @@ func _ready() -> void:
 	var fade_tween := create_tween()
 	fade_tween.tween_property(logo_texture, "modulate:a", 1.0, 1.2).set_trans(Tween.TRANS_SINE)
 
+	if "--screenshot-menu" in OS.get_cmdline_user_args() or "--screenshot-menu" in OS.get_cmdline_args():
+		logo_texture.modulate.a = 1.0
+		var t := get_tree().create_timer(0.4)
+		t.timeout.connect(func():
+			var vp := get_viewport()
+			if vp:
+				var img := vp.get_texture().get_image()
+				if img:
+					img.save_png("dev-tools/v2_main_menu.png")
+					print("[SCREENSHOT] Saved dev-tools/v2_main_menu.png")
+			get_tree().quit(0)
+		)
+
 func _process(delta: float) -> void:
 	_time_passed += delta
 	# Floating bobbing animation

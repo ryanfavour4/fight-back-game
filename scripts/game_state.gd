@@ -10,6 +10,8 @@ signal round_ended(winner_peer_id: int)
 signal match_ended(winner_peer_id: int)
 signal rematch_state_changed()
 
+const CHAR_DETOLA: String = "detola"
+const CHAR_EGUN: String = "egun"
 const CHAR_KARASU: String = "karasu"
 const CHAR_KITSUNE: String = "kitsune"
 const CHAR_YAMABUSHI: String = "yamabushi"
@@ -51,8 +53,8 @@ func reset_full_match() -> void:
 func register_players(p_host_id: int, p_client_id: int) -> void:
 	host_peer_id = p_host_id
 	client_peer_id = p_client_id
-	player_characters[host_peer_id] = CHAR_KARASU
-	player_characters[client_peer_id] = CHAR_KARASU
+	player_characters[host_peer_id] = CHAR_DETOLA
+	player_characters[client_peer_id] = CHAR_EGUN
 	player_locked[host_peer_id] = false
 	player_locked[client_peer_id] = false
 	rounds_won[host_peer_id] = 0

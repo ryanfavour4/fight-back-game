@@ -1,43 +1,11 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/character_select.gd" id="1_cs"]
-[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/castle.png" id="2_bg"]
-[ext_resource type="Texture2D" path="res://assets/fantasy-character-avatar-face-icons/PNG/Transperent/con20.png" id="3_con20"]
-[ext_resource type="Texture2D" path="res://assets/fantasy-character-avatar-face-icons/PNG/Transperent/con8.png" id="4_con8"]
-[ext_resource type="Texture2D" path="res://assets/fantasy-character-avatar-face-icons/PNG/Transperent/con26.png" id="5_con26"]
-[ext_resource type="Texture2D" path="res://assets/characters/PNG/Lava_wizard/avatar.png" id="6_lwavatar"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slot"]
-bg_color = Color(0.08, 0.1, 0.16, 0.85)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.3, 0.45, 0.7, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-content_margin_left = 12.0
-content_margin_top = 8.0
-content_margin_right = 12.0
-content_margin_bottom = 8.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stats"]
-bg_color = Color(0.06, 0.08, 0.12, 0.9)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.25, 0.35, 0.5, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-content_margin_left = 16.0
-content_margin_top = 16.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
+[ext_resource type="Texture2D" path="res://assets/v2/ui/menu_background.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/v2/characters/detola/avatar.png" id="3_detola_av"]
+[ext_resource type="Texture2D" path="res://assets/v2/characters/egun/avatar.png" id="4_egun_av"]
+[ext_resource type="StyleBox" path="res://ui/theme/v2_panel.tres" id="5_panel"]
+[ext_resource type="Theme" path="res://ui/theme/v2_game_theme.tres" id="6_theme"]
 
 [node name="CharacterSelect" type="Control"]
 layout_mode = 3
@@ -46,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("6_theme")
 script = ExtResource("1_cs")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -66,7 +35,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.04, 0.05, 0.08, 0.8)
+color = Color(0.04, 0.05, 0.08, 0.55)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -87,18 +56,18 @@ layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="P1Slot" type="PanelContainer" parent="VBoxContainer/TopBar"]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_slot")
+theme_override_styles/panel = ExtResource("5_panel")
 
 [node name="HBox" type="HBoxContainer" parent="VBoxContainer/TopBar/P1Slot"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
 [node name="P1Avatar" type="TextureRect" parent="VBoxContainer/TopBar/P1Slot/HBox"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
-texture = ExtResource("3_con20")
+texture = ExtResource("3_detola_av")
 expand_mode = 1
 stretch_mode = 5
 
@@ -109,14 +78,15 @@ alignment = 1
 
 [node name="P1NameLabel" type="Label" parent="VBoxContainer/TopBar/P1Slot/HBox/Info"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.94, 0.78, 0.43, 1)
+theme_override_font_sizes/font_size = 18
 text = "Player 1"
 
 [node name="P1CharLabel" type="Label" parent="VBoxContainer/TopBar/P1Slot/HBox/Info"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Karasu Tengu"
+theme_override_colors/font_color = Color(0.95, 0.91, 0.84, 1)
+theme_override_font_sizes/font_size = 15
+text = "Detola"
 
 [node name="P1LockBadge" type="Label" parent="VBoxContainer/TopBar/P1Slot"]
 layout_mode = 2
@@ -129,20 +99,21 @@ text = "SELECTING..."
 [node name="TitleLabel" type="Label" parent="VBoxContainer/TopBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
-theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0.94, 0.78, 0.43, 1)
+theme_override_font_sizes/font_size = 32
 text = "CHOOSE YOUR FIGHTER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="P2Slot" type="PanelContainer" parent="VBoxContainer/TopBar"]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_slot")
+theme_override_styles/panel = ExtResource("5_panel")
 
 [node name="HBox" type="HBoxContainer" parent="VBoxContainer/TopBar/P2Slot"]
 layout_mode = 2
 theme_override_constants/separation = 12
+alignment = 2
 
 [node name="Info" type="VBoxContainer" parent="VBoxContainer/TopBar/P2Slot/HBox"]
 layout_mode = 2
@@ -151,21 +122,22 @@ alignment = 1
 
 [node name="P2NameLabel" type="Label" parent="VBoxContainer/TopBar/P2Slot/HBox/Info"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.3, 0.8, 1, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.94, 0.78, 0.43, 1)
+theme_override_font_sizes/font_size = 18
 text = "Player 2"
 horizontal_alignment = 2
 
 [node name="P2CharLabel" type="Label" parent="VBoxContainer/TopBar/P2Slot/HBox/Info"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Karasu Tengu"
+theme_override_colors/font_color = Color(0.95, 0.91, 0.84, 1)
+theme_override_font_sizes/font_size = 15
+text = "Egun"
 horizontal_alignment = 2
 
 [node name="P2Avatar" type="TextureRect" parent="VBoxContainer/TopBar/P2Slot/HBox"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
-texture = ExtResource("3_con20")
+texture = ExtResource("4_egun_av")
 expand_mode = 1
 stretch_mode = 5
 
@@ -187,14 +159,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="PreviewSprite" type="AnimatedSprite2D" parent="VBoxContainer/MainSection/PreviewArea"]
-position = Vector2(280, 260)
-scale = Vector2(2.5, 2.5)
-offset = Vector2(0, -64)
+position = Vector2(280, 320)
+offset = Vector2(0, -170)
 
 [node name="StatsPanel" type="PanelContainer" parent="VBoxContainer/MainSection"]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_stats")
+theme_override_styles/panel = ExtResource("5_panel")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MainSection/StatsPanel"]
 layout_mode = 2
@@ -202,9 +173,9 @@ theme_override_constants/separation = 12
 
 [node name="CharName" type="Label" parent="VBoxContainer/MainSection/StatsPanel/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
-theme_override_font_sizes/font_size = 24
-text = "KARASU TENGU"
+theme_override_colors/font_color = Color(0.94, 0.78, 0.43, 1)
+theme_override_font_sizes/font_size = 28
+text = "DETOLA"
 
 [node name="HPLabel" type="Label" parent="VBoxContainer/MainSection/StatsPanel/VBoxContainer"]
 layout_mode = 2
@@ -241,8 +212,8 @@ layout_mode = 2
 
 [node name="SpecialDesc" type="Label" parent="VBoxContainer/MainSection/StatsPanel/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.9, 1, 1)
-text = "Special: Wing Tempest - Rapid sonic slash."
+theme_override_colors/font_color = Color(0.95, 0.91, 0.84, 1)
+text = "Special: Thunder Crescent - Explosive advancing Dambe kinetic blast."
 autowrap_mode = 2
 
 [node name="RosterSection" type="HBoxContainer" parent="VBoxContainer"]
@@ -252,35 +223,21 @@ alignment = 1
 
 [node name="GridContainer" type="HBoxContainer" parent="VBoxContainer/RosterSection"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 32
 alignment = 1
 
-[node name="BtnKarasu" type="Button" parent="VBoxContainer/RosterSection/GridContainer"]
-custom_minimum_size = Vector2(240, 72)
+[node name="BtnDetola" type="Button" parent="VBoxContainer/RosterSection/GridContainer"]
+custom_minimum_size = Vector2(280, 72)
 layout_mode = 2
-text = "  KARASU TENGU"
-icon = ExtResource("3_con20")
+text = "  DETOLA"
+icon = ExtResource("3_detola_av")
 expand_icon = true
 
-[node name="BtnKitsune" type="Button" parent="VBoxContainer/RosterSection/GridContainer"]
-custom_minimum_size = Vector2(240, 72)
+[node name="BtnEgun" type="Button" parent="VBoxContainer/RosterSection/GridContainer"]
+custom_minimum_size = Vector2(280, 72)
 layout_mode = 2
-text = "  KITSUNE"
-icon = ExtResource("4_con8")
-expand_icon = true
-
-[node name="BtnYamabushi" type="Button" parent="VBoxContainer/RosterSection/GridContainer"]
-custom_minimum_size = Vector2(240, 72)
-layout_mode = 2
-text = "  YAMABUSHI"
-icon = ExtResource("5_con26")
-expand_icon = true
-
-[node name="BtnLavaWizard" type="Button" parent="VBoxContainer/RosterSection/GridContainer"]
-custom_minimum_size = Vector2(240, 72)
-layout_mode = 2
-text = "  LAVA WIZARD"
-icon = ExtResource("6_lwavatar")
+text = "  EGUN"
+icon = ExtResource("4_egun_av")
 expand_icon = true
 
 [node name="BottomBar" type="HBoxContainer" parent="VBoxContainer"]
@@ -290,7 +247,7 @@ theme_override_constants/separation = 20
 alignment = 1
 
 [node name="LockInButton" type="Button" parent="VBoxContainer/BottomBar"]
-custom_minimum_size = Vector2(280, 52)
+custom_minimum_size = Vector2(300, 54)
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "LOCK IN FIGHTER"
@@ -298,6 +255,6 @@ text = "LOCK IN FIGHTER"
 [node name="StatusBanner" type="Label" parent="VBoxContainer/BottomBar"]
 visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_colors/font_color = Color(0.94, 0.78, 0.43, 1)
 theme_override_font_sizes/font_size = 20
 text = "PREPARING FOR BATTLE..."

@@ -1,18 +1,17 @@
 [gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scripts/game_arena.gd" id="1_arena"]
-[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/1.png" id="2_bg1"]
-[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/2.png" id="3_bg2"]
-[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/3.png" id="4_bg3"]
-[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/4.png" id="5_bg4"]
-[ext_resource type="Texture2D" path="res://assets/battle-background/PNG/3/5.png" id="6_bg5"]
-[ext_resource type="Texture2D" path="res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/bars/bar_track_256x32.png" id="7_track"]
-[ext_resource type="Texture2D" path="res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/bars/bar_health_pct_50_256x32.png" id="8_damage"]
-[ext_resource type="Texture2D" path="res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/bars/bar_fill_health_256x32.png" id="9_fill"]
-[ext_resource type="Texture2D" path="res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/bars/bar_frame_256x32.png" id="10_frame"]
-[ext_resource type="Texture2D" path="res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/orbs/orb_socket_128.png" id="11_gem_empty"]
-[ext_resource type="Texture2D" path="res://assets/fantasy-character-avatar-face-icons/PNG/Transperent/con20.png" id="12_avatar"]
+[ext_resource type="PackedScene" path="res://scenes/stages/national_theatre_stage.tscn" id="2_stage"]
+[ext_resource type="Texture2D" path="res://assets/v2/ui/hud_health_track.png" id="7_track"]
+[ext_resource type="Texture2D" path="res://assets/v2/ui/hud_health_damage.png" id="8_damage"]
+[ext_resource type="Texture2D" path="res://assets/v2/ui/hud_health_fill.png" id="9_fill"]
+[ext_resource type="Texture2D" path="res://assets/v2/ui/hud_health_frame.png" id="10_frame"]
+[ext_resource type="Texture2D" path="res://assets/v2/ui/hud_round_off.png" id="11_gem_empty"]
+[ext_resource type="Texture2D" path="res://assets/v2/characters/detola/avatar.png" id="12_avatar"]
 [ext_resource type="PackedScene" path="res://scenes/touch_controls.tscn" id="13_touch"]
+[ext_resource type="Texture2D" path="res://assets/v2/ui/hud_timer_frame.png" id="14_timer_bg"]
+[ext_resource type="StyleBox" path="res://ui/theme/v2_panel.tres" id="15_panel"]
+[ext_resource type="Theme" path="res://ui/theme/v2_game_theme.tres" id="16_theme"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(2400, 100)
@@ -42,42 +41,7 @@ corner_radius_bottom_left = 4
 [node name="GameArena" type="Node2D"]
 script = ExtResource("1_arena")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="Layer1_Sky" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.1, 0.1)
-
-[node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer1_Sky"]
-position = Vector2(960, 100)
-texture = ExtResource("2_bg1")
-
-[node name="Layer2_Spikes" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.25, 0.25)
-
-[node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer2_Spikes"]
-position = Vector2(960, 300)
-texture = ExtResource("3_bg2")
-
-[node name="Layer3_Bridge" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.5, 0.5)
-
-[node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer3_Bridge"]
-position = Vector2(960, 380)
-texture = ExtResource("4_bg3")
-
-[node name="Layer4_Wall" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.75, 0.75)
-
-[node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer4_Wall"]
-position = Vector2(960, 400)
-texture = ExtResource("5_bg4")
-
-[node name="Layer5_Ground" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(1, 1)
-
-[node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Layer5_Ground"]
-position = Vector2(960, 410)
-texture = ExtResource("6_bg5")
+[node name="NationalTheatreStage" parent="." instance=ExtResource("2_stage")]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_mask = 0
@@ -131,6 +95,7 @@ offset_top = 20.0
 offset_right = -32.0
 offset_bottom = 90.0
 grow_horizontal = 2
+theme = ExtResource("16_theme")
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -153,14 +118,14 @@ theme_override_constants/separation = 4
 
 [node name="P1Name" type="Label" parent="HUD/TopBar/P1HealthContainer/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_colors/font_color = Color(0.94, 0.78, 0.43, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 18
 text = "Player 1"
 
 [node name="BarControl" type="Control" parent="HUD/TopBar/P1HealthContainer/VBox"]
-custom_minimum_size = Vector2(380, 28)
+custom_minimum_size = Vector2(400, 32)
 layout_mode = 2
 
 [node name="P1DamageBar" type="TextureProgressBar" parent="HUD/TopBar/P1HealthContainer/VBox/BarControl"]
@@ -189,35 +154,42 @@ texture_progress = ExtResource("9_fill")
 
 [node name="P1Gems" type="HBoxContainer" parent="HUD/TopBar/P1HealthContainer"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 6
 alignment = 1
 
 [node name="Gem1" type="TextureRect" parent="HUD/TopBar/P1HealthContainer/P1Gems"]
-modulate = Color(0.3, 0.3, 0.4, 0.5)
-custom_minimum_size = Vector2(24, 24)
+modulate = Color(1, 1, 1, 0.7)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 texture = ExtResource("11_gem_empty")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Gem2" type="TextureRect" parent="HUD/TopBar/P1HealthContainer/P1Gems"]
-modulate = Color(0.3, 0.3, 0.4, 0.5)
-custom_minimum_size = Vector2(24, 24)
+modulate = Color(1, 1, 1, 0.7)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 texture = ExtResource("11_gem_empty")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="TimerContainer" type="CenterContainer" parent="HUD/TopBar"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(84, 84)
 layout_mode = 2
+
+[node name="TimerFrame" type="TextureRect" parent="HUD/TopBar/TimerContainer"]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+texture = ExtResource("14_timer_bg")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="TimerLabel" type="Label" parent="HUD/TopBar/TimerContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.95, 0.4, 1)
+theme_override_colors/font_color = Color(0.94, 0.78, 0.43, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 46
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 36
 text = "99"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -230,20 +202,20 @@ alignment = 2
 
 [node name="P2Gems" type="HBoxContainer" parent="HUD/TopBar/P2HealthContainer"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 6
 alignment = 1
 
 [node name="Gem1" type="TextureRect" parent="HUD/TopBar/P2HealthContainer/P2Gems"]
-modulate = Color(0.3, 0.3, 0.4, 0.5)
-custom_minimum_size = Vector2(24, 24)
+modulate = Color(1, 1, 1, 0.7)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 texture = ExtResource("11_gem_empty")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Gem2" type="TextureRect" parent="HUD/TopBar/P2HealthContainer/P2Gems"]
-modulate = Color(0.3, 0.3, 0.4, 0.5)
-custom_minimum_size = Vector2(24, 24)
+modulate = Color(1, 1, 1, 0.7)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 texture = ExtResource("11_gem_empty")
 expand_mode = 1
@@ -256,7 +228,7 @@ theme_override_constants/separation = 4
 
 [node name="P2Name" type="Label" parent="HUD/TopBar/P2HealthContainer/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.3, 0.8, 1, 1)
+theme_override_colors/font_color = Color(0.94, 0.78, 0.43, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 18
@@ -264,7 +236,7 @@ text = "Player 2"
 horizontal_alignment = 2
 
 [node name="BarControl" type="Control" parent="HUD/TopBar/P2HealthContainer/VBox"]
-custom_minimum_size = Vector2(380, 28)
+custom_minimum_size = Vector2(400, 32)
 layout_mode = 2
 
 [node name="P2DamageBar" type="TextureProgressBar" parent="HUD/TopBar/P2HealthContainer/VBox/BarControl"]
@@ -335,7 +307,7 @@ offset_right = 250.0
 offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+theme_override_styles/panel = ExtResource("15_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="HUD/ResultsPanel"]
 layout_mode = 2
@@ -391,7 +363,7 @@ offset_right = 180.0
 offset_bottom = 110.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+theme_override_styles/panel = ExtResource("15_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="HUD/LeaveMenu"]
 layout_mode = 2

@@ -30,7 +30,7 @@ window/stretch/mode="canvas_items"
 
 [gui]
 
-theme/custom="res://ui/theme/game_theme.tres"
+theme/custom="res://ui/theme/v2_game_theme.tres"
 
 [physics]
 
@@ -38,6 +38,5 @@ theme/custom="res://ui/theme/game_theme.tres"
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

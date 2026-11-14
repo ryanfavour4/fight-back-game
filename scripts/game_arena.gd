@@ -65,8 +65,8 @@ var _hit_spark_index: int = 0
 
 var player_scene: PackedScene = preload("res://scenes/player.tscn")
 var projectile_scene: PackedScene = preload("res://scenes/projectile.tscn")
-var tex_gem_empty: Texture2D = preload("res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/orbs/orb_socket_128.png")
-var tex_gem_filled: Texture2D = preload("res://assets/dark-fantasy-hud/Dark-Fantasy-HUD-FREE-Sample/png/2x/obsidian_azure/orbs/orb_fill_health_128.png")
+var tex_gem_empty: Texture2D = preload("res://assets/v2/ui/hud_round_off.png")
+var tex_gem_filled: Texture2D = preload("res://assets/v2/ui/hud_round_on.png")
 
 func _is_server_authority() -> bool:
 	if NetworkManager.current_mode == NetworkManager.NetworkMode.LAN_ENET:
@@ -132,7 +132,7 @@ func _spawn_fighters() -> void:
 	p1.position = p1_spawn.position
 	p1.sync_position = p1_spawn.position
 	p1.facing_direction = 1.0
-	var p1_char_id: String = GameState.player_characters.get(1, "karasu")
+	var p1_char_id: String = GameState.player_characters.get(1, "detola")
 	var p1_res := load("res://resources/characters/" + p1_char_id + ".tres") as CharacterData
 	p1.character_data = p1_res.duplicate(true) if p1_res else null
 	p1.add_to_group("fighters")
@@ -146,7 +146,7 @@ func _spawn_fighters() -> void:
 	p2.position = p2_spawn.position
 	p2.sync_position = p2_spawn.position
 	p2.facing_direction = -1.0
-	var p2_char_id: String = GameState.player_characters.get(p2.peer_id, "karasu")
+	var p2_char_id: String = GameState.player_characters.get(p2.peer_id, "egun")
 	var p2_res := load("res://resources/characters/" + p2_char_id + ".tres") as CharacterData
 	p2.character_data = p2_res.duplicate(true) if p2_res else null
 	p2.add_to_group("fighters")
@@ -879,20 +879,20 @@ func _update_gem_indicators() -> void:
 		if gem:
 			if i < p1_w:
 				gem.texture = tex_gem_filled
-				gem.modulate = Color(0.95, 0.12, 0.12, 1.0) # RED for won round
+				gem.modulate = Color(1.0, 1.0, 1.0, 1.0) # V2 Round Won Indicator
 			else:
 				gem.texture = tex_gem_empty
-				gem.modulate = Color(0.25, 0.25, 0.35, 0.6) # Dark empty socket
+				gem.modulate = Color(1.0, 1.0, 1.0, 0.7) # V2 Round Off Indicator
 
 	for i in range(p2_gems.get_child_count()):
 		var gem := p2_gems.get_child(i) as TextureRect
 		if gem:
 			if i < p2_w:
 				gem.texture = tex_gem_filled
-				gem.modulate = Color(0.95, 0.12, 0.12, 1.0) # RED for won round
+				gem.modulate = Color(1.0, 1.0, 1.0, 1.0) # V2 Round Won Indicator
 			else:
 				gem.texture = tex_gem_empty
-				gem.modulate = Color(0.25, 0.25, 0.35, 0.6) # Dark empty socket
+				gem.modulate = Color(1.0, 1.0, 1.0, 0.7) # V2 Round Off Indicator
 
 @rpc("authority", "call_local", "reliable")
 func rpc_show_match_results(overall_winner: int) -> void:
@@ -1030,7 +1030,7 @@ func spawn_projectile_networked(spawn_pos: Vector2, dir: float, spd: float, owne
 		elif p_num == 2 and p2 and p2.character_data:
 			char_id = p2.character_data.character_id
 		else:
-			char_id = "kitsune"
+			char_id = "detola"
 	NetworkManager.send_network_event("/root/GameArena", "rpc_spawn_projectile", [pid, spawn_pos, dir, spd, owner_id, p_num, dmg, kb, hitstun, char_id])
 
 @rpc("authority", "call_local", "reliable")
@@ -1044,7 +1044,7 @@ func rpc_spawn_projectile(pid: int, spawn_pos: Vector2, dir: float, spd: float, 
 		elif p_num == 2 and p2 and p2.character_data:
 			char_id = p2.character_data.character_id
 		else:
-			char_id = "kitsune"
+			char_id = "detola"
 
 	var proj = projectile_scene.instantiate()
 	proj.name = "Proj_" + str(pid)

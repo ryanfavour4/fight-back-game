@@ -1,0 +1,26 @@
+{
+  "character": "Detola",
+  "art_style": "semi-realistic illustrated fighting-game art, bold clean outlines, cel shading with soft painted gradients",
+  "body": {
+    "build": "very muscular, athletic, defined arms and thighs",
+    "skin": "deep warm brown, mid-tone #B05621",
+    "face": "intense, focused expression, strong brows"
+  },
+  "gele": {
+    "shape": "tall, stiff, sculpted fan of about 5 large pleats, rolled knot at the back",
+    "colour": "#CC592C",
+    "detail": "thin gold thread stripes"
+  },
+  "outfit": {
+    "top": "sleeveless indigo tank, thin gold trim, colour #26306C",
+    "wrapper": "short indigo wrapper, single knot on her left hip, gold trim on the hem, large gold-ringed circle motifs",
+    "gold": "#E4BD67 (light) and #C69238 (shade)"
+  },
+  "accessories": {
+    "beads": "chunky coral-orange beads, #BC4227: necklace, bracelets, anklets",
+    "earrings": "round coral",
+    "wraps": "cream-white cloth bandages #F6E1CC on both hands and both ankles",
+    "feet": "barefoot"
+  },
+  "rules": "keep every detail identical in every image; do not change the gele shape, circle motifs, or colours"
+}
