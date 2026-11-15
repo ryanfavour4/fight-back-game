@@ -56,7 +56,6 @@ func _get_arena() -> Node:
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	_setup_input_map()
 
 	connection_timer = Timer.new()
 	connection_timer.one_shot = true
@@ -350,68 +349,6 @@ func _on_players_synced_check_cli() -> void:
 @rpc("authority", "call_local", "reliable")
 func rpc_cli_go_to_char_select() -> void:
 	SceneRouter.change_scene("res://scenes/character_select.tscn")
-
-func _setup_input_map() -> void:
-	var mappings: Dictionary = {
-		"p_left": [
-			_make_key(KEY_A),
-			_make_key(KEY_LEFT),
-			_make_joy_button(JOY_BUTTON_DPAD_LEFT),
-			_make_joy_axis(JOY_AXIS_LEFT_X, -1.0)
-		],
-		"p_right": [
-			_make_key(KEY_D),
-			_make_key(KEY_RIGHT),
-			_make_joy_button(JOY_BUTTON_DPAD_RIGHT),
-			_make_joy_axis(JOY_AXIS_LEFT_X, 1.0)
-		],
-		"p_jump": [
-			_make_key(KEY_W),
-			_make_key(KEY_UP),
-			_make_key(KEY_SPACE),
-			_make_joy_button(JOY_BUTTON_DPAD_UP),
-			_make_joy_button(JOY_BUTTON_A)
-		],
-		"p_light": [
-			_make_key(KEY_J),
-			_make_key(KEY_Z),
-			_make_joy_button(JOY_BUTTON_X)
-		],
-		"p_heavy": [
-			_make_key(KEY_K),
-			_make_key(KEY_X),
-			_make_joy_button(JOY_BUTTON_Y)
-		],
-		"p_special": [
-			_make_key(KEY_L),
-			_make_key(KEY_C),
-			_make_joy_button(JOY_BUTTON_B)
-		],
-		"toggle_debug": [
-			_make_key(KEY_F3)
-		]
-	}
-	for action_name in mappings:
-		if not InputMap.has_action(action_name):
-			InputMap.add_action(action_name)
-		for ev in mappings[action_name]:
-			InputMap.action_add_event(action_name, ev)
-
-func _make_key(key: Key) -> InputEventKey:
-	var ev := InputEventKey.new()
-	ev.physical_keycode = key
-	return ev
-
-func _make_joy_button(btn: JoyButton) -> InputEventJoypadButton:
-	var ev := InputEventJoypadButton.new()
-	ev.button_index = btn
-	return ev
-
-func _make_joy_axis(axis: JoyAxis, val: float) -> InputEventJoypadMotion:
-	var ev := InputEventJoypadMotion.new()
-	ev.axis = axis
-	ev.axis_value = val
-	return ev
 
 func _check_cli_args() -> void:
 	var args := OS.get_cmdline_args()
